@@ -43,7 +43,7 @@ export default function Landing() {
               <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
                 Unlock Your 
                 <span className="water-gradient bg-clip-text text-transparent"> Best Hydration</span>
-                <br />Feel the Difference Today
+                <br />Feel the Difference
               </h1>
               <p className="text-xl text-[hsl(var(--text-light))] mb-8 leading-relaxed">
                 Transform your daily hydration with intelligent reminders, personalized goals, and beautiful progress tracking. Join thousands who've made hydration effortless.
@@ -80,80 +80,34 @@ export default function Landing() {
             <div className="lg:w-1/2 relative">
               <div className="relative z-10 animate-float">
                 {/* Mock phone with app interface */}
-                <div className="relative mx-auto max-w-sm">
-                  {/* Phone Frame */}
-                  <div className="bg-gray-800 rounded-[3rem] p-2 shadow-2xl">
-                    <div className="bg-black rounded-[2.5rem] p-1">
-                      <div className="bg-white rounded-[2rem] overflow-hidden h-[600px] relative">
-                        {/* Status Bar */}
-                        <div className="bg-gray-50 h-6 flex items-center justify-between px-6 text-xs font-medium">
-                          <span>9:41</span>
-                          <div className="flex space-x-1">
-                            <div className="w-4 h-2 bg-green-500 rounded-sm"></div>
-                            <div className="w-4 h-2 bg-gray-300 rounded-sm"></div>
-                            <div className="w-6 h-2 bg-gray-300 rounded-sm"></div>
-                          </div>
-                        </div>
-                        
-                        {/* App Content */}
-                        <div className="water-gradient h-full p-6 text-white relative">
-                          <div className="text-center mb-6">
-                            <h3 className="text-lg font-semibold">Today's Progress</h3>
-                            <p className="text-sm opacity-80">1,200ml of 2,000ml</p>
-                          </div>
-                          
-                          {/* Water bottle visualization */}
-                          <div className="relative mx-auto w-20 h-40 mb-6">
-                            <div className="absolute inset-0 bg-white/20 rounded-full"></div>
-                            <div 
-                              className="absolute bottom-0 left-0 right-0 bg-white/40 rounded-b-full transition-all duration-1000" 
-                              style={{height: '60%'}}
-                            ></div>
-                            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-xs font-bold">
-                              60%
-                            </div>
-                          </div>
-                          
-                          {/* Quick action buttons */}
-                          <div className="grid grid-cols-4 gap-2 mb-4">
-                            <Button size="sm" variant="ghost" className="bg-white/20 text-white text-xs h-12 flex flex-col">
-                              <span className="text-xs">Glass</span>
-                              <span className="font-bold">250ml</span>
-                            </Button>
-                            <Button size="sm" variant="ghost" className="bg-white/20 text-white text-xs h-12 flex flex-col">
-                              <span className="text-xs">Bottle</span>
-                              <span className="font-bold">500ml</span>
-                            </Button>
-                            <Button size="sm" variant="ghost" className="bg-white/30 text-white text-xs font-bold h-12 flex flex-col">
-                              <span className="text-xs">Large</span>
-                              <span className="font-bold">750ml</span>
-                            </Button>
-                            <Button size="sm" variant="ghost" className="bg-white/20 text-white text-xs h-12 flex flex-col">
-                              <span className="text-xs">Liter</span>
-                              <span className="font-bold">1L</span>
-                            </Button>
-                          </div>
-                          
-                          <Button className="w-full bg-white text-[hsl(var(--primary-blue))] font-semibold hover:bg-gray-100 mb-4">
-                            <Plus className="w-4 h-4 mr-2" />
-                            Log Custom Amount
-                          </Button>
-                          
-                          {/* Progress indicators */}
-                          <div className="absolute bottom-6 left-6 right-6">
-                            <div className="flex justify-between text-xs mb-2">
-                              <span>Daily Goal</span>
-                              <span>60% Complete</span>
-                            </div>
-                            <div className="w-full bg-white/20 rounded-full h-2">
-                              <div className="bg-white rounded-full h-2" style={{width: '60%'}}></div>
-                            </div>
-                          </div>
-                        </div>
+                <Card className="bg-white rounded-3xl shadow-2xl p-2 mx-auto max-w-sm">
+                  <div className="water-gradient rounded-2xl p-6 text-white">
+                    <div className="text-center mb-6">
+                      <h3 className="text-lg font-semibold">Today's Progress</h3>
+                      <p className="text-sm opacity-80">1,200ml of 2,000ml</p>
+                    </div>
+                    {/* Water bottle visualization */}
+                    <div className="relative mx-auto w-20 h-40 mb-6">
+                      <div className="absolute inset-0 bg-white/20 rounded-full"></div>
+                      <div 
+                        className="absolute bottom-0 left-0 right-0 bg-white/40 rounded-b-full transition-all duration-1000" 
+                        style={{height: '60%'}}
+                      ></div>
+                      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-xs font-bold">
+                        60%
                       </div>
                     </div>
+                    <div className="grid grid-cols-4 gap-2 mb-4">
+                      <Button size="sm" variant="ghost" className="bg-white/20 text-white text-xs">250ml</Button>
+                      <Button size="sm" variant="ghost" className="bg-white/20 text-white text-xs">500ml</Button>
+                      <Button size="sm" variant="ghost" className="bg-white/30 text-white text-xs font-bold">750ml</Button>
+                      <Button size="sm" variant="ghost" className="bg-white/20 text-white text-xs">1L</Button>
+                    </div>
+                    <Button className="w-full bg-white text-[hsl(var(--primary-blue))] font-semibold hover:bg-gray-100">
+                      Log Water Intake
+                    </Button>
                   </div>
-                </div>
+                </Card>
               </div>
               {/* Floating elements */}
               <div className="absolute top-10 right-10 w-16 h-16 bg-[hsl(var(--accent-green))]/20 rounded-full animate-pulse-slow"></div>
