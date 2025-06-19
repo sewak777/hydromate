@@ -40,9 +40,9 @@ export default function Landing() {
         <div className="container mx-auto px-4">
           <div className="flex flex-col lg:flex-row items-center">
             <div className="lg:w-1/2 mb-12 lg:mb-0">
-              <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight text-[hsl(var(--text-dark))]">
+              <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight text-gray-900">
                 Unlock Your 
-                <span className="bg-gradient-to-r from-[hsl(var(--primary-blue))] to-[hsl(var(--accent-green))] bg-clip-text text-transparent"> Best Hydration</span>
+                <span className="text-blue-600 font-extrabold"> Best Hydration</span>
                 <br />Feel the Difference
               </h1>
               <p className="text-xl text-[hsl(var(--text-light))] mb-8 leading-relaxed">
