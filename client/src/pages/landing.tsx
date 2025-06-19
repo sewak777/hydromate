@@ -712,7 +712,7 @@ export default function Landing() {
             </Card>
             
             {/* Premium Monthly Plan */}
-            <Card className="bg-gradient-to-br from-blue-500 to-green-500 text-center text-white relative transform scale-105 shadow-2xl">
+            <Card className="bg-blue-600 text-center text-white relative transform scale-105 shadow-2xl">
               <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-orange-500 text-white px-4 py-1 rounded-full text-sm font-bold shadow-lg">
                 MOST POPULAR
               </div>
@@ -854,7 +854,7 @@ export default function Landing() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-br from-blue-600 to-green-600 text-white">
+      <section className="py-16 bg-blue-600 text-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">Ready to Transform Your Hydration?</h2>
           <p className="text-xl mb-8 text-white opacity-95 max-w-2xl mx-auto">
