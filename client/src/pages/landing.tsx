@@ -453,7 +453,7 @@ export default function Landing() {
               <span className="text-blue-600"> Next-Level Hydration</span>
             </h2>
             <p className="text-xl text-[hsl(var(--text-light))] max-w-2xl mx-auto">
-              Advanced personalization and insights to optimize your hydration journey
+              Advanced insights to optimize your hydration journey
             </p>
           </div>
           
