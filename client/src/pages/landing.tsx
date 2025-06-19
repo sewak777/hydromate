@@ -166,6 +166,54 @@ export default function Landing() {
               75% of adults don't drink enough water daily. This leads to fatigue, poor concentration, 
               and decreased physical performance. Traditional reminder apps are too generic and easily ignored.
             </p>
+            
+            {/* Problem visualization */}
+            <div className="mt-12 max-w-4xl mx-auto">
+              <div className="bg-gradient-to-r from-red-50 to-orange-50 rounded-2xl p-8 border border-red-100">
+                <div className="grid md:grid-cols-3 gap-8 items-center">
+                  {/* Dehydration statistics */}
+                  <div className="text-center">
+                    <div className="w-24 h-24 mx-auto mb-4 bg-red-100 rounded-full flex items-center justify-center">
+                      <svg className="w-12 h-12 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <h3 className="text-3xl font-bold text-red-600 mb-2">75%</h3>
+                    <p className="text-gray-700 font-semibold">Of adults are chronically dehydrated</p>
+                  </div>
+                  
+                  {/* Effects illustration */}
+                  <div className="text-center">
+                    <div className="w-24 h-24 mx-auto mb-4 bg-orange-100 rounded-full flex items-center justify-center">
+                      <svg className="w-12 h-12 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </div>
+                    <h3 className="text-3xl font-bold text-orange-600 mb-2">-23%</h3>
+                    <p className="text-gray-700 font-semibold">Decrease in cognitive performance</p>
+                  </div>
+                  
+                  {/* Solution preview */}
+                  <div className="text-center">
+                    <div className="w-24 h-24 mx-auto mb-4 bg-green-100 rounded-full flex items-center justify-center">
+                      <Droplets className="w-12 h-12 text-green-500" />
+                    </div>
+                    <h3 className="text-3xl font-bold text-green-600 mb-2">94%</h3>
+                    <p className="text-gray-700 font-semibold">Success rate with smart reminders</p>
+                  </div>
+                </div>
+                
+                {/* Visual water level indicator */}
+                <div className="mt-8 flex justify-center">
+                  <div className="relative w-64 h-12 bg-gray-200 rounded-full overflow-hidden">
+                    <div className="absolute left-0 top-0 h-full bg-gradient-to-r from-red-400 to-orange-400 rounded-full" style={{width: '25%'}}></div>
+                    <div className="absolute inset-0 flex items-center justify-center text-sm font-semibold text-gray-700">
+                      Average Daily Hydration: 25% of Goal
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           
           <div className="grid md:grid-cols-2 gap-12 items-center">
