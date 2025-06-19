@@ -854,10 +854,10 @@ export default function Landing() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 water-gradient text-white">
+      <section className="py-16 bg-gradient-to-br from-blue-600 to-green-600 text-white">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Transform Your Hydration?</h2>
-          <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">Ready to Transform Your Hydration?</h2>
+          <p className="text-xl mb-8 text-white opacity-95 max-w-2xl mx-auto">
             Join thousands of users who've made hydration effortless. Download HydroFlow today and start your journey to better health.
           </p>
           <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center">
