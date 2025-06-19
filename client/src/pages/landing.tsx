@@ -449,8 +449,8 @@ export default function Landing() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Unlock Premium Features for 
-              <span className="water-gradient bg-clip-text text-transparent"> Next-Level Hydration</span>
+              Unlock Premium Features for...
+              <span className="text-blue-600"> Next-Level Hydration</span>
             </h2>
             <p className="text-xl text-[hsl(var(--text-light))] max-w-2xl mx-auto">
               Advanced personalization and insights to optimize your hydration journey
@@ -489,15 +489,7 @@ export default function Landing() {
                 </div>
               </div>
               
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 water-gradient rounded-xl flex items-center justify-center">
-                  <Palette className="text-white w-6 h-6" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold mb-2">Custom Themes & Sounds</h3>
-                  <p className="text-[hsl(var(--text-light))]">Personalize your app with exclusive themes, icons, and notification sounds</p>
-                </div>
-              </div>
+
             </div>
             
             <div className="relative">
