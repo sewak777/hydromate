@@ -77,107 +77,79 @@ export default function Landing() {
                 <div>Free to Start</div>
               </div>
             </div>
-            <div className="lg:w-1/2 relative">
-              <div className="relative z-10 animate-float">
-                {/* Realistic phone mockup */}
-                <div className="relative mx-auto max-w-sm">
-                  {/* Phone Frame */}
-                  <div className="relative bg-gray-800 rounded-[3rem] p-3 shadow-2xl">
-                    {/* Screen */}
-                    <div className="bg-white rounded-[2.5rem] overflow-hidden">
-                      {/* Status bar */}
-                      <div className="bg-black h-6 rounded-t-[2.5rem] flex items-center justify-between px-6">
-                        <div className="text-white text-xs">9:41</div>
-                        <div className="flex space-x-1">
-                          <div className="w-4 h-2 bg-white rounded-sm"></div>
-                          <div className="w-4 h-2 bg-white rounded-sm"></div>
-                          <div className="w-4 h-2 bg-white rounded-sm"></div>
-                        </div>
-                      </div>
-                      
-                      {/* App Content */}
-                      <div className="p-6 bg-gradient-to-br from-blue-500 to-green-400 text-white min-h-[600px]">
-                        {/* Header */}
-                        <div className="text-center mb-8">
-                          <div className="flex items-center justify-center space-x-2 mb-2">
-                            <Droplets className="w-6 h-6" />
-                            <span className="text-xl font-bold">HydroFlow</span>
-                          </div>
-                          <h3 className="text-lg font-semibold">Today's Progress</h3>
-                          <p className="text-sm opacity-90">1,500ml of 2,000ml</p>
-                        </div>
-                        
-                        {/* Water bottle visualization */}
-                        <div className="relative mx-auto w-24 h-48 mb-8">
-                          {/* Bottle outline */}
-                          <div className="absolute inset-0 bg-white/20 rounded-full border-2 border-white/30"></div>
-                          {/* Water fill */}
-                          <div 
-                            className="absolute bottom-0 left-0 right-0 bg-white/40 rounded-b-full transition-all duration-1000 border-2 border-white/50" 
-                            style={{height: '75%'}}
-                          ></div>
-                          {/* Progress text */}
-                          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-lg font-bold">
-                            75%
-                          </div>
-                          {/* Water droplets animation */}
-                          <div className="absolute top-4 left-1/2 transform -translate-x-1/2">
-                            <Droplets className="w-4 h-4 animate-bounce" />
-                          </div>
-                        </div>
-                        
-                        {/* Quick log buttons */}
-                        <div className="grid grid-cols-4 gap-2 mb-6">
-                          <div className="bg-white/20 backdrop-blur rounded-lg p-2 text-center text-xs">
-                            <div className="font-bold">250ml</div>
-                            <div className="opacity-80">Glass</div>
-                          </div>
-                          <div className="bg-white/20 backdrop-blur rounded-lg p-2 text-center text-xs">
-                            <div className="font-bold">500ml</div>
-                            <div className="opacity-80">Bottle</div>
-                          </div>
-                          <div className="bg-white/40 backdrop-blur rounded-lg p-2 text-center text-xs font-bold border border-white/50">
-                            <div className="font-bold">750ml</div>
-                            <div className="opacity-90">Large</div>
-                          </div>
-                          <div className="bg-white/20 backdrop-blur rounded-lg p-2 text-center text-xs">
-                            <div className="font-bold">1L</div>
-                            <div className="opacity-80">Liter</div>
-                          </div>
-                        </div>
-                        
-                        {/* Main action button */}
-                        <button className="w-full bg-white text-blue-600 font-semibold py-3 rounded-xl shadow-lg hover:bg-gray-50 transition-colors">
-                          Log Water Intake
-                        </button>
-                        
-                        {/* Progress stats */}
-                        <div className="mt-6 grid grid-cols-3 gap-3 text-center">
-                          <div className="bg-white/20 backdrop-blur rounded-lg p-3">
-                            <div className="text-lg font-bold">7</div>
-                            <div className="text-xs opacity-80">Day Streak</div>
-                          </div>
-                          <div className="bg-white/20 backdrop-blur rounded-lg p-3">
-                            <div className="text-lg font-bold">6</div>
-                            <div className="text-xs opacity-80">Logs Today</div>
-                          </div>
-                          <div className="bg-white/20 backdrop-blur rounded-lg p-3">
-                            <div className="text-lg font-bold">12</div>
-                            <div className="text-xs opacity-80">Achievements</div>
-                          </div>
-                        </div>
+            <div className="lg:w-1/2 relative flex justify-center">
+              <div className="relative animate-float">
+                {/* Phone mockup with solid background and borders */}
+                <div className="w-80 h-[600px] bg-gray-900 rounded-[2.5rem] p-2 shadow-2xl mx-auto">
+                  {/* Screen */}
+                  <div className="w-full h-full bg-white rounded-[2rem] overflow-hidden relative">
+                    {/* Status bar */}
+                    <div className="bg-gray-900 h-8 flex items-center justify-between px-6 text-white text-sm">
+                      <span>9:41</span>
+                      <div className="flex items-center space-x-1">
+                        <div className="w-4 h-2 bg-white rounded opacity-80"></div>
+                        <div className="w-4 h-2 bg-white rounded opacity-60"></div>
+                        <div className="w-4 h-2 bg-white rounded opacity-40"></div>
                       </div>
                     </div>
                     
-                    {/* Home indicator */}
-                    <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gray-600 rounded-full"></div>
+                    {/* App interface */}
+                    <div className="bg-gradient-to-br from-blue-500 to-green-500 h-full p-6 text-white">
+                      {/* App header */}
+                      <div className="text-center mb-6">
+                        <div className="flex items-center justify-center space-x-2 mb-3">
+                          <Droplets className="w-7 h-7" />
+                          <span className="text-2xl font-bold">HydroFlow</span>
+                        </div>
+                        <h3 className="text-xl font-semibold mb-1">Today's Progress</h3>
+                        <p className="text-base opacity-90">1,500ml of 2,000ml</p>
+                      </div>
+                      
+                      {/* Large water bottle */}
+                      <div className="relative mx-auto w-28 h-56 mb-6">
+                        <div className="absolute inset-0 bg-white bg-opacity-20 rounded-full border-4 border-white border-opacity-30"></div>
+                        <div 
+                          className="absolute bottom-0 left-0 right-0 bg-white bg-opacity-40 rounded-b-full border-4 border-white border-opacity-50" 
+                          style={{height: '75%'}}
+                        ></div>
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <span className="text-2xl font-bold">75%</span>
+                        </div>
+                      </div>
+                      
+                      {/* Quick buttons */}
+                      <div className="grid grid-cols-4 gap-2 mb-6">
+                        <div className="bg-white bg-opacity-20 rounded-lg p-3 text-center">
+                          <div className="font-bold text-sm">250ml</div>
+                          <div className="text-xs opacity-80">Glass</div>
+                        </div>
+                        <div className="bg-white bg-opacity-20 rounded-lg p-3 text-center">
+                          <div className="font-bold text-sm">500ml</div>
+                          <div className="text-xs opacity-80">Bottle</div>
+                        </div>
+                        <div className="bg-white bg-opacity-40 rounded-lg p-3 text-center border-2 border-white border-opacity-50">
+                          <div className="font-bold text-sm">750ml</div>
+                          <div className="text-xs">Large</div>
+                        </div>
+                        <div className="bg-white bg-opacity-20 rounded-lg p-3 text-center">
+                          <div className="font-bold text-sm">1L</div>
+                          <div className="text-xs opacity-80">Liter</div>
+                        </div>
+                      </div>
+                      
+                      {/* Action button */}
+                      <button className="w-full bg-white text-blue-600 font-semibold py-4 rounded-xl shadow-lg text-lg">
+                        Log Water Intake
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
-              {/* Floating elements */}
-              <div className="absolute top-10 right-10 w-16 h-16 bg-green-400/20 rounded-full animate-pulse-slow"></div>
-              <div className="absolute bottom-20 left-10 w-12 h-12 bg-blue-400/20 rounded-full animate-pulse-slow" style={{animationDelay: '1s'}}></div>
-              <div className="absolute top-1/2 right-0 w-8 h-8 bg-blue-300/30 rounded-full animate-pulse-slow" style={{animationDelay: '2s'}}></div>
+              
+              {/* Decorative elements */}
+              <div className="absolute top-16 right-16 w-16 h-16 bg-green-400 bg-opacity-20 rounded-full animate-pulse"></div>
+              <div className="absolute bottom-24 left-16 w-12 h-12 bg-blue-400 bg-opacity-20 rounded-full animate-pulse" style={{animationDelay: '1s'}}></div>
+              <div className="absolute top-1/2 right-4 w-8 h-8 bg-blue-300 bg-opacity-30 rounded-full animate-pulse" style={{animationDelay: '2s'}}></div>
             </div>
           </div>
         </div>
