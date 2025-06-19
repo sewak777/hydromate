@@ -789,6 +789,69 @@ export default function Landing() {
             </Card>
           </div>
           
+          {/* Feature Comparison Chart */}
+          <div className="mt-16 max-w-4xl mx-auto">
+            <div className="bg-gray-50 rounded-2xl p-8">
+              <h3 className="text-2xl font-bold text-center mb-8">Feature Comparison</h3>
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    <tr className="border-b border-gray-200">
+                      <th className="text-left py-3 px-4 font-semibold">Features</th>
+                      <th className="text-center py-3 px-4 font-semibold">Free</th>
+                      <th className="text-center py-3 px-4 font-semibold text-blue-600">Premium</th>
+                      <th className="text-center py-3 px-4 font-semibold text-green-600">Annual</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-200">
+                    <tr>
+                      <td className="py-3 px-4">Daily hydration tracking</td>
+                      <td className="text-center py-3 px-4"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
+                      <td className="text-center py-3 px-4"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
+                      <td className="text-center py-3 px-4"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
+                    </tr>
+                    <tr className="bg-gray-25">
+                      <td className="py-3 px-4">Basic reminders</td>
+                      <td className="text-center py-3 px-4"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
+                      <td className="text-center py-3 px-4"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
+                      <td className="text-center py-3 px-4"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
+                    </tr>
+                    <tr>
+                      <td className="py-3 px-4">Weather-based adjustments</td>
+                      <td className="text-center py-3 px-4">-</td>
+                      <td className="text-center py-3 px-4"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
+                      <td className="text-center py-3 px-4"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
+                    </tr>
+                    <tr className="bg-gray-25">
+                      <td className="py-3 px-4">Activity integration</td>
+                      <td className="text-center py-3 px-4">-</td>
+                      <td className="text-center py-3 px-4"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
+                      <td className="text-center py-3 px-4"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
+                    </tr>
+                    <tr>
+                      <td className="py-3 px-4">Advanced analytics</td>
+                      <td className="text-center py-3 px-4">-</td>
+                      <td className="text-center py-3 px-4"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
+                      <td className="text-center py-3 px-4"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
+                    </tr>
+                    <tr className="bg-gray-25">
+                      <td className="py-3 px-4">Priority support</td>
+                      <td className="text-center py-3 px-4">-</td>
+                      <td className="text-center py-3 px-4">-</td>
+                      <td className="text-center py-3 px-4"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
+                    </tr>
+                    <tr>
+                      <td className="py-3 px-4">Early access to features</td>
+                      <td className="text-center py-3 px-4">-</td>
+                      <td className="text-center py-3 px-4">-</td>
+                      <td className="text-center py-3 px-4"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
           <div className="text-center mt-8">
             <p className="text-[hsl(var(--text-light))]">All plans include a 7-day free trial • Cancel anytime • No hidden fees</p>
           </div>
