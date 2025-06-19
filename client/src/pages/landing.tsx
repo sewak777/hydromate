@@ -747,7 +747,7 @@ export default function Landing() {
                 </ul>
                 <Button 
                   onClick={handleLogin}
-                  className="w-full bg-white text-blue-600 hover:bg-gray-100 transition-colors font-semibold"
+                  className="w-full bg-orange-500 text-white hover:bg-orange-600 transition-colors font-semibold"
                 >
                   Start Free Trial
                 </Button>
