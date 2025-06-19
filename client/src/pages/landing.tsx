@@ -27,7 +27,7 @@ export default function Landing() {
             </div>
             <Button 
               onClick={handleLogin}
-              className="bg-[hsl(var(--vibrant-orange))] text-white hover:bg-orange-600 transition-colors font-semibold"
+              className="bg-orange-500 text-white hover:bg-orange-600 transition-colors font-semibold"
             >
               Get Started Free
             </Button>
@@ -747,7 +747,7 @@ export default function Landing() {
                 </ul>
                 <Button 
                   onClick={handleLogin}
-                  className="w-full bg-white text-[hsl(var(--primary-blue))] hover:bg-gray-100 transition-colors"
+                  className="w-full bg-white text-blue-600 hover:bg-gray-100 transition-colors font-semibold"
                 >
                   Start Free Trial
                 </Button>
@@ -781,7 +781,7 @@ export default function Landing() {
                 </ul>
                 <Button 
                   onClick={handleLogin}
-                  className="w-full bg-[hsl(var(--accent-green))] text-white hover:bg-green-500 transition-colors"
+                  className="w-full bg-green-600 text-white hover:bg-green-700 transition-colors font-semibold"
                 >
                   Get Annual Plan
                 </Button>
