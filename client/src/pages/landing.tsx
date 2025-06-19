@@ -717,7 +717,7 @@ export default function Landing() {
                 MOST POPULAR
               </div>
               <CardContent className="p-8">
-                <h3 className="text-2xl font-bold mb-4">Premium</h3>
+                <h3 className="text-2xl font-bold mb-4">Premium Monthly</h3>
                 <div className="text-4xl font-bold mb-6">$4.99<span className="text-lg opacity-80">/month</span></div>
                 <ul className="space-y-3 mb-8 text-left">
                   <li className="flex items-center space-x-2">
@@ -799,7 +799,7 @@ export default function Landing() {
                     <tr className="border-b border-gray-200">
                       <th className="text-left py-3 px-4 font-semibold">Features</th>
                       <th className="text-center py-3 px-4 font-semibold">Free</th>
-                      <th className="text-center py-3 px-4 font-semibold text-blue-600">Premium</th>
+                      <th className="text-center py-3 px-4 font-semibold text-blue-600">Monthly</th>
                       <th className="text-center py-3 px-4 font-semibold text-green-600">Annual</th>
                     </tr>
                   </thead>
