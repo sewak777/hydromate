@@ -252,33 +252,135 @@ export default function Landing() {
               </div>
             </div>
             <div className="relative">
-              {/* Statistics card */}
-              <Card className="water-gradient p-8 text-white">
-                <h4 className="text-2xl font-bold mb-6">Results After 30 Days</h4>
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center">
-                    <span>Hydration Goal Achievement</span>
-                    <span className="font-bold">94%</span>
+              {/* Enhanced solution visualization */}
+              <div className="bg-gradient-to-br from-blue-500 to-green-500 rounded-2xl p-8 text-white shadow-2xl">
+                <div className="text-center mb-8">
+                  <div className="w-20 h-20 mx-auto mb-4 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                    <Droplets className="w-10 h-10 text-white" />
                   </div>
-                  <div className="w-full bg-white/20 rounded-full h-2">
-                    <div className="bg-white rounded-full h-2" style={{width: '94%'}}></div>
+                  <h4 className="text-2xl font-bold mb-2">Smart Hydration Results</h4>
+                  <p className="text-blue-100">Proven success in 30 days</p>
+                </div>
+                
+                {/* Progress circles */}
+                <div className="grid grid-cols-3 gap-6 mb-8">
+                  <div className="text-center">
+                    <div className="relative w-20 h-20 mx-auto mb-3">
+                      <svg className="w-20 h-20 transform -rotate-90" viewBox="0 0 36 36">
+                        <path
+                          d="M18 2.0845
+                            a 15.9155 15.9155 0 0 1 0 31.831
+                            a 15.9155 15.9155 0 0 1 0 -31.831"
+                          fill="none"
+                          stroke="rgba(255,255,255,0.2)"
+                          strokeWidth="2"
+                        />
+                        <path
+                          d="M18 2.0845
+                            a 15.9155 15.9155 0 0 1 0 31.831
+                            a 15.9155 15.9155 0 0 1 0 -31.831"
+                          fill="none"
+                          stroke="white"
+                          strokeWidth="2"
+                          strokeDasharray="94, 100"
+                        />
+                      </svg>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="text-lg font-bold">94%</span>
+                      </div>
+                    </div>
+                    <p className="text-sm text-blue-100">Goal Achievement</p>
                   </div>
-                  <div className="flex justify-between items-center">
-                    <span>Energy Level Improvement</span>
-                    <span className="font-bold">87%</span>
+                  
+                  <div className="text-center">
+                    <div className="relative w-20 h-20 mx-auto mb-3">
+                      <svg className="w-20 h-20 transform -rotate-90" viewBox="0 0 36 36">
+                        <path
+                          d="M18 2.0845
+                            a 15.9155 15.9155 0 0 1 0 31.831
+                            a 15.9155 15.9155 0 0 1 0 -31.831"
+                          fill="none"
+                          stroke="rgba(255,255,255,0.2)"
+                          strokeWidth="2"
+                        />
+                        <path
+                          d="M18 2.0845
+                            a 15.9155 15.9155 0 0 1 0 31.831
+                            a 15.9155 15.9155 0 0 1 0 -31.831"
+                          fill="none"
+                          stroke="white"
+                          strokeWidth="2"
+                          strokeDasharray="87, 100"
+                        />
+                      </svg>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="text-lg font-bold">87%</span>
+                      </div>
+                    </div>
+                    <p className="text-sm text-blue-100">Energy Boost</p>
                   </div>
-                  <div className="w-full bg-white/20 rounded-full h-2">
-                    <div className="bg-white rounded-full h-2" style={{width: '87%'}}></div>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span>User Satisfaction</span>
-                    <span className="font-bold">96%</span>
-                  </div>
-                  <div className="w-full bg-white/20 rounded-full h-2">
-                    <div className="bg-white rounded-full h-2" style={{width: '96%'}}></div>
+                  
+                  <div className="text-center">
+                    <div className="relative w-20 h-20 mx-auto mb-3">
+                      <svg className="w-20 h-20 transform -rotate-90" viewBox="0 0 36 36">
+                        <path
+                          d="M18 2.0845
+                            a 15.9155 15.9155 0 0 1 0 31.831
+                            a 15.9155 15.9155 0 0 1 0 -31.831"
+                          fill="none"
+                          stroke="rgba(255,255,255,0.2)"
+                          strokeWidth="2"
+                        />
+                        <path
+                          d="M18 2.0845
+                            a 15.9155 15.9155 0 0 1 0 31.831
+                            a 15.9155 15.9155 0 0 1 0 -31.831"
+                          fill="none"
+                          stroke="white"
+                          strokeWidth="2"
+                          strokeDasharray="96, 100"
+                        />
+                      </svg>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="text-lg font-bold">96%</span>
+                      </div>
+                    </div>
+                    <p className="text-sm text-blue-100">Satisfaction</p>
                   </div>
                 </div>
-              </Card>
+                
+                {/* Key benefits */}
+                <div className="space-y-3">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                      <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <span className="text-blue-100">Personalized hydration goals</span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                      <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <span className="text-blue-100">Smart reminder system</span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                      <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <span className="text-blue-100">Progress tracking & rewards</span>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Floating decorative elements */}
+              <div className="absolute -top-4 -right-4 w-8 h-8 bg-blue-400 bg-opacity-30 rounded-full animate-pulse"></div>
+              <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-green-400 bg-opacity-30 rounded-full animate-pulse" style={{animationDelay: '1s'}}></div>
             </div>
           </div>
         </div>
