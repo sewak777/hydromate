@@ -540,6 +540,97 @@ export default function Landing() {
         </div>
       </section>
 
+      {/* User Success Stats Section */}
+      <section className="py-16 bg-gradient-to-r from-blue-600 via-blue-500 to-green-500 text-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Trusted by Hydration Champions</h2>
+            <p className="text-xl text-blue-100 max-w-2xl mx-auto">Real results from real users who transformed their health</p>
+          </div>
+          
+          <div className="grid md:grid-cols-4 gap-8 mb-12">
+            <div className="text-center">
+              <div className="w-24 h-24 mx-auto mb-4 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                <svg className="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div className="text-4xl font-bold mb-2">50K+</div>
+              <div className="text-blue-100">Active Users</div>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-24 h-24 mx-auto mb-4 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                <Droplets className="w-12 h-12 text-white" />
+              </div>
+              <div className="text-4xl font-bold mb-2">2.5M+</div>
+              <div className="text-blue-100">Glasses Logged</div>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-24 h-24 mx-auto mb-4 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                <svg className="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <div className="text-4xl font-bold mb-2">87%</div>
+              <div className="text-blue-100">Energy Increase</div>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-24 h-24 mx-auto mb-4 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                <svg className="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <div className="text-4xl font-bold mb-2">96%</div>
+              <div className="text-blue-100">Satisfaction Rate</div>
+            </div>
+          </div>
+          
+          {/* Visual progress representation */}
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-white bg-opacity-10 rounded-2xl p-8 backdrop-blur">
+              <h3 className="text-2xl font-bold text-center mb-8">Transform Your Health in 30 Days</h3>
+              <div className="grid md:grid-cols-3 gap-8">
+                <div className="text-center">
+                  <div className="relative w-32 h-32 mx-auto mb-4">
+                    <div className="absolute inset-0 bg-white bg-opacity-20 rounded-full"></div>
+                    <div className="absolute inset-2 bg-white bg-opacity-30 rounded-full flex items-center justify-center">
+                      <span className="text-2xl font-bold">Day 1</span>
+                    </div>
+                  </div>
+                  <h4 className="font-semibold mb-2">Start Journey</h4>
+                  <p className="text-blue-100 text-sm">Set personalized goals and begin tracking</p>
+                </div>
+                
+                <div className="text-center">
+                  <div className="relative w-32 h-32 mx-auto mb-4">
+                    <div className="absolute inset-0 bg-white bg-opacity-30 rounded-full"></div>
+                    <div className="absolute inset-2 bg-white bg-opacity-40 rounded-full flex items-center justify-center">
+                      <span className="text-2xl font-bold">Day 15</span>
+                    </div>
+                  </div>
+                  <h4 className="font-semibold mb-2">Build Habits</h4>
+                  <p className="text-blue-100 text-sm">Smart reminders become second nature</p>
+                </div>
+                
+                <div className="text-center">
+                  <div className="relative w-32 h-32 mx-auto mb-4">
+                    <div className="absolute inset-0 bg-white bg-opacity-40 rounded-full"></div>
+                    <div className="absolute inset-2 bg-white bg-opacity-50 rounded-full flex items-center justify-center">
+                      <span className="text-2xl font-bold">Day 30</span>
+                    </div>
+                  </div>
+                  <h4 className="font-semibold mb-2">See Results</h4>
+                  <p className="text-blue-100 text-sm">Experience increased energy and focus</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Testimonials Section */}
       <section id="testimonials" className="py-16 bg-[hsl(var(--soft-gray))]">
         <div className="container mx-auto px-4">
