@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Droplets, Calculator, TrendingUp, Bell, Trophy, Palette, Cloud, Activity, Brain, Star, CheckCircle, Apple, Play } from "lucide-react";
+import { Droplets, Calculator, TrendingUp, Bell, Trophy, Palette, Cloud, Activity, Brain, Star, CheckCircle, Apple, Play, Crown } from "lucide-react";
 
 export default function Landing() {
   const handleLogin = () => {
@@ -497,44 +497,102 @@ export default function Landing() {
             </div>
             
             <div className="relative">
-              {/* Premium app mockup */}
-              <Card className="water-gradient shadow-2xl p-8 text-white">
-                <div className="text-center mb-6">
-                  <h4 className="text-lg font-bold">Premium Dashboard</h4>
-                  <p className="text-sm opacity-80">Advanced analytics & insights</p>
+              {/* Premium Features Showcase */}
+              <div className="bg-white rounded-3xl shadow-2xl p-8 border border-gray-100">
+                {/* Header */}
+                <div className="text-center mb-8">
+                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-green-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <Trophy className="w-8 h-8 text-white" />
+                  </div>
+                  <h4 className="text-2xl font-bold text-gray-900 mb-2">Premium Dashboard</h4>
+                  <p className="text-gray-600">Advanced analytics & personalization</p>
                 </div>
                 
-                <div className="bg-white/10 rounded-2xl p-4 mb-4">
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-sm">Weekly Average</span>
-                    <span className="font-bold">2.1L</span>
+                {/* Weather Integration */}
+                <div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-2xl p-6 mb-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
+                        <Cloud className="w-5 h-5 text-white" />
+                      </div>
+                      <div>
+                        <h5 className="font-semibold text-gray-900">Weather Sync</h5>
+                        <p className="text-sm text-gray-600">32°C, Sunny</p>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-lg font-bold text-blue-600">+500ml</div>
+                      <div className="text-xs text-gray-500">Heat adjustment</div>
+                    </div>
                   </div>
-                  <div className="w-full bg-white/20 rounded-full h-2">
-                    <div className="bg-white rounded-full h-2" style={{width: '85%'}}></div>
+                  <div className="w-full bg-blue-200 rounded-full h-2">
+                    <div className="bg-blue-500 rounded-full h-2" style={{width: '75%'}}></div>
                   </div>
                 </div>
                 
-                <div className="grid grid-cols-2 gap-4 mb-4">
-                  <div className="bg-white/10 rounded-xl p-3 text-center">
-                    <div className="text-2xl font-bold">7</div>
-                    <div className="text-xs opacity-80">Day Streak</div>
+                {/* Activity Tracking */}
+                <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-6 mb-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
+                        <Activity className="w-5 h-5 text-white" />
+                      </div>
+                      <div>
+                        <h5 className="font-semibold text-gray-900">Workout Detected</h5>
+                        <p className="text-sm text-gray-600">45 min running</p>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-lg font-bold text-green-600">+750ml</div>
+                      <div className="text-xs text-gray-500">Recovery boost</div>
+                    </div>
                   </div>
-                  <div className="bg-white/10 rounded-xl p-3 text-center">
-                    <div className="text-2xl font-bold">94%</div>
-                    <div className="text-xs opacity-80">Goal Rate</div>
+                  <div className="w-full bg-green-200 rounded-full h-2">
+                    <div className="bg-green-500 rounded-full h-2" style={{width: '90%'}}></div>
                   </div>
                 </div>
                 
-                <div className="text-center">
-                  <div className="text-xs opacity-80 mb-1">Next reminder in</div>
-                  <div className="text-lg font-bold">23 minutes</div>
+                {/* AI Insights */}
+                <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl p-6 mb-6">
+                  <div className="flex items-center space-x-3 mb-3">
+                    <div className="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center">
+                      <Brain className="w-5 h-5 text-white" />
+                    </div>
+                    <div>
+                      <h5 className="font-semibold text-gray-900">AI Recommendation</h5>
+                      <p className="text-sm text-gray-600">Optimal hydration pattern detected</p>
+                    </div>
+                  </div>
+                  <div className="bg-white rounded-lg p-3 border border-purple-100">
+                    <p className="text-sm text-gray-700">"Drink 250ml every 45 minutes between 9 AM - 6 PM for best results"</p>
+                  </div>
                 </div>
-              </Card>
+                
+                {/* Stats Grid */}
+                <div className="grid grid-cols-3 gap-4">
+                  <div className="bg-gray-50 rounded-xl p-4 text-center">
+                    <div className="text-2xl font-bold text-gray-900">15</div>
+                    <div className="text-xs text-gray-500">Day Streak</div>
+                  </div>
+                  <div className="bg-gray-50 rounded-xl p-4 text-center">
+                    <div className="text-2xl font-bold text-blue-600">96%</div>
+                    <div className="text-xs text-gray-500">Success Rate</div>
+                  </div>
+                  <div className="bg-gray-50 rounded-xl p-4 text-center">
+                    <div className="text-2xl font-bold text-green-600">2.3L</div>
+                    <div className="text-xs text-gray-500">Avg Daily</div>
+                  </div>
+                </div>
+              </div>
               
-              {/* Floating premium badge */}
-              <div className="absolute -top-4 -right-4 bg-[hsl(var(--vibrant-orange))] text-white px-4 py-2 rounded-full text-sm font-bold animate-pulse">
+              {/* Premium badge */}
+              <div className="absolute -top-4 -right-4 bg-gradient-to-r from-orange-400 to-pink-500 text-white px-6 py-2 rounded-full text-sm font-bold shadow-lg animate-pulse">
                 PREMIUM
               </div>
+              
+              {/* Decorative elements */}
+              <div className="absolute -bottom-4 -left-4 w-12 h-12 bg-blue-400 bg-opacity-20 rounded-full animate-pulse"></div>
+              <div className="absolute top-1/4 -right-2 w-8 h-8 bg-green-400 bg-opacity-20 rounded-full animate-pulse" style={{animationDelay: '1s'}}></div>
             </div>
           </div>
         </div>
