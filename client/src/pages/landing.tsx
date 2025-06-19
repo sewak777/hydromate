@@ -834,6 +834,12 @@ export default function Landing() {
                       <td className="text-center py-3 px-4"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
                       <td className="text-center py-3 px-4"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
                     </tr>
+                    <tr className="bg-gray-25">
+                      <td className="py-3 px-4">Early access to features</td>
+                      <td className="text-center py-3 px-4">-</td>
+                      <td className="text-center py-3 px-4">-</td>
+                      <td className="text-center py-3 px-4"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
+                    </tr>
 
                   </tbody>
                 </table>
