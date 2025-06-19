@@ -253,13 +253,13 @@ export default function Landing() {
             </div>
             <div className="relative">
               {/* Enhanced solution visualization */}
-              <div className="bg-gradient-to-br from-blue-500 to-green-500 rounded-2xl p-8 text-white shadow-2xl">
+              <div className="bg-slate-800 rounded-2xl p-8 text-white shadow-2xl border border-slate-700">
                 <div className="text-center mb-8">
-                  <div className="w-20 h-20 mx-auto mb-4 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                  <div className="w-20 h-20 mx-auto mb-4 bg-blue-600 rounded-full flex items-center justify-center">
                     <Droplets className="w-10 h-10 text-white" />
                   </div>
-                  <h4 className="text-2xl font-bold mb-2">Smart Hydration Results</h4>
-                  <p className="text-blue-100">Proven success in 30 days</p>
+                  <h4 className="text-2xl font-bold mb-2 text-white">Smart Hydration Results</h4>
+                  <p className="text-slate-300">Proven success in 30 days</p>
                 </div>
                 
                 {/* Progress circles */}
