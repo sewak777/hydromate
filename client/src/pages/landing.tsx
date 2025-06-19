@@ -505,8 +505,8 @@ export default function Landing() {
               <div className="bg-white rounded-3xl shadow-2xl p-8 border border-gray-100">
                 {/* Header */}
                 <div className="text-center mb-8">
-                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-green-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                    <Trophy className="w-8 h-8 text-white" />
+                  <div className="w-16 h-16 bg-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <Trophy className="w-8 h-8 text-yellow-400" />
                   </div>
                   <h4 className="text-2xl font-bold text-gray-900 mb-2">Premium Dashboard</h4>
                   <p className="text-gray-600">Advanced analytics & personalization</p>
