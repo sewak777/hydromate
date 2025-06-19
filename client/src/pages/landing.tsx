@@ -756,10 +756,13 @@ export default function Landing() {
             {/* Annual Plan */}
             <Card className="border-2 border-[hsl(var(--accent-green))] text-center">
               <CardContent className="p-8">
-                <div className="text-[hsl(var(--accent-green))] text-sm font-bold mb-2">SAVE 40%</div>
+                <div className="text-[hsl(var(--accent-green))] text-sm font-bold mb-2">SAVE 50%</div>
                 <h3 className="text-2xl font-bold mb-4">Premium Annual</h3>
-                <div className="text-4xl font-bold mb-2">$29.99<span className="text-lg text-[hsl(var(--text-light))]">/year</span></div>
-                <div className="text-sm text-[hsl(var(--text-light))] mb-6">Just $2.50/month</div>
+                <div className="mb-6">
+                  <div className="text-lg text-gray-500 line-through">$99.99/year</div>
+                  <div className="text-4xl font-bold">$49.99<span className="text-lg text-[hsl(var(--text-light))]">/year</span></div>
+                  <div className="text-sm text-[hsl(var(--text-light))]">Just $4.17/month</div>
+                </div>
                 <ul className="space-y-3 mb-8 text-left">
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="text-[hsl(var(--accent-green))] w-4 h-4" />
