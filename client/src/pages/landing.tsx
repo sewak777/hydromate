@@ -711,14 +711,14 @@ export default function Landing() {
               </CardContent>
             </Card>
             
-            {/* Premium Plan */}
-            <Card className="water-gradient text-center text-white relative transform scale-105">
-              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-[hsl(var(--vibrant-orange))] text-white px-4 py-1 rounded-full text-sm font-bold">
+            {/* Premium Monthly Plan */}
+            <Card className="bg-gradient-to-br from-blue-500 to-green-500 text-center text-white relative transform scale-105 shadow-2xl">
+              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-orange-500 text-white px-4 py-1 rounded-full text-sm font-bold shadow-lg">
                 MOST POPULAR
               </div>
               <CardContent className="p-8">
-                <h3 className="text-2xl font-bold mb-4">Premium Monthly</h3>
-                <div className="text-4xl font-bold mb-6">$4.99<span className="text-lg opacity-80">/month</span></div>
+                <h3 className="text-2xl font-bold mb-4 text-white">Premium Monthly</h3>
+                <div className="text-4xl font-bold mb-6 text-white">$4.99<span className="text-lg opacity-90">/month</span></div>
                 <ul className="space-y-3 mb-8 text-left">
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="text-white w-4 h-4" />
