@@ -2,6 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { setupAuth, isAuthenticated } from "./replitAuth";
+import { conditionalAuth } from "./feature-flags";
 import {
   insertHydrationProfileSchema,
   insertIntakeLogSchema,
@@ -14,7 +15,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   await setupAuth(app);
 
   // Auth routes
-  app.get('/api/auth/user', isAuthenticated, async (req: any, res) => {
+  app.get('/api/auth/user', conditionalAuth, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       const user = await storage.getUser(userId);
@@ -26,7 +27,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Hydration profile routes
-  app.get('/api/profile', isAuthenticated, async (req: any, res) => {
+  app.get('/api/profile', conditionalAuth, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       const profile = await storage.getHydrationProfile(userId);
@@ -37,7 +38,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post('/api/profile', isAuthenticated, async (req: any, res) => {
+  app.post('/api/profile', conditionalAuth, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       const profileData = insertHydrationProfileSchema.parse({
@@ -58,7 +59,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Intake log routes
-  app.post('/api/intake', isAuthenticated, async (req: any, res) => {
+  app.post('/api/intake', conditionalAuth, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       const today = new Date().toISOString().split('T')[0];
@@ -81,7 +82,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get('/api/intake/today', isAuthenticated, async (req: any, res) => {
+  app.get('/api/intake/today', conditionalAuth, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       const today = new Date().toISOString().split('T')[0];
@@ -93,7 +94,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get('/api/intake/range', isAuthenticated, async (req: any, res) => {
+  app.get('/api/intake/range', conditionalAuth, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       const { startDate, endDate } = req.query;
@@ -111,7 +112,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Dashboard data route
-  app.get('/api/dashboard', isAuthenticated, async (req: any, res) => {
+  app.get('/api/dashboard', conditionalAuth, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       const today = new Date().toISOString().split('T')[0];
