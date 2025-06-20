@@ -53,69 +53,105 @@ export default function WaterBottle({ currentAmount, goalAmount, className }: Wa
     <div className={cn("flex flex-col items-center space-y-4", className)}>
       {/* Water Bottle Visualization */}
       <div className="relative">
-        {/* Bottle Outline */}
-        <div className="relative w-24 h-48 mx-auto">
+        <svg width="120" height="200" viewBox="0 0 120 200" className="drop-shadow-lg">
+          <defs>
+            {/* Gradients for glass effect */}
+            <linearGradient id="bottleGlass" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" style={{ stopColor: '#f8fafc', stopOpacity: 0.8 }} />
+              <stop offset="20%" style={{ stopColor: '#ffffff', stopOpacity: 0.9 }} />
+              <stop offset="80%" style={{ stopColor: '#e2e8f0', stopOpacity: 0.7 }} />
+              <stop offset="100%" style={{ stopColor: '#cbd5e1', stopOpacity: 0.6 }} />
+            </linearGradient>
+            
+            <linearGradient id="waterFill" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" style={{ stopColor: getWaterColor(), stopOpacity: 0.9 }} />
+              <stop offset="50%" style={{ stopColor: getWaterColor(), stopOpacity: 1 }} />
+              <stop offset="100%" style={{ stopColor: getWaterColor(), stopOpacity: 0.8 }} />
+            </linearGradient>
+            
+            <linearGradient id="capGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" style={{ stopColor: '#64748b' }} />
+              <stop offset="50%" style={{ stopColor: '#475569' }} />
+              <stop offset="100%" style={{ stopColor: '#334155' }} />
+            </linearGradient>
+            
+            {/* Filter for glass effect */}
+            <filter id="glassBlur" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="0.5"/>
+            </filter>
+            
+            {/* Clip path for water */}
+            <clipPath id="bottleClip">
+              <path d="M25 40 Q25 35 30 35 L50 35 Q55 35 55 40 L55 170 Q55 180 45 180 L35 180 Q25 180 25 170 Z" />
+            </clipPath>
+          </defs>
+          
           {/* Bottle Cap */}
-          <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-8 h-4 bg-gradient-to-b from-gray-300 to-gray-400 rounded-t-lg border border-gray-400"></div>
+          <rect x="35" y="15" width="30" height="12" rx="2" fill="url(#capGradient)" />
+          <rect x="37" y="17" width="26" height="8" rx="1" fill="#94a3b8" opacity="0.7" />
           
           {/* Bottle Neck */}
-          <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-6 h-8 bg-gradient-to-b from-blue-50 to-blue-100 border-l border-r border-blue-200"></div>
+          <rect x="40" y="27" width="20" height="13" fill="url(#bottleGlass)" stroke="#cbd5e1" strokeWidth="1" />
           
           {/* Main Bottle Body */}
-          <div className="absolute top-10 w-full h-36 bg-gradient-to-b from-blue-50 to-blue-100 rounded-b-3xl border-2 border-blue-200 overflow-hidden shadow-lg">
-            {/* Water Fill */}
-            <div
-              className="absolute bottom-0 left-0 right-0 rounded-b-3xl transition-all duration-1000 ease-out"
-              style={{
-                height: `${animatedPercentage}%`,
-                background: `linear-gradient(180deg, ${getWaterColor()}, ${getWaterColor()}dd)`,
-              }}
-            >
-              {/* Water Surface Animation */}
-              <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-b from-white/20 to-transparent animate-wave"></div>
-              
-              {/* Bubbles */}
-              {animatedPercentage > 10 && getBubbles()}
-            </div>
-            
-            {/* Bottle Reflection */}
-            <div className="absolute top-0 left-2 w-4 h-full bg-gradient-to-b from-white/40 to-white/10 rounded-r-full"></div>
-          </div>
-        </div>
-
-        {/* Progress Ring */}
-        <div className="absolute -inset-4 flex items-center justify-center">
-          <svg className="w-32 h-32 transform -rotate-90" viewBox="0 0 100 100">
-            {/* Background Circle */}
-            <circle
-              cx="50"
-              cy="50"
-              r="45"
-              stroke="hsl(var(--border))"
-              strokeWidth="3"
-              fill="none"
-              opacity="0.3"
-            />
-            {/* Progress Circle */}
-            <circle
-              cx="50"
-              cy="50"
-              r="45"
-              stroke={getWaterColor()}
-              strokeWidth="3"
-              fill="none"
-              strokeDasharray={`${2 * Math.PI * 45}`}
-              strokeDashoffset={`${2 * Math.PI * 45 * (1 - progressPercentage / 100)}`}
+          <path 
+            d="M25 40 Q25 35 30 35 L50 35 Q55 35 55 40 L55 170 Q55 180 45 180 L35 180 Q25 180 25 170 Z" 
+            fill="url(#bottleGlass)" 
+            stroke="#cbd5e1" 
+            strokeWidth="1.5"
+          />
+          
+          {/* Water Fill */}
+          <g clipPath="url(#bottleClip)">
+            <rect
+              x="25"
+              y={180 - (animatedPercentage * 140 / 100)}
+              width="30"
+              height={animatedPercentage * 140 / 100}
+              fill="url(#waterFill)"
               className="transition-all duration-1000 ease-out"
-              strokeLinecap="round"
             />
-          </svg>
-        </div>
-
+            
+            {/* Water surface with wave effect */}
+            {animatedPercentage > 0 && (
+              <ellipse
+                cx="40"
+                cy={180 - (animatedPercentage * 140 / 100)}
+                rx="14"
+                ry="2"
+                fill="white"
+                opacity="0.3"
+                className="animate-pulse"
+              />
+            )}
+          </g>
+          
+          {/* Bottle Highlight */}
+          <path 
+            d="M30 40 Q30 37 32 37 L32 175 Q30 175 30 172 Z" 
+            fill="white" 
+            opacity="0.4"
+            filter="url(#glassBlur)"
+          />
+          
+          {/* Glass reflection */}
+          <ellipse cx="35" cy="55" rx="3" ry="8" fill="white" opacity="0.6" />
+          <ellipse cx="35" cy="75" rx="2" ry="5" fill="white" opacity="0.4" />
+          
+          {/* Bubbles */}
+          {animatedPercentage > 20 && (
+            <>
+              <circle cx="38" cy={170 - (animatedPercentage * 100 / 100)} r="1.5" fill="white" opacity="0.6" className="animate-pulse" />
+              <circle cx="42" cy={165 - (animatedPercentage * 100 / 100)} r="1" fill="white" opacity="0.5" className="animate-pulse" style={{ animationDelay: '0.5s' }} />
+              <circle cx="36" cy={160 - (animatedPercentage * 100 / 100)} r="0.8" fill="white" opacity="0.4" className="animate-pulse" style={{ animationDelay: '1s' }} />
+            </>
+          )}
+        </svg>
+        
         {/* Percentage Display */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center">
-            <div className="text-2xl font-bold" style={{ color: getWaterColor() }}>
+        <div className="absolute inset-0 flex items-center justify-center mt-8">
+          <div className="text-center bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1 shadow-lg">
+            <div className="text-xl font-bold" style={{ color: getWaterColor() }}>
               {Math.round(progressPercentage)}%
             </div>
           </div>
