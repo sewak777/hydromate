@@ -1,10 +1,21 @@
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
+import { getFeatureFlags } from "@shared/feature-flags";
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+// Log feature flags on startup
+const flags = getFeatureFlags();
+if (process.env.NODE_ENV === 'development') {
+  console.log('🏳️ Feature Flags Active:', flags);
+  if (!flags.authRequired) console.warn('⚠️  Authentication disabled');
+  if (!flags.premiumRequired) console.warn('⚠️  Premium features unlocked');
+  if (flags.testMode) console.warn('⚠️  Test mode enabled');
+  if (flags.mockUsers) console.warn('⚠️  Using mock users');
+}
 
 app.use((req, res, next) => {
   const start = Date.now();

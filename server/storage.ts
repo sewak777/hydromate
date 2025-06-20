@@ -234,6 +234,21 @@ export class DatabaseStorage implements IStorage {
 
   // Subscription operations
   async getSubscription(userId: string): Promise<Subscription | undefined> {
+    const flags = getFeatureFlags();
+    
+    if (flags.mockSubscriptions || flags.testMode || !flags.premiumRequired) {
+      // Return mock premium subscription
+      return {
+        id: 1,
+        userId,
+        planType: 'annual',
+        status: 'active',
+        startDate: new Date(),
+        endDate: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
+        createdAt: new Date(),
+      };
+    }
+    
     const [subscription] = await db
       .select()
       .from(subscriptions)

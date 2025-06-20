@@ -148,7 +148,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Reminder routes
-  app.get('/api/reminders', isAuthenticated, async (req: any, res) => {
+  app.get('/api/reminders', conditionalAuth, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       const reminder = await storage.getReminder(userId);
@@ -159,7 +159,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post('/api/reminders', isAuthenticated, async (req: any, res) => {
+  app.post('/api/reminders', conditionalAuth, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       const reminderData = insertReminderSchema.parse({
@@ -176,7 +176,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Achievement routes
-  app.get('/api/achievements', isAuthenticated, async (req: any, res) => {
+  app.get('/api/achievements', conditionalAuth, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       const [allAchievements, userAchievements] = await Promise.all([
@@ -199,7 +199,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Subscription status route
-  app.get('/api/subscription', isAuthenticated, async (req: any, res) => {
+  app.get('/api/subscription', conditionalAuth, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       const subscription = await storage.getSubscription(userId);
