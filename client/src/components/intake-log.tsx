@@ -49,7 +49,10 @@ export default function IntakeLog({ onLogIntake }: IntakeLogProps) {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button className="w-full bg-[hsl(var(--primary-blue))] hover:bg-blue-600 text-white">
+        <Button 
+          variant="outline"
+          className="w-full border-2 border-[hsl(var(--primary-blue))] text-[hsl(var(--primary-blue))] hover:bg-[hsl(var(--primary-blue))] hover:text-white transition-colors"
+        >
           <Plus className="w-4 h-4 mr-2" />
           Log Custom Amount
         </Button>

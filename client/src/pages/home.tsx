@@ -215,7 +215,8 @@ export default function Home() {
                     <Button
                       onClick={() => handleQuickLog(750)}
                       disabled={logIntakeMutation.isPending}
-                      className="bg-[hsl(var(--accent-green))] hover:bg-green-500 text-white flex flex-col items-center space-y-1 h-auto py-3"
+                      variant="outline"
+                      className="flex flex-col items-center space-y-1 h-auto py-3"
                     >
                       <span className="text-xs">Large</span>
                       <span className="font-bold">750ml</span>
