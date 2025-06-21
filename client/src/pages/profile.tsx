@@ -79,6 +79,9 @@ export default function Profile() {
       activityLevel: profile?.activityLevel || "moderately_active",
       customGoal: profile?.customGoal,
       timezone: profile?.timezone || Intl.DateTimeFormat().resolvedOptions().timeZone,
+      location: profile?.location,
+      useGeolocation: profile?.useGeolocation !== false,
+      weatherEnabled: profile?.weatherEnabled !== false,
     },
   });
 

@@ -47,6 +47,9 @@ export const hydrationProfiles = pgTable("hydration_profiles", {
   dailyGoal: integer("daily_goal").notNull(), // in ml
   customGoal: integer("custom_goal"), // user override in ml
   timezone: varchar("timezone").default("UTC"),
+  location: varchar("location"), // City name for weather
+  useGeolocation: boolean("use_geolocation").default(true),
+  weatherEnabled: boolean("weather_enabled").default(true),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });

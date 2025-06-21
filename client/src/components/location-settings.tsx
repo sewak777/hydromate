@@ -34,13 +34,13 @@ export default function LocationSettings({ onLocationChange }: LocationSettingsP
     navigator.geolocation.getCurrentPosition(
       async (position) => {
         try {
-          // Reverse geocoding to get city name
+          // Use weather API to get city name from coordinates
           const response = await fetch(
-            `https://api.openweathermap.org/geo/1.0/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}&limit=1&appid=${process.env.OPENWEATHER_API_KEY}`
+            `/api/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}`
           );
           const data = await response.json();
-          if (data.length > 0) {
-            const detectedCity = data[0].name;
+          if (data.weather?.location) {
+            const detectedCity = data.weather.location;
             setCityName(detectedCity);
             onLocationChange?.({ city: detectedCity, useGeolocation: true });
           }
