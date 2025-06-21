@@ -20,6 +20,7 @@ import { SEOHead } from "@/components/seo-head";
 import { User, Activity, Bell, Settings, Save, Crown, MapPin } from "lucide-react";
 import NotificationDemo from "@/components/notification-demo";
 import NotificationTroubleshoot from "@/components/notification-troubleshoot";
+import NotificationSimulator from "@/components/notification-simulator";
 
 const profileSchema = z.object({
   weight: z.number().min(30).max(300),

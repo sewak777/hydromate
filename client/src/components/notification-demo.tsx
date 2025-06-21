@@ -303,6 +303,19 @@ export default function NotificationDemo() {
           </ul>
         </div>
 
+        {/* Demo Environment Notice */}
+        <div className="p-4 bg-amber-50 rounded-lg border border-amber-200">
+          <h4 className="font-medium text-amber-900 mb-2">Demo Environment Notice:</h4>
+          <p className="text-sm text-amber-700 mb-2">
+            You're viewing this in Replit's preview environment where real browser notifications are restricted. 
+            In this demo, you'll see simulated notifications that appear on the page.
+          </p>
+          <p className="text-sm text-amber-700">
+            <strong>In production:</strong> These would appear as actual system notifications on your device, 
+            with sound alerts and the ability to interact even when the browser is closed.
+          </p>
+        </div>
+
         {permission === 'denied' && (
           <div className="p-4 bg-red-50 rounded-lg border border-red-200">
             <h4 className="font-medium text-red-900 mb-2">Permission Blocked</h4>
