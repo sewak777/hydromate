@@ -4,7 +4,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Droplets, Home, User, Menu, LogOut } from "lucide-react";
+import { Droplets, Home, User, Menu, LogOut, BarChart3 } from "lucide-react";
 
 export default function Navigation() {
   const [location] = useLocation();

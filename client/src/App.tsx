@@ -8,6 +8,7 @@ import NotFound from "@/pages/not-found";
 import Landing from "@/pages/landing";
 import Home from "@/pages/home";
 import Profile from "@/pages/profile";
+import Analytics from "@/pages/analytics";
 
 function Router() {
   const { isAuthenticated, isLoading } = useAuth();
