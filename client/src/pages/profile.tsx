@@ -464,7 +464,7 @@ export default function Profile() {
 
                     <Button
                       type="submit"
-                      className="w-full bg-[hsl(var(--accent-green))] hover:bg-green-500"
+                      className="w-full bg-[hsl(var(--primary-blue))] hover:bg-blue-600 text-white"
                       disabled={updateRemindersMutation.isPending}
                     >
                       <Save className="w-4 h-4 mr-2" />
