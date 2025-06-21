@@ -15,7 +15,7 @@ import WaterBottle from "@/components/water-bottle";
 import IntakeLog from "@/components/intake-log";
 import ProgressChart from "@/components/progress-chart";
 import AchievementBadge from "@/components/achievement-badge";
-import { Droplets, Target, TrendingUp, Trophy, Plus, Crown, Cloud, Activity } from "lucide-react";
+import { Droplets, Target, TrendingUp, Trophy, Plus, Crown, Cloud, Activity, Bell } from "lucide-react";
 
 interface DashboardData {
   profile?: {
