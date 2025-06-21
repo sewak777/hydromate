@@ -252,6 +252,47 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Analytics routes
+  app.get('/api/analytics', isAuthenticated, async (req: any, res) => {
+    try {
+      const userId = req.user.claims.sub;
+      const period = (req.query.period as '7d' | '30d' | '90d') || '30d';
+      
+      const analytics = await storage.getAdvancedAnalytics(userId, period);
+      res.json(analytics);
+    } catch (error) {
+      console.error("Error fetching analytics:", error);
+      res.status(500).json({ message: "Failed to fetch analytics" });
+    }
+  });
+
+  app.get('/api/analytics/weekly/:startDate/:endDate', isAuthenticated, async (req: any, res) => {
+    try {
+      const userId = req.user.claims.sub;
+      const { startDate, endDate } = req.params;
+      
+      const analytics = await storage.generateWeeklyAnalytics(userId, startDate, endDate);
+      res.json(analytics);
+    } catch (error) {
+      console.error("Error fetching weekly analytics:", error);
+      res.status(500).json({ message: "Failed to fetch weekly analytics" });
+    }
+  });
+
+  app.get('/api/analytics/monthly/:month/:year', isAuthenticated, async (req: any, res) => {
+    try {
+      const userId = req.user.claims.sub;
+      const month = parseInt(req.params.month);
+      const year = parseInt(req.params.year);
+      
+      const analytics = await storage.generateMonthlyAnalytics(userId, month, year);
+      res.json(analytics);
+    } catch (error) {
+      console.error("Error fetching monthly analytics:", error);
+      res.status(500).json({ message: "Failed to fetch monthly analytics" });
+    }
+  });
+
   // SEO routes
   app.get('/sitemap.xml', (req, res) => {
     res.set('Content-Type', 'application/xml');

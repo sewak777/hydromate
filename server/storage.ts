@@ -59,6 +59,11 @@ export interface IStorage {
   // Analytics operations
   getStreakCount(userId: string): Promise<number>;
   getTotalIntakeForDate(userId: string, date: string): Promise<number>;
+  generateWeeklyAnalytics(userId: string, startDate: string, endDate: string): Promise<any>;
+  generateMonthlyAnalytics(userId: string, month: number, year: number): Promise<any>;
+  getAdvancedAnalytics(userId: string, period: '7d' | '30d' | '90d'): Promise<any>;
+  getBeverageDistribution(userId: string, startDate: string, endDate: string): Promise<any[]>;
+  getHydrationPatterns(userId: string, startDate: string, endDate: string): Promise<any>;
 }
 
 export class DatabaseStorage implements IStorage {

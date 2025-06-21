@@ -172,6 +172,20 @@ export const dailySummariesRelations = relations(dailySummaries, ({ one }) => ({
   }),
 }));
 
+export const weeklyAnalyticsRelations = relations(weeklyAnalytics, ({ one }) => ({
+  user: one(users, {
+    fields: [weeklyAnalytics.userId],
+    references: [users.id],
+  }),
+}));
+
+export const monthlyAnalyticsRelations = relations(monthlyAnalytics, ({ one }) => ({
+  user: one(users, {
+    fields: [monthlyAnalytics.userId],
+    references: [users.id],
+  }),
+}));
+
 export const subscriptionsRelations = relations(subscriptions, ({ one }) => ({
   user: one(users, {
     fields: [subscriptions.userId],
@@ -220,4 +234,6 @@ export type Achievement = typeof achievements.$inferSelect;
 export type UserAchievement = typeof userAchievements.$inferSelect;
 export type DailySummary = typeof dailySummaries.$inferSelect;
 export type InsertDailySummary = z.infer<typeof insertDailySummarySchema>;
+export type WeeklyAnalytics = typeof weeklyAnalytics.$inferSelect;
+export type MonthlyAnalytics = typeof monthlyAnalytics.$inferSelect;
 export type Subscription = typeof subscriptions.$inferSelect;
