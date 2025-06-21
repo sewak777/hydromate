@@ -192,10 +192,13 @@ export default function IntakeLog({ onLogIntake }: IntakeLogProps) {
             </Button>
             <Button
               onClick={handleSubmit}
-              className="flex-1 bg-[hsl(var(--primary-blue))] hover:bg-blue-600 text-white"
+              className="flex-1 bg-[hsl(var(--primary-blue))] hover:bg-blue-600 text-white transition-all duration-200 hover:scale-105 active:scale-95"
               disabled={amount <= 0}
             >
-              Log Intake
+              <div className="flex items-center justify-center space-x-2">
+                <span>Log {amount}ml</span>
+                <span className="text-lg">💧</span>
+              </div>
             </Button>
           </div>
         </div>

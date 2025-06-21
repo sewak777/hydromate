@@ -245,9 +245,14 @@ export default function Home() {
                 </CardHeader>
                 <CardContent className="flex flex-col items-center">
                   <WaterBottle 
-                    currentAmount={currentIntake} 
+                    currentAmount={currentIntake}
                     goalAmount={dailyGoal}
                     className="mb-6"
+                    onFillAnimation={() => {
+                      if (isNative) {
+                        hapticFeedback();
+                      }
+                    }}
                   />
                   
                   {/* Quick Log Buttons */}
@@ -256,37 +261,61 @@ export default function Home() {
                       onClick={() => handleQuickLog(250)}
                       disabled={logIntakeMutation.isPending}
                       variant="outline"
-                      className="flex flex-col items-center space-y-1 h-auto py-3"
+                      className="flex flex-col items-center space-y-1 h-auto py-3 transition-all duration-200 hover:scale-105 active:scale-95"
                     >
-                      <span className="text-xs">Glass</span>
-                      <span className="font-bold">250ml</span>
+                      {logIntakeMutation.isPending ? (
+                        <div className="w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                      ) : (
+                        <>
+                          <span className="text-xs">Glass</span>
+                          <span className="font-bold">250ml</span>
+                        </>
+                      )}
                     </Button>
                     <Button
                       onClick={() => handleQuickLog(500)}
                       disabled={logIntakeMutation.isPending}
                       variant="outline"
-                      className="flex flex-col items-center space-y-1 h-auto py-3"
+                      className="flex flex-col items-center space-y-1 h-auto py-3 transition-all duration-200 hover:scale-105 active:scale-95"
                     >
-                      <span className="text-xs">Bottle</span>
-                      <span className="font-bold">500ml</span>
+                      {logIntakeMutation.isPending ? (
+                        <div className="w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                      ) : (
+                        <>
+                          <span className="text-xs">Bottle</span>
+                          <span className="font-bold">500ml</span>
+                        </>
+                      )}
                     </Button>
                     <Button
                       onClick={() => handleQuickLog(750)}
                       disabled={logIntakeMutation.isPending}
                       variant="outline"
-                      className="flex flex-col items-center space-y-1 h-auto py-3"
+                      className="flex flex-col items-center space-y-1 h-auto py-3 transition-all duration-200 hover:scale-105 active:scale-95"
                     >
-                      <span className="text-xs">Large</span>
-                      <span className="font-bold">750ml</span>
+                      {logIntakeMutation.isPending ? (
+                        <div className="w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                      ) : (
+                        <>
+                          <span className="text-xs">Large</span>
+                          <span className="font-bold">750ml</span>
+                        </>
+                      )}
                     </Button>
                     <Button
                       onClick={() => handleQuickLog(1000)}
                       disabled={logIntakeMutation.isPending}
                       variant="outline"
-                      className="flex flex-col items-center space-y-1 h-auto py-3"
+                      className="flex flex-col items-center space-y-1 h-auto py-3 transition-all duration-200 hover:scale-105 active:scale-95"
                     >
-                      <span className="text-xs">Liter</span>
-                      <span className="font-bold">1L</span>
+                      {logIntakeMutation.isPending ? (
+                        <div className="w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                      ) : (
+                        <>
+                          <span className="text-xs">Liter</span>
+                          <span className="font-bold">1L</span>
+                        </>
+                      )}
                     </Button>
                   </div>
 
