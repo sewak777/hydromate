@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useAuth } from "@/hooks/useAuth";
+import { usePremium } from "@/hooks/usePremium";
 import { useToast } from "@/hooks/use-toast";
 import { isUnauthorizedError } from "@/lib/authUtils";
 import { apiRequest, queryClient } from "@/lib/queryClient";
@@ -14,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import Navigation from "@/components/navigation";
-import { User, Activity, Bell, Settings, Save } from "lucide-react";
+import { User, Activity, Bell, Settings, Save, Crown } from "lucide-react";
 
 const profileSchema = z.object({
   weight: z.number().min(30).max(300),
@@ -38,6 +39,7 @@ type ReminderFormData = z.infer<typeof reminderSchema>;
 export default function Profile() {
   const { toast } = useToast();
   const { isAuthenticated, isLoading, user } = useAuth();
+  const { isPremium, subscription } = usePremium();
   const [calculatedGoal, setCalculatedGoal] = useState<number>(0);
 
   // Redirect to home if not authenticated
@@ -501,6 +503,30 @@ export default function Profile() {
                 </div>
               </div>
               
+              {/* Subscription Status */}
+              {isPremium && (
+                <div className="mt-6 pt-6 border-t">
+                  <div className="bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-lg p-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
+                          <Crown className="w-5 h-5 text-yellow-400" />
+                        </div>
+                        <div>
+                          <div className="font-semibold text-gray-900">Premium Subscription</div>
+                          <div className="text-sm text-gray-600 capitalize">
+                            {subscription?.planType} Plan - Active
+                          </div>
+                        </div>
+                      </div>
+                      <div className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-semibold">
+                        ACTIVE
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
               <div className="mt-6 pt-6 border-t">
                 <Button
                   variant="outline"
