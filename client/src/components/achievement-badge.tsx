@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Trophy, Award, Target, Zap, Calendar, Droplets, Star, Lock } from "lucide-react";
 
@@ -82,6 +82,9 @@ export default function AchievementBadge() {
               {unlockedAchievements.length} / {achievements.length}
             </Badge>
           </DialogTitle>
+          <DialogDescription>
+            Track your hydration journey progress. Unlock achievements by meeting daily goals, maintaining streaks, and reaching milestones.
+          </DialogDescription>
         </DialogHeader>
         
         <div className="space-y-6">

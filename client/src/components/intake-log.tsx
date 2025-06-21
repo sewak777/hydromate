@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -63,6 +63,9 @@ export default function IntakeLog({ onLogIntake }: IntakeLogProps) {
             <Droplets className="w-5 h-5 text-[hsl(var(--primary-blue))]" />
             <span>Log Water Intake</span>
           </DialogTitle>
+          <DialogDescription>
+            Select your beverage type and amount to log your hydration intake. Different beverages have varying hydration values.
+          </DialogDescription>
         </DialogHeader>
         
         <div className="space-y-6">
