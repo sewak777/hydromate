@@ -13,6 +13,7 @@ export default function Navigation() {
 
   const navItems = [
     { href: "/", label: "Home", icon: Home },
+    { href: "/analytics", label: "Analytics", icon: BarChart3 },
     { href: "/profile", label: "Profile", icon: User },
   ];
 

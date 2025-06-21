@@ -107,8 +107,49 @@ export const dailySummaries = pgTable("daily_summaries", {
   totalIntake: integer("total_intake").notNull().default(0), // in ml
   goalAmount: integer("goal_amount").notNull(), // in ml
   goalMet: boolean("goal_met").default(false),
-  streakDay: integer("streak_day").default(0),
-  logCount: integer("log_count").default(0),
+  averageHydrationPercentage: real("avg_hydration_percentage"),
+  totalLogs: integer("total_logs").default(0),
+  firstLogTime: varchar("first_log_time"),
+  lastLogTime: varchar("last_log_time"),
+  longestGap: integer("longest_gap_minutes"),
+  weatherAdjustment: integer("weather_adjustment").default(0),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// Weekly analytics aggregations
+export const weeklyAnalytics = pgTable("weekly_analytics", {
+  id: serial("id").primaryKey(),
+  userId: varchar("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  weekStartDate: date("week_start_date").notNull(),
+  weekEndDate: date("week_end_date").notNull(),
+  totalIntake: integer("total_intake").notNull(),
+  averageDailyIntake: real("avg_daily_intake").notNull(),
+  goalsMetCount: integer("goals_met_count").default(0),
+  totalDays: integer("total_days").default(7),
+  consistencyScore: real("consistency_score"),
+  preferredBeverageType: varchar("preferred_beverage_type"),
+  averageHydrationPercentage: real("avg_hydration_percentage"),
+  totalLogs: integer("total_logs").default(0),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+// Monthly analytics aggregations
+export const monthlyAnalytics = pgTable("monthly_analytics", {
+  id: serial("id").primaryKey(),
+  userId: varchar("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  month: integer("month").notNull(),
+  year: integer("year").notNull(),
+  totalIntake: integer("total_intake").notNull(),
+  averageDailyIntake: real("avg_daily_intake").notNull(),
+  goalsMetCount: integer("goals_met_count").default(0),
+  totalDays: integer("total_days").default(0),
+  bestStreak: integer("best_streak").default(0),
+  consistencyScore: real("consistency_score"),
+  preferredBeverageType: varchar("preferred_beverage_type"),
+  averageHydrationPercentage: real("avg_hydration_percentage"),
+  totalLogs: integer("total_logs").default(0),
+  weatherAdjustmentTotal: integer("weather_adjustment_total").default(0),
   createdAt: timestamp("created_at").defaultNow(),
 });
 
@@ -217,6 +258,17 @@ export const insertReminderSchema = createInsertSchema(reminders).omit({
 });
 
 export const insertDailySummarySchema = createInsertSchema(dailySummaries).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertWeeklyAnalyticsSchema = createInsertSchema(weeklyAnalytics).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertMonthlyAnalyticsSchema = createInsertSchema(monthlyAnalytics).omit({
   id: true,
   createdAt: true,
 });
