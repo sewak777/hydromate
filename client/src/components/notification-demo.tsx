@@ -31,27 +31,76 @@ export default function NotificationDemo() {
     // Initialize notification service
     const init = async () => {
       setIsNative(CapacitorService.isNative());
-      const initialized = await notificationService.initialize();
-      setPermission(notificationService.getPermission());
-      setIsEnabled(initialized);
+      
+      // Check if notifications are supported
+      if ('Notification' in window) {
+        setPermission(Notification.permission);
+        setIsEnabled(Notification.permission === 'granted');
+      } else {
+        setPermission('denied');
+        setIsEnabled(false);
+      }
+      
+      await notificationService.initialize();
     };
     init();
   }, []);
 
   const requestPermission = async () => {
-    const newPermission = await notificationService.requestPermission();
-    setPermission(newPermission);
-    setIsEnabled(newPermission === 'granted');
-    
-    if (newPermission === 'granted') {
+    // First check if notifications are supported
+    if (!('Notification' in window)) {
       toast({
-        title: "Notifications Enabled",
-        description: "You'll now receive hydration reminders and goal notifications.",
+        title: "Not Supported",
+        description: "Notifications are not supported in this browser.",
+        variant: "destructive",
       });
-    } else {
+      return;
+    }
+
+    // Check current permission state
+    const currentPermission = Notification.permission;
+    
+    if (currentPermission === 'denied') {
       toast({
-        title: "Permission Denied",
-        description: "Enable notifications in your browser settings to receive reminders.",
+        title: "Permission Blocked",
+        description: "Notifications are blocked. Please enable them in your browser settings and refresh the page.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (currentPermission === 'granted') {
+      setPermission('granted');
+      setIsEnabled(true);
+      toast({
+        title: "Already Enabled",
+        description: "Notifications are already enabled for this site.",
+      });
+      return;
+    }
+
+    // Request permission
+    try {
+      const newPermission = await notificationService.requestPermission();
+      setPermission(newPermission);
+      setIsEnabled(newPermission === 'granted');
+      
+      if (newPermission === 'granted') {
+        toast({
+          title: "Notifications Enabled",
+          description: "You'll now receive hydration reminders and goal notifications.",
+        });
+      } else if (newPermission === 'denied') {
+        toast({
+          title: "Permission Denied",
+          description: "You can change this in your browser settings. Look for the notification icon in the address bar.",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Permission Error",
+        description: "There was an error requesting notification permission. Please try again.",
         variant: "destructive",
       });
     }
@@ -257,14 +306,42 @@ export default function NotificationDemo() {
         {permission === 'denied' && (
           <div className="p-4 bg-red-50 rounded-lg border border-red-200">
             <h4 className="font-medium text-red-900 mb-2">Permission Blocked</h4>
-            <p className="text-sm text-red-700">
-              To enable notifications, please:
+            <p className="text-sm text-red-700 mb-3">
+              Notifications are currently blocked. To enable them:
             </p>
-            <ol className="text-sm text-red-700 mt-2 ml-4 list-decimal">
-              <li>Click the lock icon in your browser's address bar</li>
-              <li>Set notifications to "Allow"</li>
-              <li>Refresh the page and try again</li>
-            </ol>
+            <div className="text-sm text-red-700 space-y-2">
+              <div className="border-l-4 border-red-300 pl-3">
+                <p className="font-medium">Chrome/Edge:</p>
+                <ol className="list-decimal ml-4 space-y-1">
+                  <li>Click the lock/shield icon in the address bar</li>
+                  <li>Set "Notifications" to "Allow"</li>
+                  <li>Refresh this page</li>
+                </ol>
+              </div>
+              <div className="border-l-4 border-red-300 pl-3">
+                <p className="font-medium">Firefox:</p>
+                <ol className="list-decimal ml-4 space-y-1">
+                  <li>Click the shield icon in the address bar</li>
+                  <li>Click "Enable Notifications"</li>
+                  <li>Or go to Settings → Privacy & Security → Permissions</li>
+                </ol>
+              </div>
+              <div className="border-l-4 border-red-300 pl-3">
+                <p className="font-medium">Safari:</p>
+                <ol className="list-decimal ml-4 space-y-1">
+                  <li>Go to Safari → Preferences → Websites</li>
+                  <li>Select "Notifications" from the left sidebar</li>
+                  <li>Set this website to "Allow"</li>
+                </ol>
+              </div>
+            </div>
+            <Button 
+              onClick={() => window.location.reload()} 
+              className="mt-4 w-full"
+              variant="outline"
+            >
+              Refresh Page After Enabling
+            </Button>
           </div>
         )}
       </CardContent>

@@ -44,7 +44,21 @@ export class NotificationService {
     }
 
     if ('Notification' in window) {
-      this.permission = await Notification.requestPermission();
+      // Check current permission state first
+      this.permission = Notification.permission;
+      
+      // If already granted or denied, return current state
+      if (this.permission !== 'default') {
+        return this.permission;
+      }
+      
+      // Request permission only if it's in default state
+      try {
+        this.permission = await Notification.requestPermission();
+      } catch (error) {
+        console.error('Error requesting notification permission:', error);
+        this.permission = 'denied';
+      }
     }
 
     return this.permission;
