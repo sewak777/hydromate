@@ -4,6 +4,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { usePremium } from "@/hooks/usePremium";
 import { useToast } from "@/hooks/use-toast";
 import { useNativeFeatures } from "@/hooks/useNativeFeatures";
+import { notificationService } from "@/services/notificationService";
 import { isUnauthorizedError } from "@/lib/authUtils";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { SEOHead } from "@/components/seo-head";
@@ -107,7 +108,7 @@ export default function Home() {
     mutationFn: async (data: { amount: number; beverageType?: string; hydrationPercentage?: number }) => {
       await apiRequest("POST", "/api/intake", data);
     },
-    onSuccess: (_, variables) => {
+    onSuccess: async (_, variables) => {
       queryClient.invalidateQueries({ queryKey: ["/api/dashboard"] });
       queryClient.invalidateQueries({ queryKey: ["/api/intake/today"] });
       
@@ -120,6 +121,14 @@ export default function Home() {
       // Trigger haptic feedback for mobile
       if (isNative) {
         hapticFeedback();
+      }
+
+      // Check if goal achieved and send notification
+      const newTotal = (dashboardData?.todayIntake || 0) + variables.amount;
+      const goal = dashboardData?.profile?.dailyGoal || 2000;
+      
+      if (newTotal >= goal && (dashboardData?.todayIntake || 0) < goal) {
+        await notificationService.showGoalAchievedNotification(newTotal, goal);
       }
     },
     onError: (error) => {
