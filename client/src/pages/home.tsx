@@ -5,6 +5,7 @@ import { usePremium } from "@/hooks/usePremium";
 import { useToast } from "@/hooks/use-toast";
 import { isUnauthorizedError } from "@/lib/authUtils";
 import { apiRequest, queryClient } from "@/lib/queryClient";
+import { SEOHead } from "@/components/seo-head";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Navigation from "@/components/navigation";
@@ -153,7 +154,14 @@ export default function Home() {
   const remainingAmount = Math.max(dailyGoal - currentIntake, 0);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[hsl(var(--soft-gray))] to-white">
+    <>
+      <SEOHead 
+        title="Dashboard - HydroFlow Water Tracking"
+        description="Track your daily water intake with intelligent analytics, weather-based recommendations, and personalized hydration goals. Monitor your progress with beautiful charts and achievements."
+        noIndex={true}
+      />
+      
+      <div className="min-h-screen bg-gradient-to-br from-[hsl(var(--soft-gray))] to-white">
       <Navigation />
       
       <div className="pt-20 pb-8">

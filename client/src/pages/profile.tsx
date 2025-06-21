@@ -224,7 +224,14 @@ export default function Profile() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[hsl(var(--soft-gray))] to-white">
+    <>
+      <SEOHead 
+        title="Profile Settings - HydroFlow"
+        description="Customize your hydration profile with personalized goals, reminder settings, and weather preferences. Optimize your water tracking experience."
+        noIndex={true}
+      />
+      
+      <div className="min-h-screen bg-gradient-to-br from-[hsl(var(--soft-gray))] to-white">
       <Navigation />
       
       <div className="pt-20 pb-8">
