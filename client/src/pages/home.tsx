@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useAuth } from "@/hooks/useAuth";
+import { usePremium } from "@/hooks/usePremium";
 import { useToast } from "@/hooks/use-toast";
 import { isUnauthorizedError } from "@/lib/authUtils";
 import { apiRequest, queryClient } from "@/lib/queryClient";
@@ -11,7 +12,7 @@ import WaterBottle from "@/components/water-bottle";
 import IntakeLog from "@/components/intake-log";
 import ProgressChart from "@/components/progress-chart";
 import AchievementBadge from "@/components/achievement-badge";
-import { Droplets, Target, TrendingUp, Trophy, Plus } from "lucide-react";
+import { Droplets, Target, TrendingUp, Trophy, Plus, Crown, Cloud, Activity } from "lucide-react";
 
 interface DashboardData {
   profile?: {
@@ -37,6 +38,7 @@ interface DashboardData {
 export default function Home() {
   const { toast } = useToast();
   const { isAuthenticated, isLoading } = useAuth();
+  const { isPremium, subscription } = usePremium();
 
   // Redirect to home if not authenticated
   useEffect(() => {
@@ -249,12 +251,41 @@ export default function Home() {
 
             {/* Right Column - Achievements & Today's Logs */}
             <div className="space-y-6">
+              {/* Premium Status */}
+              {isPremium && (
+                <Card className="bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200">
+                  <CardContent className="p-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
+                          <Crown className="w-5 h-5 text-yellow-400" />
+                        </div>
+                        <div>
+                          <div className="font-semibold text-gray-900">Premium Active</div>
+                          <div className="text-sm text-gray-600 capitalize">
+                            {subscription?.planType} Plan
+                          </div>
+                        </div>
+                      </div>
+                      <div className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-semibold">
+                        ACTIVE
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+
               {/* Achievement Summary */}
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-2">
                     <Trophy className="w-5 h-5 text-[hsl(var(--deep-teal))]" />
                     <span>Achievements</span>
+                    {isPremium && (
+                      <div className="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs font-semibold">
+                        PREMIUM
+                      </div>
+                    )}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -268,10 +299,52 @@ export default function Home() {
                 </CardContent>
               </Card>
 
+              {/* Premium Weather Insights */}
+              {isPremium && (
+                <Card className="bg-gradient-to-r from-cyan-50 to-blue-50 border-cyan-200">
+                  <CardHeader>
+                    <CardTitle className="flex items-center space-x-2">
+                      <Cloud className="w-5 h-5 text-blue-600" />
+                      <span>Weather Insights</span>
+                      <div className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-semibold">
+                        PREMIUM
+                      </div>
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm text-gray-600">Temperature</span>
+                        <span className="font-semibold">24°C</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm text-gray-600">Humidity</span>
+                        <span className="font-semibold">65%</span>
+                      </div>
+                      <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
+                        <div className="flex items-center space-x-2">
+                          <Activity className="w-4 h-4 text-yellow-600" />
+                          <span className="text-sm font-medium text-yellow-800">
+                            Increase intake by 200ml due to warm weather
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+
               {/* Today's Intake Logs */}
               <Card>
                 <CardHeader>
-                  <CardTitle>Today's Logs</CardTitle>
+                  <CardTitle className="flex items-center space-x-2">
+                    <span>Today's Logs</span>
+                    {isPremium && (
+                      <div className="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-semibold">
+                        ENHANCED
+                      </div>
+                    )}
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3 max-h-64 overflow-y-auto">
@@ -286,6 +359,11 @@ export default function Home() {
                               <div className="font-medium">{log.amount}ml</div>
                               <div className="text-xs text-[hsl(var(--text-light))]">
                                 {log.beverageType || 'Water'}
+                                {isPremium && log.hydrationPercentage && (
+                                  <span className="ml-2 text-blue-600 font-semibold">
+                                    ({log.hydrationPercentage}% hydration)
+                                  </span>
+                                )}
                               </div>
                             </div>
                           </div>
