@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { useNativeFeatures } from "@/hooks/useNativeFeatures";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -27,11 +28,17 @@ export default function IntakeLog({ onLogIntake }: IntakeLogProps) {
   const [amount, setAmount] = useState(250);
   const [selectedBeverage, setSelectedBeverage] = useState("water");
   const [customHydration, setCustomHydration] = useState([100]);
+  const { hapticFeedback, isNative } = useNativeFeatures();
 
   const currentBeverage = beverageTypes.find(b => b.id === selectedBeverage) || beverageTypes[0];
   const hydrationPercentage = selectedBeverage === "other" ? customHydration[0] : currentBeverage.hydration;
 
   const handleSubmit = () => {
+    // Add haptic feedback for native apps
+    if (isNative) {
+      hapticFeedback();
+    }
+    
     onLogIntake({
       amount,
       beverageType: selectedBeverage,

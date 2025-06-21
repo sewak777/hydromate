@@ -3,6 +3,7 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import { useAuth } from "@/hooks/useAuth";
 import { usePremium } from "@/hooks/usePremium";
 import { useToast } from "@/hooks/use-toast";
+import { useNativeFeatures } from "@/hooks/useNativeFeatures";
 import { isUnauthorizedError } from "@/lib/authUtils";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { SEOHead } from "@/components/seo-head";
@@ -40,6 +41,7 @@ export default function Home() {
   const { toast } = useToast();
   const { isAuthenticated, isLoading } = useAuth();
   const { isPremium, subscription } = usePremium();
+  const { hapticFeedback, isNative, platform } = useNativeFeatures();
 
   // Redirect to home if not authenticated
   useEffect(() => {
@@ -134,6 +136,10 @@ export default function Home() {
   });
 
   const handleQuickLog = (amount: number) => {
+    // Add haptic feedback for native apps
+    if (isNative) {
+      hapticFeedback();
+    }
     logIntakeMutation.mutate({ amount });
   };
 
