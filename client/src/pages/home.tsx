@@ -107,13 +107,20 @@ export default function Home() {
     mutationFn: async (data: { amount: number; beverageType?: string; hydrationPercentage?: number }) => {
       await apiRequest("POST", "/api/intake", data);
     },
-    onSuccess: () => {
+    onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: ["/api/dashboard"] });
       queryClient.invalidateQueries({ queryKey: ["/api/intake/today"] });
+      
+      // Enhanced feedback with amount
       toast({
         title: "Water logged!",
-        description: "Great job staying hydrated!",
+        description: `Added ${variables.amount}ml to your daily intake. Great job staying hydrated!`,
       });
+      
+      // Trigger haptic feedback for mobile
+      if (isNative) {
+        hapticFeedback();
+      }
     },
     onError: (error) => {
       if (isUnauthorizedError(error)) {

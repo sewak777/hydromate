@@ -5,9 +5,10 @@ interface WaterBottleProps {
   currentAmount: number;
   goalAmount: number;
   className?: string;
+  onFillAnimation?: () => void;
 }
 
-export default function WaterBottle({ currentAmount, goalAmount, className }: WaterBottleProps) {
+export default function WaterBottle({ currentAmount, goalAmount, className, onFillAnimation }: WaterBottleProps) {
   const [animatedAmount, setAnimatedAmount] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
 
@@ -15,14 +16,38 @@ export default function WaterBottle({ currentAmount, goalAmount, className }: Wa
   const animatedPercentage = Math.min((animatedAmount / goalAmount) * 100, 100);
 
   useEffect(() => {
-    setIsAnimating(true);
-    const timer = setTimeout(() => {
-      setAnimatedAmount(currentAmount);
-      setIsAnimating(false);
-    }, 100);
-
-    return () => clearTimeout(timer);
-  }, [currentAmount]);
+    if (currentAmount !== animatedAmount) {
+      setIsAnimating(true);
+      onFillAnimation?.();
+      
+      // Smooth animation from current to new amount
+      const startAmount = animatedAmount;
+      const difference = currentAmount - startAmount;
+      const duration = Math.min(1500, Math.abs(difference) * 2); // Scale duration with amount
+      const steps = 60;
+      const stepDuration = duration / steps;
+      const stepAmount = difference / steps;
+      
+      let currentStep = 0;
+      const interval = setInterval(() => {
+        currentStep++;
+        const newAmount = startAmount + (stepAmount * currentStep);
+        
+        if (currentStep >= steps) {
+          setAnimatedAmount(currentAmount);
+          setIsAnimating(false);
+          clearInterval(interval);
+        } else {
+          setAnimatedAmount(newAmount);
+        }
+      }, stepDuration);
+      
+      return () => {
+        clearInterval(interval);
+        setIsAnimating(false);
+      };
+    }
+  }, [currentAmount, animatedAmount]);
 
   const getWaterColor = () => {
     if (progressPercentage >= 100) return "hsl(var(--accent-green))";
@@ -138,12 +163,18 @@ export default function WaterBottle({ currentAmount, goalAmount, className }: Wa
           <ellipse cx="35" cy="55" rx="3" ry="8" fill="white" opacity="0.6" />
           <ellipse cx="35" cy="75" rx="2" ry="5" fill="white" opacity="0.4" />
           
-          {/* Bubbles */}
+          {/* Enhanced Bubbles during animation */}
           {animatedPercentage > 20 && (
             <>
-              <circle cx="38" cy={170 - (animatedPercentage * 100 / 100)} r="1.5" fill="white" opacity="0.6" className="animate-pulse" />
-              <circle cx="42" cy={165 - (animatedPercentage * 100 / 100)} r="1" fill="white" opacity="0.5" className="animate-pulse" style={{ animationDelay: '0.5s' }} />
-              <circle cx="36" cy={160 - (animatedPercentage * 100 / 100)} r="0.8" fill="white" opacity="0.4" className="animate-pulse" style={{ animationDelay: '1s' }} />
+              <circle cx="38" cy={170 - (animatedPercentage * 100 / 100)} r={isAnimating ? "2" : "1.5"} fill="white" opacity={isAnimating ? "0.8" : "0.6"} className="animate-pulse" />
+              <circle cx="42" cy={165 - (animatedPercentage * 100 / 100)} r={isAnimating ? "1.5" : "1"} fill="white" opacity={isAnimating ? "0.7" : "0.5"} className="animate-pulse" style={{ animationDelay: '0.5s' }} />
+              <circle cx="36" cy={160 - (animatedPercentage * 100 / 100)} r={isAnimating ? "1.2" : "0.8"} fill="white" opacity={isAnimating ? "0.6" : "0.4"} className="animate-pulse" style={{ animationDelay: '1s' }} />
+              {isAnimating && (
+                <>
+                  <circle cx="40" cy={175 - (animatedPercentage * 100 / 100)} r="1" fill="white" opacity="0.5" className="animate-ping" />
+                  <circle cx="35" cy={168 - (animatedPercentage * 100 / 100)} r="0.8" fill="white" opacity="0.4" className="animate-ping" style={{ animationDelay: '0.8s' }} />
+                </>
+              )}
             </>
           )}
         </svg>
