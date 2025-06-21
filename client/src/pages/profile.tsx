@@ -23,10 +23,10 @@ import NotificationTroubleshoot from "@/components/notification-troubleshoot";
 import NotificationSimulator from "@/components/notification-simulator";
 
 const profileSchema = z.object({
-  weight: z.number().min(30).max(300),
+  weight: z.coerce.number().min(30).max(300),
   gender: z.enum(["male", "female", "other"]),
   activityLevel: z.enum(["sedentary", "lightly_active", "moderately_active", "very_active", "extremely_active"]),
-  customGoal: z.number().optional(),
+  customGoal: z.coerce.number().optional(),
   timezone: z.string().optional(),
   location: z.string().optional(),
   useGeolocation: z.boolean().default(true),
@@ -34,7 +34,7 @@ const profileSchema = z.object({
 });
 
 const reminderSchema = z.object({
-  intervalMinutes: z.number().min(15).max(480),
+  intervalMinutes: z.coerce.number().min(15).max(480),
   startTime: z.string(),
   endTime: z.string(),
   isEnabled: z.boolean(),

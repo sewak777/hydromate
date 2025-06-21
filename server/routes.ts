@@ -55,20 +55,44 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post('/api/profile', conditionalAuth, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
-      const profileData = insertHydrationProfileSchema.parse({
-        ...req.body,
-        userId,
-      });
       
       // Calculate daily goal based on weight, gender, and activity level
-      const baseGoal = calculateDailyHydrationGoal(profileData.weight, profileData.gender, profileData.activityLevel);
-      profileData.dailyGoal = profileData.customGoal || baseGoal;
+      const weight = parseFloat(req.body.weight) || 70;
+      const gender = req.body.gender || 'other';
+      const activityLevel = req.body.activityLevel || 'moderately_active';
+      const customGoal = req.body.customGoal ? parseInt(req.body.customGoal) : null;
       
-      const profile = await storage.upsertHydrationProfile(profileData);
+      const baseGoal = calculateDailyHydrationGoal(weight, gender, activityLevel);
+      const dailyGoal = customGoal || baseGoal;
+      
+      const profileData = {
+        userId,
+        weight,
+        gender,
+        activityLevel,
+        dailyGoal,
+        customGoal,
+        timezone: req.body.timezone || 'UTC',
+        location: req.body.location || null,
+        useGeolocation: req.body.useGeolocation !== false,
+        weatherEnabled: req.body.weatherEnabled !== false,
+      };
+      
+      // Validate against schema
+      const validatedData = insertHydrationProfileSchema.parse(profileData);
+      
+      const profile = await storage.upsertHydrationProfile(validatedData);
       res.json(profile);
     } catch (error) {
       console.error("Error saving profile:", error);
-      res.status(500).json({ message: "Failed to save profile" });
+      if (error.issues) {
+        res.status(400).json({ 
+          message: "Validation error", 
+          details: error.issues.map(issue => `${issue.path.join('.')}: ${issue.message}`) 
+        });
+      } else {
+        res.status(500).json({ message: "Failed to save profile" });
+      }
     }
   });
 
@@ -176,16 +200,31 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post('/api/reminders', conditionalAuth, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
-      const reminderData = insertReminderSchema.parse({
-        ...req.body,
-        userId,
-      });
       
-      const reminder = await storage.upsertReminder(reminderData);
+      const reminderData = {
+        userId,
+        intervalMinutes: parseInt(req.body.intervalMinutes) || 60,
+        startTime: req.body.startTime || '08:00',
+        endTime: req.body.endTime || '22:00',
+        isEnabled: req.body.isEnabled !== false,
+        soundId: req.body.soundId || 'default',
+      };
+      
+      // Validate against schema
+      const validatedData = insertReminderSchema.parse(reminderData);
+      
+      const reminder = await storage.upsertReminder(validatedData);
       res.json(reminder);
     } catch (error) {
       console.error("Error saving reminder:", error);
-      res.status(500).json({ message: "Failed to save reminder" });
+      if (error.issues) {
+        res.status(400).json({ 
+          message: "Validation error", 
+          details: error.issues.map(issue => `${issue.path.join('.')}: ${issue.message}`) 
+        });
+      } else {
+        res.status(500).json({ message: "Failed to save reminder" });
+      }
     }
   });
 
