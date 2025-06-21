@@ -44,11 +44,14 @@ export default function IntakeLog({ onLogIntake }: IntakeLogProps) {
       beverageType: selectedBeverage,
       hydrationPercentage,
     });
+    
     setIsOpen(false);
-    // Reset to defaults
-    setAmount(250);
-    setSelectedBeverage("water");
-    setCustomHydration([100]);
+    // Reset to defaults with small delay for smooth UX
+    setTimeout(() => {
+      setAmount(250);
+      setSelectedBeverage("water");
+      setCustomHydration([100]);
+    }, 200);
   };
 
   const presetAmounts = [100, 150, 200, 250, 300, 350, 400, 500, 750, 1000];
