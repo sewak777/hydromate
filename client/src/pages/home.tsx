@@ -454,39 +454,36 @@ export default function Home() {
                 </Card>
               )}
 
-              {/* Analytics Quick Access */}
+              {/* Quick Test Notifications */}
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-2">
-                    <TrendingUp className="w-5 h-5 text-purple-600" />
-                    <span>Quick Analytics</span>
-                    {isPremium && (
-                      <div className="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs font-semibold">
-                        PREMIUM
-                      </div>
-                    )}
+                    <Bell className="w-5 h-5 text-blue-600" />
+                    <span>Notifications</span>
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3">
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-gray-600">This Week</span>
-                      <span className="font-semibold">
-                        {Math.round((dashboardData?.todayIntake || 0) * 7 / 7)}ml avg
-                      </span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-gray-600">Current Streak</span>
-                      <span className="font-semibold text-yellow-600">
-                        {dashboardData?.streak || 0} days
-                      </span>
-                    </div>
                     <Button 
                       variant="outline" 
                       className="w-full" 
-                      onClick={() => window.location.href = '/analytics'}
+                      onClick={async () => {
+                        await notificationService.testNotification();
+                        toast({
+                          title: "Test notification sent!",
+                          description: "Check your notification area",
+                        });
+                      }}
                     >
-                      View Detailed Analytics
+                      <Bell className="w-4 h-4 mr-2" />
+                      Test Notification
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      className="w-full" 
+                      onClick={() => window.location.href = '/notifications'}
+                    >
+                      View All Demo Features
                     </Button>
                   </div>
                 </CardContent>
