@@ -15,7 +15,8 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import Navigation from "@/components/navigation";
-import { User, Activity, Bell, Settings, Save, Crown } from "lucide-react";
+import LocationSettings from "@/components/location-settings";
+import { User, Activity, Bell, Settings, Save, Crown, MapPin } from "lucide-react";
 
 const profileSchema = z.object({
   weight: z.number().min(30).max(300),
@@ -23,6 +24,9 @@ const profileSchema = z.object({
   activityLevel: z.enum(["sedentary", "lightly_active", "moderately_active", "very_active", "extremely_active"]),
   customGoal: z.number().optional(),
   timezone: z.string().optional(),
+  location: z.string().optional(),
+  useGeolocation: z.boolean().default(true),
+  weatherEnabled: z.boolean().default(true),
 });
 
 const reminderSchema = z.object({
@@ -98,6 +102,9 @@ export default function Profile() {
         activityLevel: profile.activityLevel,
         customGoal: profile.customGoal,
         timezone: profile.timezone,
+        location: profile.location,
+        useGeolocation: profile.useGeolocation,
+        weatherEnabled: profile.weatherEnabled,
       });
     }
   }, [profile, profileForm]);
@@ -476,6 +483,29 @@ export default function Profile() {
                 </Form>
               </CardContent>
             </Card>
+
+            {/* Location & Weather Settings Card */}
+            {isPremium && (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center space-x-2">
+                    <MapPin className="w-5 h-5 text-blue-600" />
+                    <span>Weather Settings</span>
+                    <div className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-semibold">
+                      PREMIUM
+                    </div>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <LocationSettings
+                    onLocationChange={(location) => {
+                      profileForm.setValue("location", location.city || "");
+                      profileForm.setValue("useGeolocation", location.useGeolocation);
+                    }}
+                  />
+                </CardContent>
+              </Card>
+            )}
           </div>
 
           {/* Account Information */}

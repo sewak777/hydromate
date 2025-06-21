@@ -65,6 +65,41 @@ export default function Home() {
     retry: false,
   });
 
+  const { data: weatherData } = useQuery({
+    queryKey: ["/api/weather"],
+    enabled: isPremium,
+    retry: false,
+    refetchInterval: 30 * 60 * 1000, // Refresh every 30 minutes
+    queryFn: async () => {
+      // Try geolocation first
+      if (navigator.geolocation) {
+        try {
+          const position = await new Promise<GeolocationPosition>((resolve, reject) => {
+            navigator.geolocation.getCurrentPosition(resolve, reject, {
+              timeout: 10000,
+              enableHighAccuracy: false
+            });
+          });
+          
+          const response = await fetch(`/api/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}`);
+          if (!response.ok) throw new Error('Weather fetch failed');
+          return response.json();
+        } catch (error) {
+          console.log('Geolocation failed, using default city');
+          // Fallback to a default city
+          const response = await fetch('/api/weather?city=New York');
+          if (!response.ok) throw new Error('Weather fetch failed');
+          return response.json();
+        }
+      } else {
+        // No geolocation support, use default
+        const response = await fetch('/api/weather?city=New York');
+        if (!response.ok) throw new Error('Weather fetch failed');
+        return response.json();
+      }
+    }
+  });
+
   const logIntakeMutation = useMutation({
     mutationFn: async (data: { amount: number; beverageType?: string; hydrationPercentage?: number }) => {
       await apiRequest("POST", "/api/intake", data);
@@ -312,24 +347,50 @@ export default function Home() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="space-y-3">
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm text-gray-600">Temperature</span>
-                        <span className="font-semibold">24°C</span>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm text-gray-600">Humidity</span>
-                        <span className="font-semibold">65%</span>
-                      </div>
-                      <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
-                        <div className="flex items-center space-x-2">
-                          <Activity className="w-4 h-4 text-yellow-600" />
-                          <span className="text-sm font-medium text-yellow-800">
-                            Increase intake by 200ml due to warm weather
-                          </span>
+                    {weatherData ? (
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm text-gray-600">Location</span>
+                          <span className="font-semibold">{weatherData.weather.location}</span>
                         </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm text-gray-600">Temperature</span>
+                          <span className="font-semibold">{weatherData.weather.temperature}°C</span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm text-gray-600">Feels Like</span>
+                          <span className="font-semibold">{weatherData.weather.feelsLike}°C</span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm text-gray-600">Humidity</span>
+                          <span className="font-semibold">{weatherData.weather.humidity}%</span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm text-gray-600">Conditions</span>
+                          <span className="font-semibold capitalize">{weatherData.weather.description}</span>
+                        </div>
+                        {weatherData.recommendation.baseAdjustment !== 0 && (
+                          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
+                            <div className="flex items-center space-x-2">
+                              <Activity className="w-4 h-4 text-yellow-600" />
+                              <span className="text-sm font-medium text-yellow-800">
+                                {weatherData.recommendation.reason}
+                              </span>
+                            </div>
+                            {weatherData.recommendation.factors.length > 0 && (
+                              <div className="mt-2 text-xs text-yellow-700">
+                                Factors: {weatherData.recommendation.factors.join(', ')}
+                              </div>
+                            )}
+                          </div>
+                        )}
                       </div>
-                    </div>
+                    ) : (
+                      <div className="text-center text-gray-500 py-4">
+                        <Cloud className="w-8 h-8 mx-auto mb-2 opacity-50" />
+                        <p className="text-sm">Loading weather data...</p>
+                      </div>
+                    )}
                   </CardContent>
                 </Card>
               )}

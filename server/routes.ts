@@ -2,6 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { setupAuth, isAuthenticated } from "./replitAuth";
+import { weatherService } from "./weather";
 import { conditionalAuth } from "./feature-flags";
 import {
   insertHydrationProfileSchema,
@@ -219,6 +220,34 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Error fetching subscription:", error);
       res.status(500).json({ message: "Failed to fetch subscription" });
+    }
+  });
+
+  // Weather routes
+  app.get("/api/weather", isAuthenticated, async (req: any, res) => {
+    try {
+      const { lat, lon, city } = req.query;
+      
+      if (!lat && !lon && !city) {
+        return res.status(400).json({ message: "Location coordinates or city name required" });
+      }
+
+      let weatherData;
+      if (lat && lon) {
+        weatherData = await weatherService.getWeatherByCoords(parseFloat(lat), parseFloat(lon));
+      } else if (city) {
+        weatherData = await weatherService.getWeatherByCity(city);
+      }
+
+      const recommendation = weatherService.calculateHydrationAdjustment(weatherData);
+
+      res.json({
+        weather: weatherData,
+        recommendation
+      });
+    } catch (error) {
+      console.error("Error fetching weather:", error);
+      res.status(500).json({ message: "Failed to fetch weather data" });
     }
   });
 
