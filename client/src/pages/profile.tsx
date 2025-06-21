@@ -16,6 +16,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Switch } from "@/components/ui/switch";
 import Navigation from "@/components/navigation";
 import LocationSettings from "@/components/location-settings";
+import { SEOHead } from "@/components/seo-head";
 import { User, Activity, Bell, Settings, Save, Crown, MapPin } from "lucide-react";
 
 const profileSchema = z.object({
@@ -574,5 +575,6 @@ export default function Profile() {
         </div>
       </div>
     </div>
+    </>
   );
 }

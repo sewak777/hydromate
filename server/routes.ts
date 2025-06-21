@@ -3,6 +3,7 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { setupAuth, isAuthenticated } from "./replitAuth";
 import { weatherService } from "./weather";
+import { generateSitemap } from "./sitemap";
 import { conditionalAuth } from "./feature-flags";
 import {
   insertHydrationProfileSchema,
@@ -249,6 +250,31 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.error("Error fetching weather:", error);
       res.status(500).json({ message: "Failed to fetch weather data" });
     }
+  });
+
+  // SEO routes
+  app.get('/sitemap.xml', (req, res) => {
+    res.set('Content-Type', 'application/xml');
+    res.send(generateSitemap());
+  });
+
+  app.get('/robots.txt', (req, res) => {
+    res.set('Content-Type', 'text/plain');
+    res.send(`User-agent: *
+Allow: /
+
+Sitemap: https://hydroflow.app/sitemap.xml
+
+Disallow: /api/
+Disallow: /profile
+Disallow: /dashboard
+
+Allow: /
+Allow: /features
+Allow: /pricing
+Allow: /about
+Allow: /privacy
+Allow: /terms`);
   });
 
   const httpServer = createServer(app);

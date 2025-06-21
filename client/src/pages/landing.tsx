@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { SEOHead } from "@/components/seo-head";
 import { Droplets, Calculator, TrendingUp, Bell, Trophy, Palette, Cloud, Activity, Brain, Star, CheckCircle, Apple, Play, Crown } from "lucide-react";
 
 export default function Landing() {
@@ -8,7 +9,15 @@ export default function Landing() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[hsl(var(--soft-gray))] to-white">
+    <>
+      <SEOHead 
+        title="HydroFlow - Smart Water Reminder & Hydration Tracking App"
+        description="Transform your daily hydration with intelligent reminders, personalized goals, and beautiful progress tracking. Join thousands who've made hydration effortless with weather-based recommendations."
+        keywords="water reminder app, hydration tracker, water intake monitoring, daily water goal, health tracking app, wellness application, hydration habits, smart water reminders, water tracking app, health monitoring"
+        canonicalUrl="https://hydroflow.app"
+      />
+      
+      <div className="min-h-screen bg-gradient-to-br from-[hsl(var(--soft-gray))] to-white">
       {/* Navigation */}
       <nav className="fixed top-0 w-full bg-white/90 backdrop-blur-md shadow-sm z-50">
         <div className="container mx-auto px-4 py-4">
@@ -46,7 +55,7 @@ export default function Landing() {
                 <br />Feel the Difference
               </h1>
               <p className="text-xl text-[hsl(var(--text-light))] mb-8 leading-relaxed">
-                Transform your daily hydration with intelligent reminders, personalized goals, and beautiful progress tracking. Join thousands who've made hydration effortless.
+                Transform your daily hydration with intelligent water reminders, personalized daily goals, and beautiful progress tracking. Join thousands who've made healthy hydration habits effortless with our smart water intake app.
               </p>
               <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-8">
                 <Button
@@ -941,5 +950,6 @@ export default function Landing() {
         </div>
       </footer>
     </div>
+    </>
   );
 }
