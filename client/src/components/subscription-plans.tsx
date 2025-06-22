@@ -9,7 +9,7 @@ import { Check, Crown, CreditCard, Settings, Loader2 } from "lucide-react";
 
 const plans: SubscriptionPlan[] = [
   {
-    id: 'price_monthly',
+    id: 'price_1Rcc2DGdYl8QlNFU1yVhmZqE',
     name: 'Premium Monthly',
     description: 'All premium features with monthly billing',
     price: 999, // $9.99 in cents
@@ -23,7 +23,7 @@ const plans: SubscriptionPlan[] = [
     ]
   },
   {
-    id: 'price_annual',
+    id: 'price_1Rcc2DGdYl8QlNFUgNzH7sKr',
     name: 'Premium Annual',
     description: 'All premium features with annual billing',
     price: 9599, // $95.99 in cents (20% discount)
