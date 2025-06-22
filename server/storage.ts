@@ -55,6 +55,7 @@ export interface IStorage {
   
   // Subscription operations
   getSubscription(userId: string): Promise<Subscription | undefined>;
+  upsertSubscription(subscription: InsertSubscription): Promise<Subscription>;
   
   // Analytics operations
   getStreakCount(userId: string): Promise<number>;

@@ -273,6 +273,12 @@ export const insertMonthlyAnalyticsSchema = createInsertSchema(monthlyAnalytics)
   createdAt: true,
 });
 
+export const insertSubscriptionSchema = createInsertSchema(subscriptions).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
 // Types
 export type UpsertUser = z.infer<typeof insertUserSchema>;
 export type User = typeof users.$inferSelect;
@@ -289,3 +295,4 @@ export type InsertDailySummary = z.infer<typeof insertDailySummarySchema>;
 export type WeeklyAnalytics = typeof weeklyAnalytics.$inferSelect;
 export type MonthlyAnalytics = typeof monthlyAnalytics.$inferSelect;
 export type Subscription = typeof subscriptions.$inferSelect;
+export type InsertSubscription = z.infer<typeof insertSubscriptionSchema>;

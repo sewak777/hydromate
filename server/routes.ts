@@ -256,10 +256,72 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const userId = req.user.claims.sub;
       const subscription = await storage.getSubscription(userId);
-      res.json({ isPremium: !!subscription, subscription });
+      const isPremium = subscription && subscription.status === 'active';
+      res.json({ isPremium, subscription });
     } catch (error) {
       console.error("Error fetching subscription:", error);
       res.status(500).json({ message: "Failed to fetch subscription" });
+    }
+  });
+
+  // Stripe routes
+  app.post('/api/stripe/create-checkout-session', conditionalAuth, async (req: any, res) => {
+    try {
+      const { createCheckoutSession } = await import('./stripe');
+      const userId = req.user.claims.sub;
+      const { priceId, successUrl, cancelUrl } = req.body;
+
+      const session = await createCheckoutSession(userId, priceId, successUrl, cancelUrl);
+      res.json({ url: session.url });
+    } catch (error) {
+      console.error("Error creating checkout session:", error);
+      res.status(500).json({ message: "Failed to create checkout session" });
+    }
+  });
+
+  app.post('/api/stripe/create-portal-session', conditionalAuth, async (req: any, res) => {
+    try {
+      const { createCustomerPortalSession } = await import('./stripe');
+      const userId = req.user.claims.sub;
+      const { returnUrl } = req.body;
+
+      const subscription = await storage.getSubscription(userId);
+      if (!subscription || !subscription.stripeCustomerId) {
+        return res.status(400).json({ message: "No active subscription found" });
+      }
+
+      const session = await createCustomerPortalSession(subscription.stripeCustomerId, returnUrl);
+      res.json({ url: session.url });
+    } catch (error) {
+      console.error("Error creating portal session:", error);
+      res.status(500).json({ message: "Failed to create portal session" });
+    }
+  });
+
+  app.post('/api/stripe/webhook', async (req, res) => {
+    try {
+      const { stripe, handleWebhookEvent } = await import('./stripe');
+      const sig = req.headers['stripe-signature'];
+      const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+
+      if (!webhookSecret) {
+        console.error('STRIPE_WEBHOOK_SECRET not configured');
+        return res.status(400).send('Webhook secret not configured');
+      }
+
+      let event;
+      try {
+        event = stripe.webhooks.constructEvent(req.body, sig!, webhookSecret);
+      } catch (err: any) {
+        console.error('Webhook signature verification failed:', err.message);
+        return res.status(400).send(`Webhook Error: ${err.message}`);
+      }
+
+      await handleWebhookEvent(event);
+      res.json({ received: true });
+    } catch (error) {
+      console.error("Error processing webhook:", error);
+      res.status(500).json({ message: "Failed to process webhook" });
     }
   });
 
