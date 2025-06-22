@@ -131,30 +131,55 @@ export class NotificationService {
   }
 
   private showSimulatedNotification(options: NotificationOptions): void {
-    // Create a visual simulation of the notification
+    // Create a visual simulation of the notification using safe DOM manipulation
     const notification = document.createElement('div');
     notification.className = 'fixed top-4 right-4 z-50 bg-white border border-gray-200 rounded-lg shadow-lg p-4 max-w-sm animate-in slide-in-from-right duration-300';
-    notification.innerHTML = `
-      <div class="flex items-start space-x-3">
-        <div class="flex-shrink-0">
-          <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-            <svg class="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/>
-            </svg>
-          </div>
-        </div>
-        <div class="flex-1 min-w-0">
-          <p class="text-sm font-medium text-gray-900">${options.title}</p>
-          <p class="mt-1 text-sm text-gray-500">${options.body}</p>
-          <p class="mt-2 text-xs text-blue-600">Demo Notification - Would be real in production</p>
-        </div>
-        <button class="flex-shrink-0 text-gray-400 hover:text-gray-600" onclick="this.parentElement.parentElement.remove()">
-          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
-          </svg>
-        </button>
-      </div>
-    `;
+    
+    const container = document.createElement('div');
+    container.className = 'flex items-start space-x-3';
+    
+    // Icon section
+    const iconSection = document.createElement('div');
+    iconSection.className = 'flex-shrink-0';
+    const iconWrapper = document.createElement('div');
+    iconWrapper.className = 'w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center';
+    iconWrapper.innerHTML = `<svg class="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+      <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/>
+    </svg>`;
+    iconSection.appendChild(iconWrapper);
+    
+    // Text content section
+    const textSection = document.createElement('div');
+    textSection.className = 'flex-1 min-w-0';
+    
+    const titleEl = document.createElement('p');
+    titleEl.className = 'text-sm font-medium text-gray-900';
+    titleEl.textContent = options.title; // Safe text assignment
+    
+    const bodyEl = document.createElement('p');
+    bodyEl.className = 'mt-1 text-sm text-gray-500';
+    bodyEl.textContent = options.body; // Safe text assignment
+    
+    const demoLabel = document.createElement('p');
+    demoLabel.className = 'mt-2 text-xs text-blue-600';
+    demoLabel.textContent = 'Demo Notification - Would be real in production';
+    
+    textSection.appendChild(titleEl);
+    textSection.appendChild(bodyEl);
+    textSection.appendChild(demoLabel);
+    
+    // Close button
+    const closeButton = document.createElement('button');
+    closeButton.className = 'flex-shrink-0 text-gray-400 hover:text-gray-600';
+    closeButton.onclick = () => notification.remove();
+    closeButton.innerHTML = `<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+      <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+    </svg>`;
+    
+    container.appendChild(iconSection);
+    container.appendChild(textSection);
+    container.appendChild(closeButton);
+    notification.appendChild(container);
 
     document.body.appendChild(notification);
 
