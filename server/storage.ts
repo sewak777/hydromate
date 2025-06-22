@@ -249,18 +249,34 @@ export class DatabaseStorage implements IStorage {
       return {
         id: 1,
         userId,
-        planType: 'annual',
+        planType: 'year',
         status: 'active',
-        startDate: new Date(),
-        endDate: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
+        stripeCustomerId: 'cus_mock_123',
+        stripeSubscriptionId: 'sub_mock_123',
+        stripePriceId: 'price_annual',
+        currentPeriodStart: new Date(),
+        currentPeriodEnd: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
         createdAt: new Date(),
+        updatedAt: new Date(),
       };
     }
     
+    const [subscription] = await db.select().from(subscriptions).where(eq(subscriptions.userId, userId));
+    return subscription;
+  }
+
+  async upsertSubscription(subscriptionData: InsertSubscription): Promise<Subscription> {
     const [subscription] = await db
-      .select()
-      .from(subscriptions)
-      .where(and(eq(subscriptions.userId, userId), eq(subscriptions.status, "active")));
+      .insert(subscriptions)
+      .values(subscriptionData)
+      .onConflictDoUpdate({
+        target: subscriptions.userId,
+        set: {
+          ...subscriptionData,
+          updatedAt: new Date(),
+        },
+      })
+      .returning();
     return subscription;
   }
 

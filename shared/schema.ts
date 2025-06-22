@@ -157,11 +157,15 @@ export const monthlyAnalytics = pgTable("monthly_analytics", {
 export const subscriptions = pgTable("subscriptions", {
   id: serial("id").primaryKey(),
   userId: varchar("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
-  planType: varchar("plan_type").notNull(), // 'monthly', 'annual'
-  status: varchar("status").notNull(), // 'active', 'cancelled', 'expired'
-  startDate: timestamp("start_date").notNull(),
-  endDate: timestamp("end_date").notNull(),
+  planType: varchar("plan_type").notNull(), // 'month', 'year'
+  status: varchar("status").notNull(), // 'active', 'canceled', 'past_due', 'incomplete', 'trialing'
+  stripeCustomerId: varchar("stripe_customer_id"),
+  stripeSubscriptionId: varchar("stripe_subscription_id"),
+  stripePriceId: varchar("stripe_price_id"),
+  currentPeriodStart: timestamp("current_period_start"),
+  currentPeriodEnd: timestamp("current_period_end"),
   createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
 });
 
 // Relations
@@ -271,12 +275,6 @@ export const insertWeeklyAnalyticsSchema = createInsertSchema(weeklyAnalytics).o
 export const insertMonthlyAnalyticsSchema = createInsertSchema(monthlyAnalytics).omit({
   id: true,
   createdAt: true,
-});
-
-export const insertSubscriptionSchema = createInsertSchema(subscriptions).omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true,
 });
 
 export const insertSubscriptionSchema = createInsertSchema(subscriptions).omit({
