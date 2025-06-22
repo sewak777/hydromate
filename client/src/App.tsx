@@ -12,6 +12,9 @@ import Home from "@/pages/home";
 import Profile from "@/pages/profile";
 import Analytics from "@/pages/analytics";
 import Notifications from "@/pages/notifications";
+import Subscription from "@/pages/subscription";
+import SubscriptionSuccess from "@/pages/subscription-success";
+import SubscriptionCancel from "@/pages/subscription-cancel";
 
 function Router() {
   const { isAuthenticated, isLoading } = useAuth();
@@ -31,6 +34,9 @@ function Router() {
           <Route path="/profile" component={Profile} />
           <Route path="/analytics" component={Analytics} />
           <Route path="/notifications" component={Notifications} />
+          <Route path="/subscription" component={Subscription} />
+          <Route path="/subscription/success" component={SubscriptionSuccess} />
+          <Route path="/subscription/cancel" component={SubscriptionCancel} />
         </>
       )}
       <Route component={NotFound} />

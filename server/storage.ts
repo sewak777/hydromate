@@ -20,6 +20,7 @@ import {
   type DailySummary,
   type InsertDailySummary,
   type Subscription,
+  type InsertSubscription,
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, desc, and, gte, lte, sum, count } from "drizzle-orm";
