@@ -106,54 +106,83 @@ export default function Landing() {
                       </div>
                     </div>
                     
-                    {/* App interface */}
-                    <div className="bg-gradient-to-br from-blue-500 to-green-500 h-full p-6 text-white">
-                      {/* App header */}
-                      <div className="text-center mb-6">
-                        <div className="flex items-center justify-center space-x-2 mb-3">
-                          <Droplets className="w-7 h-7" />
-                          <span className="text-2xl font-bold">QuenchNow</span>
+                    {/* App interface matching actual QuenchNow design */}
+                    <div className="bg-gradient-to-br from-[hsl(var(--soft-gray))] to-white h-full p-4 text-gray-800">
+                      {/* Navigation bar */}
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="flex items-center space-x-2">
+                          <div className="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center">
+                            <Droplets className="text-white w-3 h-3" />
+                          </div>
+                          <span className="text-lg font-bold text-blue-600">QuenchNow</span>
                         </div>
-                        <h3 className="text-xl font-semibold mb-1">Today's Progress</h3>
-                        <p className="text-base opacity-90">1,500ml of 2,000ml</p>
+                        <Bell className="w-5 h-5 text-gray-500" />
                       </div>
-                      
-                      {/* Large water bottle */}
-                      <div className="relative mx-auto w-28 h-56 mb-6">
-                        <div className="absolute inset-0 bg-white bg-opacity-20 rounded-full border-4 border-white border-opacity-30"></div>
-                        <div 
-                          className="absolute bottom-0 left-0 right-0 bg-white bg-opacity-40 rounded-b-full border-4 border-white border-opacity-50" 
-                          style={{height: '75%'}}
-                        ></div>
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <span className="text-2xl font-bold">75%</span>
-                        </div>
+
+                      {/* Welcome header */}
+                      <div className="text-center mb-4">
+                        <h2 className="text-lg font-bold mb-1">Welcome back!</h2>
+                        <p className="text-sm text-gray-600">500ml left to reach your goal</p>
                       </div>
-                      
-                      {/* Quick buttons */}
-                      <div className="grid grid-cols-4 gap-2 mb-6">
-                        <div className="bg-white bg-opacity-20 rounded-lg p-3 text-center">
-                          <div className="font-bold text-sm">250ml</div>
-                          <div className="text-xs opacity-80">Glass</div>
+
+                      {/* Stats cards */}
+                      <div className="grid grid-cols-2 gap-2 mb-4">
+                        <div className="bg-white rounded-lg p-3 text-center shadow-sm">
+                          <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-1">
+                            <Droplets className="text-blue-600 w-3 h-3" />
+                          </div>
+                          <div className="text-lg font-bold text-blue-600">1500ml</div>
+                          <div className="text-xs text-gray-500">Today</div>
                         </div>
-                        <div className="bg-white bg-opacity-20 rounded-lg p-3 text-center">
-                          <div className="font-bold text-sm">500ml</div>
-                          <div className="text-xs opacity-80">Bottle</div>
-                        </div>
-                        <div className="bg-white bg-opacity-40 rounded-lg p-3 text-center border-2 border-white border-opacity-50">
-                          <div className="font-bold text-sm">750ml</div>
-                          <div className="text-xs">Large</div>
-                        </div>
-                        <div className="bg-white bg-opacity-20 rounded-lg p-3 text-center">
-                          <div className="font-bold text-sm">1L</div>
-                          <div className="text-xs opacity-80">Liter</div>
+                        <div className="bg-white rounded-lg p-3 text-center shadow-sm">
+                          <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-1">
+                            <TrendingUp className="text-green-600 w-3 h-3" />
+                          </div>
+                          <div className="text-lg font-bold text-green-600">75%</div>
+                          <div className="text-xs text-gray-500">Progress</div>
                         </div>
                       </div>
-                      
-                      {/* Action button */}
-                      <button className="w-full bg-white text-blue-600 font-semibold py-4 rounded-xl shadow-lg text-lg">
-                        Log Water Intake
-                      </button>
+
+                      {/* Water bottle visualization */}
+                      <div className="bg-white rounded-xl p-4 mb-4 shadow-sm">
+                        <div className="flex items-center justify-center">
+                          <div className="relative w-16 h-32">
+                            <div className="absolute inset-0 bg-gray-100 rounded-full border-2 border-gray-200"></div>
+                            <div 
+                              className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-blue-400 to-blue-300 rounded-b-full border-2 border-blue-300" 
+                              style={{height: '75%'}}
+                            ></div>
+                            <div className="absolute inset-0 flex items-center justify-center">
+                              <span className="text-sm font-bold text-gray-700">75%</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="text-center mt-2">
+                          <div className="text-sm font-semibold">Daily Progress</div>
+                          <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
+                            <div className="bg-blue-500 h-2 rounded-full" style={{width: '75%'}}></div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Quick log buttons */}
+                      <div className="bg-white rounded-xl p-3 shadow-sm">
+                        <div className="text-sm font-semibold mb-2 text-center">Quick Log</div>
+                        <div className="grid grid-cols-4 gap-1">
+                          <button className="bg-blue-50 rounded-lg p-2 text-center border border-blue-200">
+                            <div className="text-xs font-bold text-blue-600">250ml</div>
+                          </button>
+                          <button className="bg-blue-500 rounded-lg p-2 text-center text-white">
+                            <div className="text-xs font-bold">500ml</div>
+                          </button>
+                          <button className="bg-blue-50 rounded-lg p-2 text-center border border-blue-200">
+                            <div className="text-xs font-bold text-blue-600">750ml</div>
+                          </button>
+                          <button className="bg-blue-50 rounded-lg p-2 text-center border border-blue-200">
+                            <div className="text-xs font-bold text-blue-600">1L</div>
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
