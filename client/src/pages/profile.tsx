@@ -229,7 +229,7 @@ export default function Profile() {
   return (
     <>
       <SEOHead 
-        title="Profile Settings - HydroFlow"
+        title="Profile Settings - QuenchNow"
         description="Customize your hydration profile with personalized goals, reminder settings, and weather preferences. Optimize your water tracking experience."
         noIndex={true}
       />

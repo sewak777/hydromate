@@ -5,6 +5,7 @@ import { setupAuth, isAuthenticated } from "./replitAuth";
 import { weatherService } from "./weather";
 import { generateSitemap } from "./sitemap";
 import { conditionalAuth } from "./feature-flags";
+import { AccessControlManager, accessControlProfiles } from "./access-control";
 import {
   insertHydrationProfileSchema,
   insertIntakeLogSchema,
@@ -13,6 +14,17 @@ import {
 import { z } from "zod";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Initialize access control
+  const accessControl = new AccessControlManager(
+    process.env.NODE_ENV === 'production' 
+      ? accessControlProfiles.restrictedProduction 
+      : accessControlProfiles.development
+  );
+
+  // Apply global middleware
+  app.use(accessControl.rateLimit);
+  app.use(accessControl.ipWhitelist);
+
   // Auth middleware
   await setupAuth(app);
 

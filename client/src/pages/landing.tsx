@@ -11,10 +11,10 @@ export default function Landing() {
   return (
     <>
       <SEOHead 
-        title="HydroFlow - Smart Water Reminder & Hydration Tracking App"
+        title="QuenchNow - Smart Water Reminder & Hydration Tracking App"
         description="Transform your daily hydration with intelligent reminders, personalized goals, and beautiful progress tracking. Join thousands who've made hydration effortless with weather-based recommendations."
         keywords="water reminder app, hydration tracker, water intake monitoring, daily water goal, health tracking app, wellness application, hydration habits, smart water reminders, water tracking app, health monitoring"
-        canonicalUrl="https://hydroflow.app"
+        canonicalUrl="https://quenchnow.com"
       />
       
       <div className="min-h-screen bg-gradient-to-br from-[hsl(var(--soft-gray))] to-white">
@@ -26,7 +26,7 @@ export default function Landing() {
               <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
                 <Droplets className="text-white w-4 h-4" />
               </div>
-              <span className="text-xl font-bold text-blue-600">HydroFlow</span>
+              <span className="text-xl font-bold text-blue-600">QuenchNow</span>
             </div>
             <div className="hidden md:flex space-x-8">
               <a href="#features" className="text-[hsl(var(--text-light))] hover:text-[hsl(var(--primary-blue))] transition-colors">Features</a>
@@ -112,7 +112,7 @@ export default function Landing() {
                       <div className="text-center mb-6">
                         <div className="flex items-center justify-center space-x-2 mb-3">
                           <Droplets className="w-7 h-7" />
-                          <span className="text-2xl font-bold">HydroFlow</span>
+                          <span className="text-2xl font-bold">QuenchNow</span>
                         </div>
                         <h3 className="text-xl font-semibold mb-1">Today's Progress</h3>
                         <p className="text-base opacity-90">1,500ml of 2,000ml</p>
@@ -903,7 +903,7 @@ export default function Landing() {
                 <div className="w-8 h-8 water-gradient rounded-full flex items-center justify-center">
                   <Droplets className="text-white w-4 h-4" />
                 </div>
-                <span className="text-xl font-bold">HydroFlow</span>
+                <span className="text-xl font-bold">QuenchNow</span>
               </div>
               <p className="text-gray-400">Making hydration effortless for healthier lives.</p>
             </div>
@@ -945,7 +945,7 @@ export default function Landing() {
           </div>
           
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 HydroFlow. All rights reserved.</p>
+            <p>&copy; 2024 QuenchNow. All rights reserved.</p>
           </div>
         </div>
       </footer>
