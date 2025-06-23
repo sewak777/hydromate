@@ -6,6 +6,7 @@ import { weatherService } from "./weather";
 import { generateSitemap } from "./sitemap";
 import { conditionalAuth } from "./feature-flags";
 import { AccessControlManager, accessControlProfiles } from "./access-control";
+import { getCurrentDateInTimezone, getDateRangeInTimezone } from "./dateUtils";
 import {
   insertHydrationProfileSchema,
   insertIntakeLogSchema,
@@ -112,7 +113,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post('/api/intake', conditionalAuth, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
-      const today = new Date().toISOString().split('T')[0];
+      const today = getCurrentDateInTimezone('America/Toronto');
       
       const logData = insertIntakeLogSchema.parse({
         ...req.body,
@@ -135,7 +136,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get('/api/intake/today', conditionalAuth, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
-      const today = new Date().toISOString().split('T')[0];
+      const today = getCurrentDateInTimezone('America/Toronto');
       const logs = await storage.getIntakeLogsByDate(userId, today);
       res.json(logs);
     } catch (error) {
@@ -165,7 +166,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get('/api/dashboard', conditionalAuth, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
-      const today = new Date().toISOString().split('T')[0];
+      const today = getCurrentDateInTimezone('America/Toronto');
       
       // Get today's data
       const [profile, todayIntake, todaySummary, streak, achievements] = await Promise.all([
@@ -177,9 +178,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       ]);
 
       // Get last 7 days for chart
-      const sevenDaysAgo = new Date();
-      sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 6);
-      const startDate = sevenDaysAgo.toISOString().split('T')[0];
+      const { startDate } = getDateRangeInTimezone(6, 'America/Toronto');
       
       const weekSummaries = await storage.getDailySummariesByRange(userId, startDate, today);
 
