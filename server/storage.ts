@@ -25,6 +25,7 @@ import {
 import { db } from "./db";
 import { eq, desc, and, gte, lte, sum, count } from "drizzle-orm";
 import { getFeatureFlags } from "@shared/feature-flags";
+import { getCurrentDateInTimezone, getDateInTimezone } from "./dateUtils";
 
 export interface IStorage {
   // User operations (required for Replit Auth)
@@ -290,12 +291,16 @@ export class DatabaseStorage implements IStorage {
       .limit(365); // Check up to a year back
 
     let streak = 0;
-    const today = new Date().toISOString().split('T')[0];
-    let currentDate = new Date(today);
+    const today = getCurrentDateInTimezone('America/Toronto');
+    let currentDate = new Date();
+    
+    // Parse today's date in local timezone
+    const todayParts = today.split('-');
+    currentDate = new Date(parseInt(todayParts[0]), parseInt(todayParts[1]) - 1, parseInt(todayParts[2]));
 
     for (const summary of summaries) {
       const summaryDate = summary.date;
-      const expectedDate = currentDate.toISOString().split('T')[0];
+      const expectedDate = getDateInTimezone(currentDate, 'America/Toronto');
       
       if (summaryDate === expectedDate) {
         streak++;

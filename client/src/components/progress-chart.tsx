@@ -13,8 +13,10 @@ interface ProgressChartProps {
 export default function ProgressChart({ data }: ProgressChartProps) {
   const chartData = useMemo(() => {
     return data.map((item) => {
-      const date = new Date(item.date);
-      const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
+      // Parse date in local timezone to avoid UTC conversion issues
+      const dateParts = item.date.split('-');
+      const date = new Date(parseInt(dateParts[0]), parseInt(dateParts[1]) - 1, parseInt(dateParts[2]));
+      const dayName = date.toLocaleDateString('en-CA', { weekday: 'short', timeZone: 'America/Toronto' });
       const dateNumber = date.getDate();
       
       return {
