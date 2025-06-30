@@ -7,6 +7,13 @@ import { generateSitemap } from "./sitemap";
 import { conditionalAuth } from "./feature-flags";
 import { AccessControlManager, accessControlProfiles } from "./access-control";
 import { getCurrentDateInTimezone, getDateRangeInTimezone } from "./dateUtils";
+import { 
+  requireUserOwnership, 
+  sanitizeInput, 
+  validateSchema, 
+  SecurityRateLimiter,
+  securityHeaders 
+} from "./security";
 import {
   insertHydrationProfileSchema,
   insertIntakeLogSchema,

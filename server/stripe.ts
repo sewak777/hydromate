@@ -18,9 +18,10 @@ export interface SubscriptionPlan {
   features: string[];
 }
 
+// SECURITY: Move price IDs to environment variables
 export const subscriptionPlans: SubscriptionPlan[] = [
   {
-    id: 'price_1Rcc2DGdYl8QlNFU1yVhmZqE',
+    id: process.env.STRIPE_MONTHLY_PRICE_ID || 'price_default_monthly',
     name: 'Premium Monthly',
     description: 'All premium features with monthly billing',
     price: 999, // $9.99 in cents
@@ -34,7 +35,7 @@ export const subscriptionPlans: SubscriptionPlan[] = [
     ]
   },
   {
-    id: 'price_1Rcc2DGdYl8QlNFUgNzH7sKr',
+    id: process.env.STRIPE_ANNUAL_PRICE_ID || 'price_default_annual',
     name: 'Premium Annual',
     description: 'All premium features with annual billing (20% off)',
     price: 9599, // $95.99 in cents (20% discount)
