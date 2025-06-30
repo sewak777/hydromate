@@ -22,22 +22,31 @@ import {
 import { z } from "zod";
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Initialize access control
+  // Initialize security middleware
+  const securityRateLimit = new SecurityRateLimiter(
+    process.env.NODE_ENV === 'production' ? 100 : 1000, // requests per minute
+    60000, // 1 minute window
+    300000 // 5 minute block duration
+  );
+  
   const accessControl = new AccessControlManager(
     process.env.NODE_ENV === 'production' 
       ? accessControlProfiles.restrictedProduction 
       : accessControlProfiles.development
   );
 
-  // Apply global middleware
+  // Apply global security middleware
+  app.use(securityHeaders);
+  app.use(sanitizeInput);
+  app.use(securityRateLimit.middleware);
   app.use(accessControl.rateLimit);
   app.use(accessControl.ipWhitelist);
 
   // Auth middleware
   await setupAuth(app);
 
-  // Auth routes
-  app.get('/api/auth/user', conditionalAuth, async (req: any, res) => {
+  // Auth routes  
+  app.get('/api/auth/user', conditionalAuth, requireUserOwnership, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       let user = await storage.getUser(userId);
@@ -61,7 +70,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Hydration profile routes
-  app.get('/api/profile', conditionalAuth, async (req: any, res) => {
+  app.get('/api/profile', conditionalAuth, requireUserOwnership, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       const profile = await storage.getHydrationProfile(userId);
@@ -72,7 +81,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post('/api/profile', conditionalAuth, async (req: any, res) => {
+  app.post('/api/profile', conditionalAuth, requireUserOwnership, validateSchema(insertHydrationProfileSchema), async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       

@@ -5,9 +5,10 @@ import { isAuthenticated } from "./replitAuth";
 export const conditionalAuth: RequestHandler = async (req, res, next) => {
   const flags = getFeatureFlags();
   
-  if (!flags.authRequired || flags.testMode) {
-    // Mock user for testing
-    if (flags.mockUsers || flags.testMode) {
+  // SECURITY: Only allow auth bypass in development with explicit flags
+  if (process.env.NODE_ENV === 'development' && !flags.authRequired && flags.testMode) {
+    // Mock user for testing in development only
+    if (flags.mockUsers) {
       req.user = {
         claims: {
           sub: 'test-user-123',
@@ -22,6 +23,6 @@ export const conditionalAuth: RequestHandler = async (req, res, next) => {
     return next();
   }
   
-  // Use original authentication
+  // SECURITY: Always require authentication in production or when flags demand it
   return isAuthenticated(req, res, next);
 };

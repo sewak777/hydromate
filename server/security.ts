@@ -162,7 +162,7 @@ export const sanitizeDbParams = (params: Record<string, any>): Record<string, an
   for (const [key, value] of Object.entries(params)) {
     if (typeof value === 'string') {
       // Remove SQL injection patterns
-      sanitized[key] = value.replace(/[';--]/g, '').trim();
+      sanitized[key] = value.replace(/[';]/g, '').replace(/--/g, '').trim();
     } else if (typeof value === 'number') {
       // Ensure it's a valid number
       sanitized[key] = isNaN(value) ? 0 : value;
