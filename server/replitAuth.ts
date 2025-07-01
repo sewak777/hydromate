@@ -102,10 +102,16 @@ export async function setupAuth(app: Express) {
   passport.deserializeUser((user: Express.User, cb) => cb(null, user));
 
   app.get("/api/login", (req, res, next) => {
-    passport.authenticate(`replitauth:${req.hostname}`, {
-      prompt: "login consent",
-      scope: ["openid", "email", "profile", "offline_access"],
-    })(req, res, next);
+    // Check if this is a direct auth request (with ?direct=true)
+    if (req.query.direct === 'true') {
+      passport.authenticate(`replitauth:${req.hostname}`, {
+        prompt: "login consent",
+        scope: ["openid", "email", "profile", "offline_access"],
+      })(req, res, next);
+    } else {
+      // Redirect to our custom auth page
+      res.redirect('/auth');
+    }
   });
 
   app.get("/api/callback", (req, res, next) => {

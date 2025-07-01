@@ -9,6 +9,8 @@ import { notificationService } from "@/services/notificationService";
 import NotFound from "@/pages/not-found";
 import Landing from "@/pages/landing";
 import ModernLanding from "@/pages/modern-landing";
+import AuthPage from "@/pages/auth";
+import AuthLoading from "@/pages/auth-loading";
 import Home from "@/pages/home";
 import Profile from "@/pages/profile";
 import Analytics from "@/pages/analytics";
@@ -31,6 +33,8 @@ function Router() {
         <>
           <Route path="/" component={ModernLanding} />
           <Route path="/landing" component={Landing} />
+          <Route path="/auth" component={AuthPage} />
+          <Route path="/auth/loading" component={AuthLoading} />
         </>
       ) : (
         <>
