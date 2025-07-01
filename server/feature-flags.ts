@@ -6,8 +6,8 @@ export const conditionalAuth: RequestHandler = async (req, res, next) => {
   const flags = getFeatureFlags();
   
   // Check for development session user first
-  if (process.env.NODE_ENV === 'development' && req.session?.user) {
-    req.user = req.session.user;
+  if (process.env.NODE_ENV === 'development' && (req.session as any)?.user) {
+    req.user = (req.session as any).user;
     return next();
   }
   

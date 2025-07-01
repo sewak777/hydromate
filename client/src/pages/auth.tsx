@@ -9,8 +9,14 @@ export default function AuthPage() {
     if (import.meta.env.DEV) {
       // Enable mock user for development
       fetch('/api/dev/enable-mock-user', { method: 'POST' })
-        .then(() => {
-          window.location.href = "/";
+        .then(response => {
+          if (response.ok) {
+            // Force a full page reload to refresh React Query cache
+            window.location.reload();
+          } else {
+            // Fallback to normal auth flow
+            window.location.href = "/api/login?direct=true";
+          }
         })
         .catch(() => {
           // Fallback to normal auth flow
