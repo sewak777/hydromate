@@ -135,6 +135,8 @@ HydroFlow is a comprehensive hydration tracking application that helps users mon
 - **Security Headers**: Full browser-level protection implemented
 
 ## Changelog
+- July 01, 2025. Created modern landing page based on Figma design inspiration with clean layout, animations, and contemporary styling
+- July 01, 2025. Implemented custom authentication pages to remove Replit branding and provide better user experience
 - June 30, 2025. Major security audit and hardening completed
 - June 30, 2025. Fixed timezone handling for Canadian users (America/Toronto)
 - June 23, 2025. Initial setup
