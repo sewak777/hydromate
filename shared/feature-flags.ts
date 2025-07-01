@@ -7,11 +7,11 @@ export interface FeatureFlags {
 }
 
 export const defaultFlags: FeatureFlags = {
-  authRequired: false,  // TEMP: Allow development access
+  authRequired: true,  // SECURITY: Always require auth by default
   premiumRequired: false,
-  mockUsers: true,     // TEMP: Enable mock users for development
+  mockUsers: false,    // SECURITY: Disable mock users by default
   mockSubscriptions: false,
-  testMode: true,      // TEMP: Enable test mode for development
+  testMode: false,     // SECURITY: Disable test mode by default
 };
 
 // Environment-based flag overrides
@@ -23,7 +23,6 @@ export const getFeatureFlags = (): FeatureFlags => {
     flags.authRequired = process.env.FF_AUTH_REQUIRED === 'true';
     flags.premiumRequired = process.env.FF_PREMIUM_REQUIRED === 'true';
     flags.mockUsers = process.env.FF_MOCK_USERS !== 'false';
-    flags.authRequired = false; // TEMP: Force disable auth for demo
     flags.mockSubscriptions = process.env.FF_MOCK_SUBSCRIPTIONS === 'true';
     flags.testMode = process.env.FF_TEST_MODE !== 'false';
   } else {
