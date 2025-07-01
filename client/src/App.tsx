@@ -8,6 +8,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { notificationService } from "@/services/notificationService";
 import NotFound from "@/pages/not-found";
 import Landing from "@/pages/landing";
+import ModernLanding from "@/pages/modern-landing";
 import Home from "@/pages/home";
 import Profile from "@/pages/profile";
 import Analytics from "@/pages/analytics";
@@ -27,7 +28,7 @@ function Router() {
   return (
     <Switch>
       {isLoading || !isAuthenticated ? (
-        <Route path="/" component={Landing} />
+        <Route path="/" component={ModernLanding} />
       ) : (
         <>
           <Route path="/" component={Home} />
