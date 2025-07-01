@@ -20,11 +20,11 @@ export const getFeatureFlags = (): FeatureFlags => {
   
   if (process.env.NODE_ENV === 'development') {
     // SECURITY: Explicit opt-in for development features only
-    flags.authRequired = process.env.FF_AUTH_REQUIRED !== 'false';
+    flags.authRequired = process.env.FF_AUTH_REQUIRED === 'true';
     flags.premiumRequired = process.env.FF_PREMIUM_REQUIRED === 'true';
-    flags.mockUsers = process.env.FF_MOCK_USERS === 'true';
+    flags.mockUsers = process.env.FF_MOCK_USERS !== 'false';
     flags.mockSubscriptions = process.env.FF_MOCK_SUBSCRIPTIONS === 'true';
-    flags.testMode = process.env.FF_TEST_MODE === 'true';
+    flags.testMode = process.env.FF_TEST_MODE !== 'false';
   } else {
     // SECURITY: Production enforces strict security
     flags.authRequired = true;
