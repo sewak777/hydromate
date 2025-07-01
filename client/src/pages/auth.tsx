@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { SEOHead } from "@/components/seo-head";
 import { Droplets, Shield, Star, Users, ArrowRight, CheckCircle } from "lucide-react";
+import { queryClient } from "@/lib/queryClient";
 
 export default function AuthPage() {
   const handleLogin = () => {
@@ -11,8 +12,8 @@ export default function AuthPage() {
       fetch('/api/dev/enable-mock-user', { method: 'POST' })
         .then(response => {
           if (response.ok) {
-            // Force a full page reload to refresh React Query cache
-            window.location.reload();
+            // Force a complete page reload to ensure fresh state
+            window.location.href = "/";
           } else {
             // Fallback to normal auth flow
             window.location.href = "/api/login?direct=true";

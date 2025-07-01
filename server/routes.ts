@@ -47,19 +47,36 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Development-only route to enable mock user
   if (process.env.NODE_ENV === 'development') {
-    app.post('/api/dev/enable-mock-user', (req: any, res) => {
-      // Set mock user session
-      req.session.user = {
-        claims: {
-          sub: 'dev-user-123',
-          email: 'dev@quenchnow.com',
-          first_name: 'Dev',
-          last_name: 'User',
-          profile_image_url: null,
-        },
-        expires_at: Math.floor(Date.now() / 1000) + 3600,
-      };
-      res.json({ success: true, message: 'Mock user enabled for development' });
+    app.post('/api/dev/enable-mock-user', async (req: any, res) => {
+      try {
+        const mockUser = {
+          claims: {
+            sub: 'dev-user-123',
+            email: 'dev@quenchnow.com',
+            first_name: 'Dev',
+            last_name: 'User',
+            profile_image_url: null,
+          },
+          expires_at: Math.floor(Date.now() / 1000) + 3600,
+        };
+
+        // Set mock user session
+        req.session.user = mockUser;
+        
+        // Create user in database if doesn't exist
+        await storage.upsertUser({
+          id: mockUser.claims.sub,
+          email: mockUser.claims.email,
+          firstName: mockUser.claims.first_name,
+          lastName: mockUser.claims.last_name,
+          profileImageUrl: mockUser.claims.profile_image_url,
+        });
+
+        res.json({ success: true, message: 'Mock user enabled for development' });
+      } catch (error) {
+        console.error('Error creating mock user:', error);
+        res.status(500).json({ success: false, message: 'Failed to create mock user' });
+      }
     });
   }
 
