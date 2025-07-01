@@ -5,13 +5,24 @@ import { Droplets, Shield, Star, Users, ArrowRight, CheckCircle } from "lucide-r
 
 export default function AuthPage() {
   const handleLogin = () => {
-    // Show loading page briefly before redirecting
-    window.location.href = "/auth/loading";
-    
-    // After a brief delay, start actual auth
-    setTimeout(() => {
-      window.location.href = "/api/login?direct=true";
-    }, 1000);
+    // In development mode, skip auth and enable mock user
+    if (import.meta.env.DEV) {
+      // Enable mock user for development
+      fetch('/api/dev/enable-mock-user', { method: 'POST' })
+        .then(() => {
+          window.location.href = "/";
+        })
+        .catch(() => {
+          // Fallback to normal auth flow
+          window.location.href = "/api/login?direct=true";
+        });
+    } else {
+      // Production: normal auth flow
+      window.location.href = "/auth/loading";
+      setTimeout(() => {
+        window.location.href = "/api/login?direct=true";
+      }, 1000);
+    }
   };
 
   return (

@@ -5,6 +5,12 @@ import { isAuthenticated } from "./replitAuth";
 export const conditionalAuth: RequestHandler = async (req, res, next) => {
   const flags = getFeatureFlags();
   
+  // Check for development session user first
+  if (process.env.NODE_ENV === 'development' && req.session?.user) {
+    req.user = req.session.user;
+    return next();
+  }
+  
   // SECURITY: Only allow auth bypass in development with explicit flags
   if (process.env.NODE_ENV === 'development' && !flags.authRequired && flags.testMode) {
     // Mock user for testing in development only

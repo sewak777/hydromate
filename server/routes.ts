@@ -45,6 +45,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Auth middleware
   await setupAuth(app);
 
+  // Development-only route to enable mock user
+  if (process.env.NODE_ENV === 'development') {
+    app.post('/api/dev/enable-mock-user', (req: any, res) => {
+      // Set mock user session
+      req.session.user = {
+        claims: {
+          sub: 'dev-user-123',
+          email: 'dev@quenchnow.com',
+          first_name: 'Dev',
+          last_name: 'User',
+          profile_image_url: null,
+        },
+        expires_at: Math.floor(Date.now() / 1000) + 3600,
+      };
+      res.json({ success: true, message: 'Mock user enabled for development' });
+    });
+  }
+
   // Auth routes  
   app.get('/api/auth/user', conditionalAuth, requireUserOwnership, async (req: any, res) => {
     try {
