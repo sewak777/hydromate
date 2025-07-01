@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { SEOHead } from "@/components/seo-head";
 import { Droplets, Calculator, TrendingUp, Bell, Trophy, Palette, Cloud, Activity, Brain, Star, CheckCircle, Apple, Play, Crown, ArrowRight, Zap, Shield, Heart, Users, ChevronDown } from "lucide-react";
-// Removed framer-motion to avoid compatibility issues
 
 export default function ModernLanding() {
   const handleLogin = () => {
@@ -59,7 +58,7 @@ export default function ModernLanding() {
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               {/* Left Content */}
               <div className="space-y-8">
-                <div className="space-y-6 animate-fadeInUp">
+                <div className="space-y-6 opacity-0 animate-pulse" style={{animation: 'fadeInUp 0.6s ease-out forwards'}}>
                   <div className="inline-flex items-center px-4 py-2 bg-blue-100 rounded-full text-blue-700 text-sm font-medium">
                     <Zap className="w-4 h-4 mr-2" />
                     Smart hydration technology
@@ -76,9 +75,9 @@ export default function ModernLanding() {
                   <p className="text-xl text-gray-600 leading-relaxed max-w-lg">
                     Transform your health with intelligent water reminders, personalized goals, and beautiful progress tracking that adapts to your lifestyle.
                   </p>
-                </motion.div>
+                </div>
 
-                <div className="flex flex-col sm:flex-row gap-4 animate-fadeInUp" style={{animationDelay: '0.2s'}}>
+                <div className="flex flex-col sm:flex-row gap-4 opacity-0 animate-pulse" style={{animation: 'fadeInUp 0.6s ease-out 0.2s forwards'}}>
                   <Button
                     onClick={handleLogin}
                     size="lg"
@@ -95,10 +94,10 @@ export default function ModernLanding() {
                   >
                     Watch demo
                   </Button>
-                </motion.div>
+                </div>
 
                 {/* Social Proof */}
-                <div className="flex items-center space-x-6 pt-8 animate-fadeInUp" style={{animationDelay: '0.4s'}}>
+                <div className="flex items-center space-x-6 pt-8 opacity-0 animate-pulse" style={{animation: 'fadeInUp 0.6s ease-out 0.4s forwards'}}>
                   <div className="flex items-center space-x-2">
                     <div className="flex -space-x-2">
                       {[...Array(4)].map((_, i) => (
@@ -116,11 +115,11 @@ export default function ModernLanding() {
                     </div>
                     <span className="text-sm text-gray-600 font-medium">4.9 rating</span>
                   </div>
-                </motion.div>
+                </div>
               </div>
 
               {/* Right Content - App Preview */}
-              <div className="relative flex justify-center lg:justify-end animate-slideInRight" style={{animationDelay: '0.3s'}}>
+              <div className="relative flex justify-center lg:justify-end opacity-0 animate-pulse" style={{animation: 'slideInRight 0.8s ease-out 0.3s forwards'}}>
                 {/* Phone Mockup */}
                 <div className="relative">
                   <div className="w-80 h-[600px] bg-gray-900 rounded-[3rem] p-2 shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-700">
@@ -199,7 +198,7 @@ export default function ModernLanding() {
                   <div className="absolute -top-4 -left-4 w-16 h-16 bg-green-400/20 rounded-full animate-pulse"></div>
                   <div className="absolute -bottom-8 -right-8 w-12 h-12 bg-blue-400/20 rounded-full animate-pulse" style={{animationDelay: '1s'}}></div>
                 </div>
-              </motion.div>
+              </div>
             </div>
           </div>
         </section>
@@ -255,17 +254,15 @@ export default function ModernLanding() {
                   color: "gray"
                 }
               ].map((feature, index) => (
-                <motion.div
+                <div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  viewport={{ once: true }}
+                  className="opacity-0 animate-pulse modern-card"
+                  style={{animation: `fadeInUp 0.5s ease-out ${index * 0.1}s forwards`}}
                 >
                   <Card className="h-full hover:shadow-lg transition-all duration-300 border-0 shadow-sm">
                     <CardContent className="p-8">
-                      <div className={`w-16 h-16 bg-${feature.color}-100 rounded-2xl flex items-center justify-center mb-6`}>
-                        <div className={`text-${feature.color}-600`}>
+                      <div className={`w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6`}>
+                        <div className="text-blue-600">
                           {feature.icon}
                         </div>
                       </div>
@@ -273,7 +270,7 @@ export default function ModernLanding() {
                       <p className="text-gray-600 leading-relaxed">{feature.description}</p>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
@@ -289,17 +286,14 @@ export default function ModernLanding() {
                 { number: "94%", label: "Goal Achievement" },
                 { number: "4.9★", label: "App Store Rating" }
               ].map((stat, index) => (
-                <motion.div
+                <div
                   key={index}
-                  initial={{ opacity: 0, scale: 0.5 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="space-y-2"
+                  className="space-y-2 opacity-0 animate-pulse"
+                  style={{animation: `fadeInUp 0.5s ease-out ${index * 0.1}s forwards`}}
                 >
                   <div className="text-4xl font-bold text-blue-600">{stat.number}</div>
                   <div className="text-gray-600 font-medium">{stat.label}</div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
@@ -430,12 +424,7 @@ export default function ModernLanding() {
         {/* CTA Section */}
         <section className="py-20 bg-gradient-to-br from-blue-600 to-blue-700">
           <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-            >
+            <div className="opacity-0 animate-pulse" style={{animation: 'fadeInUp 0.6s ease-out forwards'}}>
               <h2 className="text-4xl font-bold text-white mb-6">
                 Ready to transform your hydration habits?
               </h2>
@@ -460,7 +449,7 @@ export default function ModernLanding() {
                   Learn More
                 </Button>
               </div>
-            </motion.div>
+            </div>
           </div>
         </section>
 
