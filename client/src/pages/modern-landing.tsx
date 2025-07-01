@@ -33,8 +33,8 @@ export default function ModernLanding() {
       icon: Bell,
       title: "Smart Reminders",
       description: "AI-powered notifications that adapt to your schedule and habits",
-      color: "bg-green-500",
-      gradient: "from-green-400 to-green-600"
+      color: "bg-blue-500",
+      gradient: "from-blue-400 to-blue-600"
     },
     {
       icon: Cloud,
@@ -85,14 +85,14 @@ export default function ModernLanding() {
         keywords="water reminder app, hydration tracker, water intake monitoring, daily water goal, health tracking app"
       />
       
-      <div className="min-h-screen bg-gradient-to-br from-green-400 via-green-300 to-lime-200">
+      <div className="min-h-screen bg-gradient-to-br from-blue-400 via-blue-300 to-cyan-200">
         {/* Navigation */}
         <nav className="fixed top-0 w-full bg-white/10 backdrop-blur-md z-50">
           <div className="container mx-auto px-6 py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
                 <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-lg">
-                  <Droplets className="text-green-600 w-6 h-6" />
+                  <Droplets className="text-blue-600 w-6 h-6" />
                 </div>
                 <span className="text-xl font-bold text-white">QuenchNow</span>
               </div>
@@ -103,8 +103,8 @@ export default function ModernLanding() {
                 <a href="#case-study" className="text-white/80 hover:text-white transition-colors font-medium">Use Cases</a>
                 <a href="#pricing" className="text-white/80 hover:text-white transition-colors font-medium">Pricing</a>
                 <a href="#blog" className="text-white/80 hover:text-white transition-colors font-medium">Blog</a>
-                <Button variant="outline" className="text-white border-white hover:bg-white hover:text-green-600">
-                  Request a quote
+                <Button variant="outline" className="text-white border-white hover:bg-white hover:text-blue-600">
+                  View Demo
                 </Button>
               </div>
             </div>
@@ -118,15 +118,15 @@ export default function ModernLanding() {
               {/* Left Column - Text Content */}
               <div className="text-white">
                 <h1 className="text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                  Navigating the{" "}
-                  <span className="bg-gradient-to-r from-white to-green-100 bg-clip-text text-transparent">
-                    digital landscape
+                  Transform your{" "}
+                  <span className="bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
+                    hydration habits
                   </span>{" "}
-                  for success
+                  for wellness
                 </h1>
                 
                 <p className="text-xl text-white/80 mb-8 leading-relaxed">
-                  Our digital marketing agency helps navigate the online landscape with expert guidance and advanced solutions through a range of marketing services including SEO, PPC, social media marketing, and web development.
+                  QuenchNow helps you achieve optimal hydration with smart reminders, personalized goals, and intelligent tracking through weather-based adjustments, progress analytics, and habit formation.
                 </p>
                 
                 <div className="flex flex-col sm:flex-row gap-4 mb-12">
@@ -135,14 +135,14 @@ export default function ModernLanding() {
                     size="lg"
                     className="bg-black text-white hover:bg-gray-900 px-8 py-4 text-lg font-semibold rounded-xl"
                   >
-                    Start a consultation
+                    Start Tracking Free
                   </Button>
                   <Button 
                     variant="outline" 
                     size="lg"
-                    className="border-white text-white hover:bg-white hover:text-green-600 px-8 py-4 text-lg font-semibold rounded-xl"
+                    className="border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 text-lg font-semibold rounded-xl"
                   >
-                    View our portfolio
+                    See How It Works
                   </Button>
                 </div>
 
@@ -167,9 +167,9 @@ export default function ModernLanding() {
                     <div className="flex items-center justify-center h-40">
                       <div className="relative">
                         <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-lg">
-                          <Droplets className="w-10 h-10 text-green-500" />
+                          <Droplets className="w-10 h-10 text-blue-500" />
                         </div>
-                        <div className="absolute -top-2 -right-2 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                        <div className="absolute -top-2 -right-2 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
                           <CheckCircle className="w-4 h-4 text-white" />
                         </div>
                       </div>
@@ -209,13 +209,13 @@ export default function ModernLanding() {
         <section id="services" className="py-20 bg-white">
           <div className="container mx-auto px-6 max-w-6xl">
             <div className="text-center mb-16">
-              <Badge className="bg-green-100 text-green-700 mb-4">Services</Badge>
+              <Badge className="bg-blue-100 text-blue-700 mb-4">Features</Badge>
               <h2 className="text-4xl font-bold text-gray-900 mb-4">
-                We provide marketing services to help businesses grow and succeed
+                Smart hydration tracking that adapts to your lifestyle
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                From strategy development to execution, we offer comprehensive digital marketing solutions 
-                tailored to your business needs and goals.
+                From intelligent reminders to weather-based recommendations, QuenchNow provides 
+                comprehensive hydration solutions tailored to your health and wellness goals.
               </p>
             </div>
 
@@ -231,7 +231,7 @@ export default function ModernLanding() {
                       <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
                       <p className="text-gray-600 leading-relaxed">{feature.description}</p>
                       <div className="mt-4">
-                        <Button variant="ghost" className="p-0 h-auto font-semibold text-green-600 hover:text-green-700">
+                        <Button variant="ghost" className="p-0 h-auto font-semibold text-blue-600 hover:text-blue-700">
                           Learn more →
                         </Button>
                       </div>
@@ -244,7 +244,7 @@ export default function ModernLanding() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 bg-gradient-to-r from-green-600 to-green-500">
+        <section className="py-20 bg-gradient-to-r from-blue-600 to-blue-500">
           <div className="container mx-auto px-6 text-center">
             <div className="max-w-3xl mx-auto">
               <h2 className="text-4xl font-bold text-white mb-6">
@@ -257,14 +257,14 @@ export default function ModernLanding() {
                 <Button 
                   onClick={handleLogin}
                   size="lg"
-                  className="bg-white text-green-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold rounded-xl"
+                  className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold rounded-xl"
                 >
                   Start Free Trial
                 </Button>
                 <Button 
                   variant="outline"
                   size="lg" 
-                  className="border-white text-white hover:bg-white hover:text-green-600 px-8 py-4 text-lg font-semibold rounded-xl"
+                  className="border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 text-lg font-semibold rounded-xl"
                 >
                   View Demo
                 </Button>
@@ -278,7 +278,7 @@ export default function ModernLanding() {
           <div className="container mx-auto px-6">
             <div className="flex flex-col md:flex-row justify-between items-center">
               <div className="flex items-center space-x-3 mb-4 md:mb-0">
-                <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
+                <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
                   <Droplets className="text-white w-5 h-5" />
                 </div>
                 <span className="text-xl font-bold">QuenchNow</span>
