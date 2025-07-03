@@ -60,8 +60,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
           expires_at: Math.floor(Date.now() / 1000) + 3600,
         };
 
+        console.log('🔧 Setting mock user session:', mockUser.claims.sub);
+        
+        // Ensure session exists first
+        if (!req.session) {
+          return res.status(500).json({ success: false, message: 'Session not available' });
+        }
+        
         // Set mock user session
-        req.session.user = mockUser;
+        (req.session as any).user = mockUser;
+        
+        console.log('🔧 Session after setting user:', req.session.id);
+        console.log('🔧 Session user check:', (req.session as any).user ? 'exists' : 'missing');
         
         // Create user in database if doesn't exist
         await storage.upsertUser({
@@ -75,9 +85,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
         // Force session save before responding
         req.session.save((err: any) => {
           if (err) {
-            console.error('Session save error:', err);
+            console.error('❌ Session save error:', err);
             return res.status(500).json({ success: false, message: 'Session save failed' });
           }
+          console.log('✅ Session saved successfully, ID:', req.session.id);
+          console.log('✅ Saved session user:', (req.session as any).user ? 'exists' : 'missing');
           res.json({ success: true, message: 'Mock user enabled for development' });
         });
       } catch (error) {

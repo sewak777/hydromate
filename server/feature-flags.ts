@@ -5,9 +5,18 @@ import { isAuthenticated } from "./replitAuth";
 export const conditionalAuth: RequestHandler = async (req, res, next) => {
   const flags = getFeatureFlags();
   
+  // Debug session in development
+  if (process.env.NODE_ENV === 'development') {
+    console.log('🔍 ConditionalAuth Debug:');
+    console.log('  - Session ID:', req.session?.id || 'none');
+    console.log('  - Session User:', (req.session as any)?.user ? 'exists' : 'missing');
+    console.log('  - Session Keys:', Object.keys(req.session || {}));
+  }
+  
   // Check for development session user first
   if (process.env.NODE_ENV === 'development' && (req.session as any)?.user) {
     req.user = (req.session as any).user;
+    console.log('✅ Using development session user:', req.user.claims.sub);
     return next();
   }
   

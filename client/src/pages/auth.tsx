@@ -9,11 +9,16 @@ export default function AuthPage() {
     // In development mode, skip auth and enable mock user
     if (import.meta.env.DEV) {
       // Enable mock user for development
-      fetch('/api/dev/enable-mock-user', { method: 'POST' })
+      fetch('/api/dev/enable-mock-user', { 
+        method: 'POST',
+        credentials: 'include' // Ensure cookies are included
+      })
         .then(response => {
           if (response.ok) {
-            // Force a complete page reload to ensure fresh state
-            window.location.href = "/";
+            // Small delay to ensure session is saved, then redirect
+            setTimeout(() => {
+              window.location.href = "/";
+            }, 200);
           } else {
             // Fallback to normal auth flow
             window.location.href = "/api/login?direct=true";
