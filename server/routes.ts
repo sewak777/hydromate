@@ -72,7 +72,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
           profileImageUrl: mockUser.claims.profile_image_url,
         });
 
-        res.json({ success: true, message: 'Mock user enabled for development' });
+        // Force session save before responding
+        req.session.save((err: any) => {
+          if (err) {
+            console.error('Session save error:', err);
+            return res.status(500).json({ success: false, message: 'Session save failed' });
+          }
+          res.json({ success: true, message: 'Mock user enabled for development' });
+        });
       } catch (error) {
         console.error('Error creating mock user:', error);
         res.status(500).json({ success: false, message: 'Failed to create mock user' });
@@ -83,11 +90,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Auth routes  
   app.get('/api/auth/user', conditionalAuth, requireUserOwnership, async (req: any, res) => {
     try {
+      // Debug logging for development
+      if (process.env.NODE_ENV === 'development') {
+        console.log('🔍 Auth endpoint debug:');
+        console.log('  - Session user:', (req.session as any)?.user ? 'exists' : 'missing');
+        console.log('  - req.user:', req.user ? 'exists' : 'missing');
+        console.log('  - User claims:', req.user?.claims?.sub || 'none');
+      }
+
       const userId = req.user.claims.sub;
       let user = await storage.getUser(userId);
       
-      // Create test user if not exists and in test mode
-      if (!user && req.user.claims.email === 'test@example.com') {
+      // Create user if not exists (for both test and dev users)
+      if (!user) {
         user = await storage.upsertUser({
           id: userId,
           email: req.user.claims.email,
@@ -95,6 +110,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
           lastName: req.user.claims.last_name,
           profileImageUrl: req.user.claims.profile_image_url,
         });
+        
+        if (process.env.NODE_ENV === 'development') {
+          console.log('✓ Created new user in database:', userId);
+        }
       }
       
       res.json(user);
