@@ -41,6 +41,8 @@ export function getSession() {
       secure: process.env.NODE_ENV === 'production', // Only secure in production
       sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax', // Allow cross-origin in dev
       maxAge: sessionTtl,
+      domain: process.env.NODE_ENV === 'development' ? undefined : undefined, // Let browser handle domain in dev
+      path: '/', // Explicit path
     },
   });
 }

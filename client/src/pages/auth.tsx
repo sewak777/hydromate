@@ -13,12 +13,16 @@ export default function AuthPage() {
         method: 'POST',
         credentials: 'include' // Ensure cookies are included
       })
-        .then(response => {
-          if (response.ok) {
-            // Small delay to ensure session is saved, then redirect
-            setTimeout(() => {
-              window.location.href = "/";
-            }, 200);
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            // Store development token for backup authentication
+            if (data.devToken) {
+              localStorage.setItem('devToken', data.devToken);
+            }
+            console.log('Mock user created, session ID:', data.sessionId);
+            // Redirect to main app
+            window.location.href = "/";
           } else {
             // Fallback to normal auth flow
             window.location.href = "/api/login?direct=true";

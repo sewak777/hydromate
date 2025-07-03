@@ -16,8 +16,28 @@ export const conditionalAuth: RequestHandler = async (req, res, next) => {
   // Check for development session user first
   if (process.env.NODE_ENV === 'development' && (req.session as any)?.user) {
     req.user = (req.session as any).user;
-    console.log('✅ Using development session user:', req.user.claims.sub);
+    console.log('✅ Using development session user:', (req.user as any).claims.sub);
     return next();
+  }
+  
+  // Fallback: Check for development token in headers
+  if (process.env.NODE_ENV === 'development') {
+    const devToken = req.headers['x-dev-token'] as string;
+    if (devToken && devToken.startsWith('dev-auth-')) {
+      const userId = devToken.replace('dev-auth-', '');
+      req.user = {
+        claims: {
+          sub: userId,
+          email: 'dev@quenchnow.com',
+          first_name: 'Dev',
+          last_name: 'User',
+          profile_image_url: null,
+        },
+        expires_at: Math.floor(Date.now() / 1000) + 3600,
+      };
+      console.log('✅ Using development token auth:', userId);
+      return next();
+    }
   }
   
   // SECURITY: Only allow auth bypass in development with explicit flags

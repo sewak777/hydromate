@@ -90,7 +90,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
           }
           console.log('✅ Session saved successfully, ID:', req.session.id);
           console.log('✅ Saved session user:', (req.session as any).user ? 'exists' : 'missing');
-          res.json({ success: true, message: 'Mock user enabled for development' });
+          
+          // For development, also set a simple dev token in localStorage
+          res.json({ 
+            success: true, 
+            message: 'Mock user enabled for development',
+            devToken: 'dev-auth-' + mockUser.claims.sub,
+            sessionId: req.session.id
+          });
         });
       } catch (error) {
         console.error('Error creating mock user:', error);
