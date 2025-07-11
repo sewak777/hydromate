@@ -103,6 +103,35 @@
     animation: shimmer 2s ease-in-out infinite;
   }
   
+  /* Custom shadows for pricing cards */
+  .shadow-3xl {
+    box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.25), 0 0 40px 2px rgba(0, 0, 0, 0.1);
+  }
+  
+  .shadow-3xl-blue {
+    box-shadow: 0 35px 60px -12px rgba(59, 130, 246, 0.4), 0 0 40px 2px rgba(59, 130, 246, 0.2);
+  }
+  
+  .shadow-3xl-green {
+    box-shadow: 0 35px 60px -12px rgba(34, 197, 94, 0.4), 0 0 40px 2px rgba(34, 197, 94, 0.2);
+  }
+  
+  /* Bounce animation for buttons */
+  @keyframes bounce-in {
+    0% { transform: scale(0.9); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+  
+  .animate-bounce-in {
+    animation: bounce-in 0.3s ease-out;
+  }
+  
+  /* Card hover tilt effect */
+  .card-tilt:hover {
+    transform: perspective(1000px) rotateX(2deg) rotateY(2deg) scale(1.02);
+  }
+  
   .glass-effect {
     backdrop-filter: blur(10px);
     background: rgba(255, 255, 255, 0.1);

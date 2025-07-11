@@ -167,15 +167,15 @@ export default function SubscriptionPlans() {
             } group-hover:opacity-80 transition duration-300`}></div>
             
             {/* Card content */}
-            <Card className={`relative bg-white dark:bg-gray-950 border-2 transition-all duration-300 ${
+            <Card className={`relative bg-white dark:bg-gray-950 border-2 transition-all duration-500 ease-out ${
               plan.interval === 'year' 
-                ? 'border-blue-300 dark:border-blue-700 group-hover:border-blue-500 dark:group-hover:border-blue-400 shadow-lg shadow-blue-500/20' 
-                : 'border-gray-300 dark:border-gray-700 group-hover:border-gray-500 dark:group-hover:border-gray-400 shadow-lg shadow-gray-500/10'
-            } group-hover:shadow-2xl ${
+                ? 'border-blue-300 dark:border-blue-700 group-hover:border-blue-500 dark:group-hover:border-blue-400 shadow-2xl shadow-blue-500/30' 
+                : 'border-gray-300 dark:border-gray-700 group-hover:border-gray-500 dark:group-hover:border-gray-400 shadow-xl shadow-gray-500/20'
+            } ${
               plan.interval === 'year' 
-                ? 'group-hover:shadow-blue-500/40' 
-                : 'group-hover:shadow-gray-500/30'
-            } group-hover:scale-105 transform-gpu`}>
+                ? 'group-hover:shadow-3xl-blue' 
+                : 'group-hover:shadow-3xl'
+            } group-hover:scale-110 group-hover:-translate-y-2 transform-gpu`}>
               
               {/* Popular badge */}
               {plan.interval === 'year' && (
@@ -234,15 +234,21 @@ export default function SubscriptionPlans() {
               <CardContent className="relative z-10">
                 <ul className="space-y-4 mb-8">
                   {plan.features.map((feature, index) => (
-                    <li key={index} className="flex items-center space-x-3 group/item">
+                    <li 
+                      key={index} 
+                      className="flex items-center space-x-3 group/item transform transition-all duration-300"
+                      style={{
+                        transitionDelay: `${index * 50}ms`
+                      }}
+                    >
                       <div className={`w-5 h-5 rounded-full flex items-center justify-center ${
                         plan.interval === 'year' 
                           ? 'bg-gradient-to-r from-blue-500 to-purple-500' 
                           : 'bg-gradient-to-r from-gray-500 to-gray-700'
-                      } transition-transform duration-200 group-hover/item:scale-110`}>
+                      } transition-all duration-300 group-hover/item:scale-110 group-hover/item:shadow-lg group-hover/item:shadow-current/50`}>
                         <Check className="w-3 h-3 text-white" />
                       </div>
-                      <span className="text-gray-700 dark:text-gray-300 group-hover/item:text-gray-900 dark:group-hover/item:text-gray-100 transition-colors duration-200">
+                      <span className="text-gray-700 dark:text-gray-300 group-hover/item:text-gray-900 dark:group-hover/item:text-gray-100 transition-colors duration-200 group-hover/item:translate-x-1">
                         {feature}
                       </span>
                     </li>
@@ -252,13 +258,13 @@ export default function SubscriptionPlans() {
                 <Button
                   onClick={() => handleSubscribe(plan.id)}
                   disabled={loading === plan.id || isCurrentPlan(plan.id)}
-                  className={`w-full h-12 text-base font-semibold transition-all duration-300 ${
+                  className={`w-full h-12 text-base font-semibold transition-all duration-300 transform-gpu ${
                     plan.interval === 'year'
-                      ? 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl hover:shadow-blue-500/50'
+                      ? 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl hover:shadow-blue-500/50 active:scale-95'
                       : isCurrentPlan(plan.id)
                       ? 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 cursor-not-allowed'
-                      : 'bg-gradient-to-r from-gray-600 to-gray-800 hover:from-gray-700 hover:to-gray-900 text-white shadow-lg hover:shadow-xl hover:shadow-gray-500/50'
-                  } ${!isCurrentPlan(plan.id) ? 'group-hover:scale-105' : ''}`}
+                      : 'bg-gradient-to-r from-gray-600 to-gray-800 hover:from-gray-700 hover:to-gray-900 text-white shadow-lg hover:shadow-xl hover:shadow-gray-500/50 active:scale-95'
+                  } ${!isCurrentPlan(plan.id) ? 'hover:scale-105 hover:-translate-y-1' : ''}`}
                 >
                   {loading === plan.id ? (
                     <Loader2 className="w-5 h-5 mr-2 animate-spin" />
@@ -279,7 +285,7 @@ export default function SubscriptionPlans() {
           {/* Subtle glow for free plan */}
           <div className="absolute -inset-0.5 bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 rounded-lg blur opacity-25 group-hover:opacity-90 transition duration-500 group-hover:duration-200 animate-pulse"></div>
           
-          <Card className="relative bg-white dark:bg-gray-950 border-2 border-green-200 dark:border-green-800 group-hover:border-green-400 dark:group-hover:border-green-600 transition-all duration-300 group-hover:shadow-xl group-hover:shadow-green-500/20 group-hover:scale-105">
+          <Card className="relative bg-white dark:bg-gray-950 border-2 border-green-200 dark:border-green-800 group-hover:border-green-400 dark:group-hover:border-green-600 transition-all duration-500 ease-out shadow-lg shadow-green-500/20 group-hover:shadow-3xl-green group-hover:scale-110 group-hover:-translate-y-2 transform-gpu">
             
             {/* Subtle glow inside card */}
             <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-green-50/50 via-transparent to-emerald-50/50 dark:from-green-950/30 dark:to-emerald-950/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -301,30 +307,22 @@ export default function SubscriptionPlans() {
             
             <CardContent className="relative z-10">
               <ul className="space-y-4 mb-8">
-                <li className="flex items-center space-x-3 group/item">
-                  <div className="w-5 h-5 rounded-full flex items-center justify-center bg-gradient-to-r from-green-500 to-emerald-500 transition-transform duration-200 group-hover/item:scale-110">
-                    <Check className="w-3 h-3 text-white" />
-                  </div>
-                  <span className="text-gray-700 dark:text-gray-300 group-hover/item:text-gray-900 dark:group-hover/item:text-gray-100 transition-colors duration-200">
-                    Basic water intake logging
-                  </span>
-                </li>
-                <li className="flex items-center space-x-3 group/item">
-                  <div className="w-5 h-5 rounded-full flex items-center justify-center bg-gradient-to-r from-green-500 to-emerald-500 transition-transform duration-200 group-hover/item:scale-110">
-                    <Check className="w-3 h-3 text-white" />
-                  </div>
-                  <span className="text-gray-700 dark:text-gray-300 group-hover/item:text-gray-900 dark:group-hover/item:text-gray-100 transition-colors duration-200">
-                    Simple daily goal tracking
-                  </span>
-                </li>
-                <li className="flex items-center space-x-3 group/item">
-                  <div className="w-5 h-5 rounded-full flex items-center justify-center bg-gradient-to-r from-green-500 to-emerald-500 transition-transform duration-200 group-hover/item:scale-110">
-                    <Check className="w-3 h-3 text-white" />
-                  </div>
-                  <span className="text-gray-700 dark:text-gray-300 group-hover/item:text-gray-900 dark:group-hover/item:text-gray-100 transition-colors duration-200">
-                    Basic reminders
-                  </span>
-                </li>
+                {['Basic water intake logging', 'Simple daily goal tracking', 'Basic reminders'].map((feature, index) => (
+                  <li 
+                    key={index} 
+                    className="flex items-center space-x-3 group/item transform transition-all duration-300"
+                    style={{
+                      transitionDelay: `${index * 50}ms`
+                    }}
+                  >
+                    <div className="w-5 h-5 rounded-full flex items-center justify-center bg-gradient-to-r from-green-500 to-emerald-500 transition-all duration-300 group-hover/item:scale-110 group-hover/item:shadow-lg group-hover/item:shadow-green-500/50">
+                      <Check className="w-3 h-3 text-white" />
+                    </div>
+                    <span className="text-gray-700 dark:text-gray-300 group-hover/item:text-gray-900 dark:group-hover/item:text-gray-100 transition-colors duration-200 group-hover/item:translate-x-1">
+                      {feature}
+                    </span>
+                  </li>
+                ))}
               </ul>
               
               {!isPremium ? (
