@@ -105,15 +105,24 @@
   
   /* Custom shadows for pricing cards */
   .shadow-3xl {
-    box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.25), 0 0 40px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: 
+      0 50px 100px -12px rgba(0, 0, 0, 0.35), 
+      0 0 60px 4px rgba(0, 0, 0, 0.15),
+      0 25px 50px -12px rgba(0, 0, 0, 0.25);
   }
   
   .shadow-3xl-blue {
-    box-shadow: 0 35px 60px -12px rgba(59, 130, 246, 0.4), 0 0 40px 2px rgba(59, 130, 246, 0.2);
+    box-shadow: 
+      0 50px 100px -12px rgba(59, 130, 246, 0.6), 
+      0 0 60px 4px rgba(59, 130, 246, 0.3),
+      0 25px 50px -12px rgba(59, 130, 246, 0.4);
   }
   
   .shadow-3xl-green {
-    box-shadow: 0 35px 60px -12px rgba(34, 197, 94, 0.4), 0 0 40px 2px rgba(34, 197, 94, 0.2);
+    box-shadow: 
+      0 50px 100px -12px rgba(34, 197, 94, 0.6), 
+      0 0 60px 4px rgba(34, 197, 94, 0.3),
+      0 25px 50px -12px rgba(34, 197, 94, 0.4);
   }
   
   /* Bounce animation for buttons */
