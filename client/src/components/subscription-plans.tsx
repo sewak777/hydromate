@@ -144,7 +144,7 @@ export default function SubscriptionPlans() {
             key={plan.id} 
             className={`relative group cursor-pointer transition-all duration-300 ${
               isCurrentPlan(plan.id) ? 'opacity-75' : ''
-            } ${plan.interval === 'year' ? 'animate-float' : ''}`}
+            } ${plan.interval === 'year' ? 'animate-float' : 'animate-pulse'}`}
           >
             {/* Glowing border effect */}
             <div className={`absolute -inset-1 bg-gradient-to-r ${

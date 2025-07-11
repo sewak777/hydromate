@@ -135,6 +135,8 @@ HydroFlow is a comprehensive hydration tracking application that helps users mon
 - **Security Headers**: Full browser-level protection implemented
 
 ## Changelog
+- July 11, 2025. Enhanced subscription pricing cards with dramatic shadow and animation effects based on user feedback
+- July 11, 2025. Implemented glowy hover effects inspired by Figma design - user specifically likes the premium annual plan animations
 - July 01, 2025. Created modern landing page based on Figma design inspiration with clean layout, animations, and contemporary styling
 - July 01, 2025. Implemented custom authentication pages to remove Replit branding and provide better user experience
 - June 30, 2025. Major security audit and hardening completed
@@ -144,3 +146,4 @@ HydroFlow is a comprehensive hydration tracking application that helps users mon
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.
+Visual preferences: User enjoys dramatic animations and shadow effects on UI elements, particularly the floating and glowing effects on premium subscription cards.
