@@ -144,7 +144,7 @@ export default function SubscriptionPlans() {
             key={plan.id} 
             className={`relative group cursor-pointer transition-all duration-300 ${
               isCurrentPlan(plan.id) ? 'opacity-75' : ''
-            } ${plan.interval === 'year' ? 'animate-float' : 'animate-pulse'}`}
+            } animate-float`}
           >
             {/* Glowing border effect */}
             <div className={`absolute -inset-1 bg-gradient-to-r ${
@@ -281,9 +281,9 @@ export default function SubscriptionPlans() {
 
       {/* Free Plan */}
       <div className="mt-8 max-w-md mx-auto">
-        <div className="relative group cursor-pointer transition-all duration-300">
+        <div className="relative group cursor-pointer transition-all duration-300 animate-float">
           {/* Subtle glow for free plan */}
-          <div className="absolute -inset-0.5 bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 rounded-lg blur opacity-25 group-hover:opacity-90 transition duration-500 group-hover:duration-200 animate-pulse"></div>
+          <div className="absolute -inset-0.5 bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 rounded-lg blur opacity-25 group-hover:opacity-90 transition duration-500 group-hover:duration-200"></div>
           
           <Card className="relative bg-white dark:bg-gray-950 border-2 border-green-200 dark:border-green-800 group-hover:border-green-400 dark:group-hover:border-green-600 transition-all duration-500 ease-out shadow-lg shadow-green-500/20 group-hover:shadow-3xl-green group-hover:scale-[1.15] group-hover:-translate-y-4 group-hover:-rotate-1 transform-gpu">
             
