@@ -44,7 +44,7 @@ export default function AuthPage() {
   return (
     <>
       <SEOHead 
-        title="Sign In - QuenchNow"
+        title="Sign In - HydroMate"
         description="Sign in to access your personal hydration tracking dashboard and continue your wellness journey."
         keywords="sign in, login, hydration tracker, water reminder app"
       />
@@ -65,7 +65,7 @@ export default function AuthPage() {
                 <Droplets className="text-white w-6 h-6" />
               </div>
               <span className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">
-                QuenchNow
+                HydroMate
               </span>
             </div>
 

@@ -1,8 +1,8 @@
-# HydroFlow - Smart Hydration Tracking Application
+# HydroMate - Smart Hydration Tracking Application
 
 ## Overview
 
-HydroFlow is a comprehensive hydration tracking application that helps users monitor their daily water intake through smart reminders, personalized goals, and detailed analytics. The application features a modern React frontend with a Node.js/Express backend, PostgreSQL database, and optional mobile app capabilities through Capacitor.
+HydroMate is a comprehensive hydration tracking application that helps users monitor their daily water intake through smart reminders, personalized goals, and detailed analytics. The application features a modern React frontend with a Node.js/Express backend, PostgreSQL database, and optional mobile app capabilities through Capacitor.
 
 ## System Architecture
 
@@ -135,6 +135,7 @@ HydroFlow is a comprehensive hydration tracking application that helps users mon
 - **Security Headers**: Full browser-level protection implemented
 
 ## Changelog
+- July 12, 2025. App name changed from "QuenchNow" to "HydroMate" across all landing pages, main app, navigation, iOS configuration, and documentation
 - July 12, 2025. Updated pricing structure with promotional discounts: Free plan $2.99 (15% off), Premium Monthly $7.99 (discounted), Premium Annual $86.39 (30% total discount)
 - July 12, 2025. Cleaned up notification center by removing test features and creating production-ready settings interface
 - July 01, 2025. Created modern landing page based on Figma design inspiration with clean layout, animations, and contemporary styling

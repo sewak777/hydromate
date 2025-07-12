@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.quenchnow.app',
-  appName: 'QuenchNow',
+  appId: 'com.hydromate.app',
+  appName: 'HydroMate',
   webDir: 'client/dist',
   server: {
     androidScheme: 'https'

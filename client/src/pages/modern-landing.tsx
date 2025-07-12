@@ -11,10 +11,10 @@ export default function ModernLanding() {
   return (
     <>
       <SEOHead 
-        title="QuenchNow - Smart Water Reminder & Hydration Tracking App"
+        title="HydroMate - Smart Water Reminder & Hydration Tracking App"
         description="Transform your daily hydration with intelligent reminders, personalized goals, and beautiful progress tracking. Join thousands who've made hydration effortless with weather-based recommendations."
         keywords="water reminder app, hydration tracker, water intake monitoring, daily water goal, health tracking app, wellness application, hydration habits, smart water reminders, water tracking app, health monitoring"
-        canonicalUrl="https://quenchnow.com"
+        canonicalUrl="https://hydromate.com"
       />
       
       <div className="min-h-screen bg-white">
@@ -27,7 +27,7 @@ export default function ModernLanding() {
                   <Droplets className="text-white w-5 h-5" />
                 </div>
                 <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">
-                  QuenchNow
+                  HydroMate
                 </span>
               </div>
               
@@ -444,7 +444,7 @@ export default function ModernLanding() {
                 Ready to transform your hydration habits?
               </h2>
               <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-                Join thousands of users who've already improved their health with QuenchNow. 
+                Join thousands of users who've already improved their health with HydroMate. 
                 Start your journey to better hydration today.
               </p>
               
@@ -476,7 +476,7 @@ export default function ModernLanding() {
                   <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center">
                     <Droplets className="text-white w-5 h-5" />
                   </div>
-                  <span className="text-2xl font-bold">QuenchNow</span>
+                  <span className="text-2xl font-bold">HydroMate</span>
                 </div>
                 <p className="text-gray-400 leading-relaxed">
                   The smart way to stay hydrated and healthy every day.
@@ -512,7 +512,7 @@ export default function ModernLanding() {
             </div>
             
             <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
-              <p>&copy; 2025 QuenchNow. All rights reserved.</p>
+              <p>&copy; 2025 HydroMate. All rights reserved.</p>
             </div>
           </div>
         </footer>

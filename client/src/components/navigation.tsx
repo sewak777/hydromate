@@ -30,7 +30,7 @@ export default function Navigation() {
             <div className="w-8 h-8 water-gradient rounded-full flex items-center justify-center">
               <Droplets className="text-white w-4 h-4" />
             </div>
-            <span className="text-xl font-bold text-[hsl(var(--primary-blue))]">HydroFlow</span>
+            <span className="text-xl font-bold text-[hsl(var(--primary-blue))]">HydroMate</span>
           </Link>
 
           {/* Desktop Navigation */}

@@ -1,11 +1,11 @@
-# QuenchNow iOS App Build Guide
+# HydroMate iOS App Build Guide
 
 ## Current Status ✅
 
-Your QuenchNow app is **already configured** for iOS development! Here's what's ready:
+Your HydroMate app is **already configured** for iOS development! Here's what's ready:
 
 - ✅ **Capacitor iOS Setup**: iOS platform added successfully
-- ✅ **App Configuration**: Bundle ID `com.quenchnow.app` configured
+- ✅ **App Configuration**: Bundle ID `com.hydromate.app` configured
 - ✅ **Native Features**: Push notifications, haptics, location services
 - ✅ **App Assets**: Icons, splash screens, and branding ready
 

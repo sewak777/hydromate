@@ -1,8 +1,8 @@
-# QuenchNow iOS App - Complete Setup Summary
+# HydroMate iOS App - Complete Setup Summary
 
 ## ✅ iOS App Status: READY FOR BUILD
 
-Your QuenchNow app is **fully configured** for iOS development and App Store deployment!
+Your HydroMate app is **fully configured** for iOS development and App Store deployment!
 
 ## 🏗️ What's Already Done
 
@@ -17,8 +17,8 @@ ios/
 ```
 
 ### 2. App Configuration Complete
-- **Bundle ID**: `com.quenchnow.app`
-- **App Name**: QuenchNow
+- **Bundle ID**: `com.hydromate.app`
+- **App Name**: HydroMate
 - **Platform**: iOS via Capacitor
 - **Target**: iPhone & iPad
 
@@ -32,7 +32,7 @@ ios/
 
 ### 4. App Assets Ready
 - **App Icons**: All required sizes configured
-- **Splash Screen**: Blue background with QuenchNow branding
+- **Splash Screen**: Blue background with HydroMate branding
 - **Notification Icons**: Custom hydration-themed icons
 
 ## 📱 iOS App Features
