@@ -42,6 +42,7 @@ function Router() {
       ) : (
         <>
           <Route path="/" component={Home} />
+          <Route path="/landing" component={ModernLanding} />
           <Route path="/profile" component={Profile} />
           <Route path="/analytics" component={Analytics} />
           <Route path="/notifications" component={Notifications} />
