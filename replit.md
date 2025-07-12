@@ -135,6 +135,8 @@ HydroFlow is a comprehensive hydration tracking application that helps users mon
 - **Security Headers**: Full browser-level protection implemented
 
 ## Changelog
+- July 12, 2025. Updated pricing structure with promotional discounts: Free plan $2.99 (15% off), Premium Monthly $7.99 (discounted), Premium Annual $86.39 (30% total discount)
+- July 12, 2025. Cleaned up notification center by removing test features and creating production-ready settings interface
 - July 01, 2025. Created modern landing page based on Figma design inspiration with clean layout, animations, and contemporary styling
 - July 01, 2025. Implemented custom authentication pages to remove Replit branding and provide better user experience
 - June 30, 2025. Major security audit and hardening completed

@@ -9,10 +9,24 @@ import { Check, Crown, CreditCard, Settings, Loader2 } from "lucide-react";
 
 const plans: SubscriptionPlan[] = [
   {
+    id: 'free',
+    name: 'Free',
+    description: 'Basic hydration tracking with essential features',
+    price: 299, // $2.99 in cents (after 15% discount)
+    interval: 'month',
+    features: [
+      'Basic hydration tracking',
+      'Daily water intake goals',
+      'Simple reminders',
+      'Progress tracking',
+      'Basic analytics'
+    ]
+  },
+  {
     id: 'price_1Rcc2DGdYl8QlNFU1yVhmZqE',
     name: 'Premium Monthly',
     description: 'All premium features with monthly billing',
-    price: 999, // $9.99 in cents
+    price: 799, // $7.99 in cents (discounted from $9.99)
     interval: 'month',
     features: [
       'Weather-based hydration adjustments',
@@ -26,7 +40,7 @@ const plans: SubscriptionPlan[] = [
     id: 'price_1Rcc2DGdYl8QlNFUgNzH7sKr',
     name: 'Premium Annual',
     description: 'All premium features with annual billing',
-    price: 9599, // $95.99 in cents (20% discount)
+    price: 8639, // $86.39 in cents (additional 10% off from $95.99)
     interval: 'year',
     features: [
       'Weather-based hydration adjustments',
@@ -34,7 +48,7 @@ const plans: SubscriptionPlan[] = [
       'Custom reminder sounds',
       'Priority customer support',
       'Smart notification scheduling',
-      '20% annual discount'
+      '30% total discount'
     ]
   }
 ];
@@ -45,6 +59,14 @@ export default function SubscriptionPlans() {
   const { toast } = useToast();
 
   const handleSubscribe = async (priceId: string) => {
+    if (priceId === 'free') {
+      toast({
+        title: "Free Plan",
+        description: "You're already using the free plan! Upgrade to Premium for advanced features.",
+      });
+      return;
+    }
+    
     try {
       setLoading(priceId);
       const { url } = await createCheckoutSession(priceId);
@@ -85,6 +107,7 @@ export default function SubscriptionPlans() {
   const getButtonText = (plan: SubscriptionPlan) => {
     if (loading === plan.id) return "Processing...";
     if (isCurrentPlan(plan.id)) return "Current Plan";
+    if (plan.id === 'free') return "Get Started";
     if (isPremium) return "Switch Plan";
     return "Subscribe";
   };
@@ -138,7 +161,7 @@ export default function SubscriptionPlans() {
       )}
 
       {/* Pricing Plans */}
-      <div className="grid md:grid-cols-2 gap-8">
+      <div className="grid md:grid-cols-3 gap-8">
         {plans.map((plan) => (
           <div 
             key={plan.id} 
@@ -187,6 +210,16 @@ export default function SubscriptionPlans() {
                 </div>
               )}
               
+              {/* Discount badge for Free plan */}
+              {plan.id === 'free' && (
+                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                  <Badge className="bg-gradient-to-r from-green-600 to-emerald-600 text-white shadow-lg relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 animate-shimmer"></div>
+                    15% OFF
+                  </Badge>
+                </div>
+              )}
+              
               {/* Subtle glow inside card */}
               <div className={`absolute inset-0 rounded-lg bg-gradient-to-br ${
                 plan.interval === 'year' 
@@ -224,7 +257,12 @@ export default function SubscriptionPlans() {
                   <span className="text-gray-600 dark:text-gray-400 text-lg">/{plan.interval}</span>
                   {plan.interval === 'year' && (
                     <div className="text-sm text-green-600 font-medium mt-2 px-3 py-1 bg-green-50 dark:bg-green-950 rounded-full inline-block">
-                      Save 20% annually
+                      Save 30% annually
+                    </div>
+                  )}
+                  {plan.id === 'free' && (
+                    <div className="text-sm text-green-600 font-medium mt-2 px-3 py-1 bg-green-50 dark:bg-green-950 rounded-full inline-block">
+                      Limited time: 15% OFF
                     </div>
                   )}
                 </div>
