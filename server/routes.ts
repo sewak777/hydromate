@@ -364,6 +364,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Subscription plans route
+  app.get('/api/subscription/plans', async (req: any, res) => {
+    try {
+      const { subscriptionPlans } = await import('./stripe');
+      res.json(subscriptionPlans);
+    } catch (error) {
+      console.error("Error fetching subscription plans:", error);
+      res.status(500).json({ message: "Failed to fetch subscription plans" });
+    }
+  });
+
   // Stripe routes
   app.post('/api/stripe/create-checkout-session', conditionalAuth, async (req: any, res) => {
     try {
