@@ -442,9 +442,8 @@ export default function ModernLanding() {
                   Start Free Today
                 </Button>
                 <Button
-                  variant="outline"
                   size="lg"
-                  className="border-2 border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 rounded-2xl font-semibold text-lg transition-all"
+                  className="bg-white text-blue-600 hover:bg-gray-100 hover:text-blue-700 px-8 py-4 rounded-2xl font-semibold text-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
                 >
                   Learn More
                 </Button>
