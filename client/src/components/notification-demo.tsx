@@ -12,12 +12,10 @@ import {
   Bell, 
   BellOff, 
   Clock, 
-  Target, 
-  Droplets, 
-  TestTube,
   Shield,
   Smartphone,
-  Monitor
+  Monitor,
+  Settings
 } from "lucide-react";
 
 export default function NotificationDemo() {
@@ -106,50 +104,18 @@ export default function NotificationDemo() {
     }
   };
 
-  const testBasicNotification = async () => {
-    await notificationService.testNotification();
-    toast({
-      title: "Test Sent",
-      description: "Check for the notification popup!",
-    });
-  };
+  const saveNotificationSettings = async () => {
+    if (!isEnabled) {
+      toast({
+        title: "Settings Saved",
+        description: "Notifications have been disabled.",
+      });
+      return;
+    }
 
-  const testHydrationReminder = async () => {
-    await notificationService.scheduleHydrationReminder(reminderTime, 2000);
     toast({
-      title: "Reminder Scheduled",
-      description: `Hydration reminder set for ${reminderTime}`,
-    });
-  };
-
-  const testGoalAchieved = async () => {
-    await notificationService.showGoalAchievedNotification(2000, 2000);
-    toast({
-      title: "Goal Notification Sent",
-      description: "Celebration notification displayed!",
-    });
-  };
-
-  const testDrinkReminder = async () => {
-    await notificationService.showDrinkReminder(1200, 2000);
-    toast({
-      title: "Drink Reminder Sent",
-      description: "Progress reminder notification sent!",
-    });
-  };
-
-  const scheduleReminderIn30Seconds = async () => {
-    const futureTime = new Date(Date.now() + 30 * 1000); // 30 seconds from now
-    await notificationService.showNotification({
-      title: "Scheduled Reminder 📅",
-      body: "This notification was scheduled 30 seconds ago!",
-      scheduledTime: futureTime,
-      tag: 'scheduled-demo'
-    });
-    
-    toast({
-      title: "Reminder Scheduled",
-      description: "You'll receive a notification in 30 seconds!",
+      title: "Settings Saved",
+      description: `Daily reminders set for ${reminderTime}`,
     });
   };
 
@@ -174,7 +140,7 @@ export default function NotificationDemo() {
       <CardHeader>
         <CardTitle className="flex items-center space-x-2">
           <Bell className="w-5 h-5 text-blue-600" />
-          <span>Push Notifications Demo</span>
+          <span>Notification Settings</span>
           {isNative && (
             <Badge variant="secondary" className="ml-2">
               <Smartphone className="w-3 h-3 mr-1" />
@@ -238,56 +204,15 @@ export default function NotificationDemo() {
           </div>
         </div>
 
-        {/* Demo Buttons */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* Save Settings Button */}
+        <div className="flex justify-end">
           <Button
-            onClick={testBasicNotification}
-            disabled={!isEnabled}
+            onClick={saveNotificationSettings}
             className="flex items-center space-x-2"
-            variant="outline"
-          >
-            <TestTube className="w-4 h-4" />
-            <span>Test Basic Notification</span>
-          </Button>
-
-          <Button
-            onClick={testHydrationReminder}
-            disabled={!isEnabled}
-            className="flex items-center space-x-2"
-            variant="outline"
-          >
-            <Clock className="w-4 h-4" />
-            <span>Test Daily Reminder</span>
-          </Button>
-
-          <Button
-            onClick={testGoalAchieved}
-            disabled={!isEnabled}
-            className="flex items-center space-x-2"
-            variant="outline"
-          >
-            <Target className="w-4 h-4" />
-            <span>Test Goal Achievement</span>
-          </Button>
-
-          <Button
-            onClick={testDrinkReminder}
-            disabled={!isEnabled}
-            className="flex items-center space-x-2"
-            variant="outline"
-          >
-            <Droplets className="w-4 h-4" />
-            <span>Test Progress Reminder</span>
-          </Button>
-
-          <Button
-            onClick={scheduleReminderIn30Seconds}
-            disabled={!isEnabled}
-            className="flex items-center space-x-2 md:col-span-2"
             variant="default"
           >
-            <Clock className="w-4 h-4" />
-            <span>Schedule Notification (30s)</span>
+            <Settings className="w-4 h-4" />
+            <span>Save Settings</span>
           </Button>
         </div>
 
@@ -301,19 +226,6 @@ export default function NotificationDemo() {
             <li>• <strong>Smart:</strong> Progress updates and goal celebrations</li>
             <li>• <strong>Interactive:</strong> Quick actions to log water intake</li>
           </ul>
-        </div>
-
-        {/* Demo Environment Notice */}
-        <div className="p-4 bg-amber-50 rounded-lg border border-amber-200">
-          <h4 className="font-medium text-amber-900 mb-2">Demo Environment Notice:</h4>
-          <p className="text-sm text-amber-700 mb-2">
-            You're viewing this in Replit's preview environment where real browser notifications are restricted. 
-            In this demo, you'll see simulated notifications that appear on the page.
-          </p>
-          <p className="text-sm text-amber-700">
-            <strong>In production:</strong> These would appear as actual system notifications on your device, 
-            with sound alerts and the ability to interact even when the browser is closed.
-          </p>
         </div>
 
         {permission === 'denied' && (
