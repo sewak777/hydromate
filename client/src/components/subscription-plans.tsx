@@ -175,7 +175,7 @@ export default function SubscriptionPlans() {
               plan.interval === 'year' 
                 ? 'group-hover:shadow-3xl-blue' 
                 : 'group-hover:shadow-3xl'
-            } group-hover:scale-[1.15] group-hover:-translate-y-4 group-hover:rotate-1 transform-gpu`}>
+            } group-hover:scale-105 group-hover:-translate-y-2 transform-gpu`}>
               
               {/* Popular badge */}
               {plan.interval === 'year' && (
@@ -264,7 +264,7 @@ export default function SubscriptionPlans() {
                       : isCurrentPlan(plan.id)
                       ? 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 cursor-not-allowed'
                       : 'bg-gradient-to-r from-gray-600 to-gray-800 hover:from-gray-700 hover:to-gray-900 text-white shadow-lg hover:shadow-xl hover:shadow-gray-500/50 active:scale-95'
-                  } ${!isCurrentPlan(plan.id) ? 'hover:scale-110 hover:-translate-y-2' : ''}`}
+                  } ${!isCurrentPlan(plan.id) ? 'hover:scale-105 hover:-translate-y-1' : ''}`}
                 >
                   {loading === plan.id ? (
                     <Loader2 className="w-5 h-5 mr-2 animate-spin" />
@@ -285,7 +285,7 @@ export default function SubscriptionPlans() {
           {/* Subtle glow for free plan */}
           <div className="absolute -inset-0.5 bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 rounded-lg blur opacity-25 group-hover:opacity-90 transition duration-500 group-hover:duration-200 animate-pulse"></div>
           
-          <Card className="relative bg-white dark:bg-gray-950 border-2 border-green-200 dark:border-green-800 group-hover:border-green-400 dark:group-hover:border-green-600 transition-all duration-500 ease-out shadow-lg shadow-green-500/20 group-hover:shadow-3xl-green group-hover:scale-[1.15] group-hover:-translate-y-4 group-hover:-rotate-1 transform-gpu">
+          <Card className="relative bg-white dark:bg-gray-950 border-2 border-green-200 dark:border-green-800 group-hover:border-green-400 dark:group-hover:border-green-600 transition-all duration-500 ease-out shadow-lg shadow-green-500/20 group-hover:shadow-3xl-green group-hover:scale-105 group-hover:-translate-y-2 transform-gpu">
             
             {/* Subtle glow inside card */}
             <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-green-50/50 via-transparent to-emerald-50/50 dark:from-green-950/30 dark:to-emerald-950/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
