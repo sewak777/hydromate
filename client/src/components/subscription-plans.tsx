@@ -150,27 +150,21 @@ export default function SubscriptionPlans() {
             <div className={`absolute -inset-1 bg-gradient-to-r ${
               plan.interval === 'year' 
                 ? 'from-blue-600 via-purple-600 to-cyan-600 animate-glow-pulse' 
-                : 'from-gray-600 via-gray-400 to-gray-600'
-            } rounded-lg blur-sm ${
-              plan.interval === 'year' ? 'opacity-50' : 'opacity-20'
-            } group-hover:opacity-100 group-hover:blur-md transition-all duration-500 group-hover:duration-200 ${
-              plan.interval === 'year' ? '' : 'animate-pulse'
-            }`}></div>
+                : 'from-gray-600 via-gray-400 to-gray-600 animate-glow-pulse'
+            } rounded-lg blur-sm opacity-50 group-hover:opacity-100 group-hover:blur-md transition-all duration-500 group-hover:duration-200`}></div>
             
             {/* Secondary glow layer */}
             <div className={`absolute -inset-0.5 bg-gradient-to-r ${
               plan.interval === 'year' 
                 ? 'from-blue-500 via-purple-500 to-cyan-500' 
                 : 'from-gray-500 via-gray-300 to-gray-500'
-            } rounded-lg blur ${
-              plan.interval === 'year' ? 'opacity-30' : 'opacity-0'
-            } group-hover:opacity-80 transition duration-300`}></div>
+            } rounded-lg blur opacity-30 group-hover:opacity-80 transition duration-300`}></div>
             
             {/* Card content */}
             <Card className={`relative bg-white dark:bg-gray-950 border-2 transition-all duration-500 ease-out ${
               plan.interval === 'year' 
                 ? 'border-blue-300 dark:border-blue-700 group-hover:border-blue-500 dark:group-hover:border-blue-400 shadow-2xl shadow-blue-500/30' 
-                : 'border-gray-300 dark:border-gray-700 group-hover:border-gray-500 dark:group-hover:border-gray-400 shadow-xl shadow-gray-500/20'
+                : 'border-gray-300 dark:border-gray-700 group-hover:border-gray-500 dark:group-hover:border-gray-400 shadow-2xl shadow-gray-500/30'
             } ${
               plan.interval === 'year' 
                 ? 'group-hover:shadow-3xl-blue' 
@@ -192,17 +186,21 @@ export default function SubscriptionPlans() {
                 plan.interval === 'year' 
                   ? 'from-blue-50/50 via-transparent to-purple-50/50 dark:from-blue-950/30 dark:to-purple-950/30' 
                   : 'from-gray-50/50 via-transparent to-gray-50/50 dark:from-gray-900/30 dark:to-gray-900/30'
-              } ${
-                plan.interval === 'year' ? 'opacity-40' : 'opacity-0'
-              } group-hover:opacity-100 transition-opacity duration-300`}></div>
+              } opacity-40 group-hover:opacity-100 transition-opacity duration-300`}></div>
               
               {/* Animated background pattern for premium */}
-              {plan.interval === 'year' && (
-                <div className="absolute inset-0 rounded-lg opacity-10">
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-cyan-500 animate-pulse"></div>
-                  <div className="absolute inset-0 bg-gradient-to-l from-purple-500 via-blue-500 to-cyan-500 animate-pulse" style={{animationDelay: '1s'}}></div>
-                </div>
-              )}
+              <div className="absolute inset-0 rounded-lg opacity-10">
+                <div className={`absolute inset-0 bg-gradient-to-r ${
+                  plan.interval === 'year' 
+                    ? 'from-blue-500 via-purple-500 to-cyan-500' 
+                    : 'from-gray-500 via-gray-300 to-gray-500'
+                } animate-pulse`}></div>
+                <div className={`absolute inset-0 bg-gradient-to-l ${
+                  plan.interval === 'year' 
+                    ? 'from-purple-500 via-blue-500 to-cyan-500' 
+                    : 'from-gray-500 via-gray-300 to-gray-500'
+                } animate-pulse`} style={{animationDelay: '1s'}}></div>
+              </div>
               
               <CardHeader className="text-center relative z-10">
                 <CardTitle className="flex items-center justify-center space-x-2 text-xl">
@@ -282,13 +280,22 @@ export default function SubscriptionPlans() {
       {/* Free Plan */}
       <div className="mt-8 max-w-md mx-auto">
         <div className="relative group cursor-pointer transition-all duration-300 animate-float">
-          {/* Subtle glow for free plan */}
-          <div className="absolute -inset-0.5 bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 rounded-lg blur opacity-25 group-hover:opacity-90 transition duration-500 group-hover:duration-200"></div>
+          {/* Glowing border effect */}
+          <div className="absolute -inset-1 bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 animate-glow-pulse rounded-lg blur-sm opacity-50 group-hover:opacity-100 group-hover:blur-md transition-all duration-500 group-hover:duration-200"></div>
           
-          <Card className="relative bg-white dark:bg-gray-950 border-2 border-green-200 dark:border-green-800 group-hover:border-green-400 dark:group-hover:border-green-600 transition-all duration-500 ease-out shadow-lg shadow-green-500/20 group-hover:shadow-3xl-green group-hover:scale-[1.15] group-hover:-translate-y-4 group-hover:-rotate-1 transform-gpu">
+          {/* Secondary glow layer */}
+          <div className="absolute -inset-0.5 bg-gradient-to-r from-green-500 via-emerald-500 to-teal-500 rounded-lg blur opacity-30 group-hover:opacity-80 transition duration-300"></div>
+          
+          <Card className="relative bg-white dark:bg-gray-950 border-2 border-green-200 dark:border-green-800 group-hover:border-green-400 dark:group-hover:border-green-600 transition-all duration-500 ease-out shadow-2xl shadow-green-500/30 group-hover:shadow-3xl-green group-hover:scale-[1.15] group-hover:-translate-y-4 group-hover:-rotate-1 transform-gpu">
             
             {/* Subtle glow inside card */}
-            <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-green-50/50 via-transparent to-emerald-50/50 dark:from-green-950/30 dark:to-emerald-950/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-green-50/50 via-transparent to-emerald-50/50 dark:from-green-950/30 dark:to-emerald-950/30 opacity-40 group-hover:opacity-100 transition-opacity duration-300"></div>
+            
+            {/* Animated background pattern */}
+            <div className="absolute inset-0 rounded-lg opacity-10">
+              <div className="absolute inset-0 bg-gradient-to-r from-green-500 via-emerald-500 to-teal-500 animate-pulse"></div>
+              <div className="absolute inset-0 bg-gradient-to-l from-emerald-500 via-green-500 to-teal-500 animate-pulse" style={{animationDelay: '1s'}}></div>
+            </div>
             
             <CardHeader className="text-center relative z-10">
               <CardTitle className="text-xl">
