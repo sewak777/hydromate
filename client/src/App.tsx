@@ -29,12 +29,15 @@ function Router() {
 
   return (
     <Switch>
-      {isLoading || !isAuthenticated ? (
+      {isLoading ? (
+        <Route path="*" component={AuthLoading} />
+      ) : !isAuthenticated ? (
         <>
           <Route path="/" component={ModernLanding} />
           <Route path="/landing" component={Landing} />
           <Route path="/auth" component={AuthPage} />
           <Route path="/auth/loading" component={AuthLoading} />
+          <Route component={NotFound} />
         </>
       ) : (
         <>
@@ -45,9 +48,9 @@ function Router() {
           <Route path="/subscription" component={Subscription} />
           <Route path="/subscription/success" component={SubscriptionSuccess} />
           <Route path="/subscription/cancel" component={SubscriptionCancel} />
+          <Route component={NotFound} />
         </>
       )}
-      <Route component={NotFound} />
     </Switch>
   );
 }

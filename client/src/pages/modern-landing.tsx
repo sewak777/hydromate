@@ -316,9 +316,15 @@ export default function ModernLanding() {
               <Card className="border-2 border-gray-200 shadow-sm">
                 <CardContent className="p-8">
                   <div className="text-center mb-8">
+                    <div className="inline-block bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-semibold mb-4">
+                      15% OFF
+                    </div>
                     <h3 className="text-2xl font-bold text-gray-900 mb-2">Free</h3>
-                    <div className="text-4xl font-bold text-gray-900 mb-2">$0</div>
-                    <div className="text-gray-600">Forever</div>
+                    <div className="flex items-center justify-center gap-2 mb-2">
+                      <span className="text-lg text-gray-500 line-through">$3.49</span>
+                      <div className="text-4xl font-bold text-gray-900">$2.99</div>
+                    </div>
+                    <div className="text-gray-600">per month</div>
                   </div>
                   
                   <ul className="space-y-4 mb-8">
@@ -355,7 +361,10 @@ export default function ModernLanding() {
                 <CardContent className="p-8">
                   <div className="text-center mb-8">
                     <h3 className="text-2xl font-bold text-gray-900 mb-2">Premium</h3>
-                    <div className="text-4xl font-bold text-gray-900 mb-2">$9.99</div>
+                    <div className="flex items-center justify-center gap-2 mb-2">
+                      <span className="text-lg text-gray-500 line-through">$9.99</span>
+                      <div className="text-4xl font-bold text-gray-900">$7.99</div>
+                    </div>
                     <div className="text-gray-600">per month</div>
                   </div>
                   
@@ -388,10 +397,16 @@ export default function ModernLanding() {
               <Card className="border-2 border-gray-200 shadow-sm">
                 <CardContent className="p-8">
                   <div className="text-center mb-8">
+                    <div className="inline-block bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-semibold mb-4">
+                      30% OFF
+                    </div>
                     <h3 className="text-2xl font-bold text-gray-900 mb-2">Annual</h3>
-                    <div className="text-4xl font-bold text-gray-900 mb-2">$95.99</div>
+                    <div className="flex items-center justify-center gap-2 mb-2">
+                      <span className="text-lg text-gray-500 line-through">$95.99</span>
+                      <div className="text-4xl font-bold text-gray-900">$86.39</div>
+                    </div>
                     <div className="text-gray-600">per year</div>
-                    <div className="text-sm text-green-600 font-semibold mt-2">Save 20%</div>
+                    <div className="text-sm text-green-600 font-semibold mt-2">Save $57.60</div>
                   </div>
                   
                   <ul className="space-y-4 mb-8">
