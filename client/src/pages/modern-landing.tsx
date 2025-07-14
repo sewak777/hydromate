@@ -374,8 +374,7 @@ export default function ModernLanding() {
                       "Weather-based adjustments",
                       "Advanced analytics",
                       "Custom reminder schedules",
-                      "Export data",
-                      "Priority support"
+                      "Export data"
                     ].map((feature, index) => (
                       <li key={index} className="flex items-center">
                         <CheckCircle className="w-5 h-5 text-green-500 mr-3" />
@@ -413,8 +412,7 @@ export default function ModernLanding() {
                     {[
                       "Everything in Premium",
                       "2 months free",
-                      "Early access to features",
-                      "Premium support"
+                      "Early access to features"
                     ].map((feature, index) => (
                       <li key={index} className="flex items-center">
                         <CheckCircle className="w-5 h-5 text-green-500 mr-3" />

@@ -752,9 +752,9 @@ export default function Landing() {
               <CardContent className="p-8">
                 <h3 className="text-2xl font-bold mb-4 text-white">Premium Monthly</h3>
                 <div className="mb-6">
-                  <div className="text-lg text-white opacity-75 line-through">$7.99/month</div>
-                  <div className="text-4xl font-bold text-white">$4.99<span className="text-lg opacity-90">/month</span></div>
-                  <div className="text-sm text-orange-200 font-semibold">37% OFF</div>
+                  <div className="text-lg text-white opacity-75 line-through">$9.99/month</div>
+                  <div className="text-4xl font-bold text-white">$7.99<span className="text-lg opacity-90">/month</span></div>
+                  <div className="text-sm text-orange-200 font-semibold">20% OFF</div>
                 </div>
                 <ul className="space-y-3 mb-8 text-left">
                   <li className="flex items-center space-x-2">
@@ -794,12 +794,12 @@ export default function Landing() {
             {/* Annual Plan */}
             <Card className="border-2 border-[hsl(var(--accent-green))] text-center">
               <CardContent className="p-8">
-                <div className="text-[hsl(var(--accent-green))] text-sm font-bold mb-2">SAVE 50%</div>
+                <div className="text-[hsl(var(--accent-green))] text-sm font-bold mb-2">SAVE 30%</div>
                 <h3 className="text-2xl font-bold mb-4">Premium Annual</h3>
                 <div className="mb-6">
-                  <div className="text-lg text-gray-500 line-through">$99.99/year</div>
-                  <div className="text-4xl font-bold">$49.99<span className="text-lg text-[hsl(var(--text-light))]">/year</span></div>
-                  <div className="text-sm text-[hsl(var(--text-light))]">Just $4.17/month</div>
+                  <div className="text-lg text-gray-500 line-through">$95.99/year</div>
+                  <div className="text-4xl font-bold">$86.39<span className="text-lg text-[hsl(var(--text-light))]">/year</span></div>
+                  <div className="text-sm text-[hsl(var(--text-light))]">Just $7.20/month</div>
                 </div>
                 <ul className="space-y-3 mb-8 text-left">
                   <li className="flex items-center space-x-2">
@@ -808,11 +808,7 @@ export default function Landing() {
                   </li>
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="text-[hsl(var(--accent-green))] w-4 h-4" />
-                    <span>40% cost savings</span>
-                  </li>
-                  <li className="flex items-center space-x-2">
-                    <CheckCircle className="text-[hsl(var(--accent-green))] w-4 h-4" />
-                    <span>Priority support</span>
+                    <span>30% cost savings</span>
                   </li>
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="text-[hsl(var(--accent-green))] w-4 h-4" />

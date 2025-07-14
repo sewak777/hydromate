@@ -58,7 +58,6 @@ export const subscriptionPlans: SubscriptionPlan[] = [
       'Weather-based hydration adjustments',
       'Advanced analytics and insights',
       'Custom reminder sounds',
-      'Priority customer support',
       'Smart notification scheduling',
       '30% total discount'
     ]
