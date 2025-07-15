@@ -220,7 +220,7 @@ export default function ModernLanding() {
                 {
                   icon: <Brain className="w-8 h-8" />,
                   title: "Smart Reminders",
-                  description: "AI-powered notifications that adapt to your schedule and preferences",
+                  description: "Notifications that adapt to your schedule and preferences",
                   color: "blue"
                 },
                 {
