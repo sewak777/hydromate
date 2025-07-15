@@ -106,16 +106,29 @@ export default function Home() {
 
   const logIntakeMutation = useMutation({
     mutationFn: async (data: { amount: number; beverageType?: string; hydrationPercentage?: number }) => {
-      await apiRequest("POST", "/api/intake", data);
+      // Calculate effective hydration amount
+      const effectiveAmount = data.hydrationPercentage 
+        ? Math.round(data.amount * (data.hydrationPercentage / 100))
+        : data.amount;
+      
+      await apiRequest("POST", "/api/intake", {
+        ...data,
+        amount: effectiveAmount
+      });
     },
     onSuccess: async (_, variables) => {
       queryClient.invalidateQueries({ queryKey: ["/api/dashboard"] });
       queryClient.invalidateQueries({ queryKey: ["/api/intake/today"] });
       
-      // Enhanced feedback with amount
+      // Calculate effective amount for toast
+      const effectiveAmount = variables.hydrationPercentage 
+        ? Math.round(variables.amount * (variables.hydrationPercentage / 100))
+        : variables.amount;
+      
+      // Enhanced feedback with effective amount
       toast({
         title: "Water logged!",
-        description: `Added ${variables.amount}ml to your daily intake. Great job staying hydrated!`,
+        description: `Added ${effectiveAmount}ml to your daily intake. Great job staying hydrated!`,
       });
       
       // Trigger haptic feedback for mobile
@@ -124,7 +137,7 @@ export default function Home() {
       }
 
       // Check if goal achieved and send notification
-      const newTotal = (dashboardData?.todayIntake || 0) + variables.amount;
+      const newTotal = (dashboardData?.todayIntake || 0) + effectiveAmount;
       const goal = dashboardData?.profile?.dailyGoal || 2000;
       
       if (newTotal >= goal && (dashboardData?.todayIntake || 0) < goal) {
