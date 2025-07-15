@@ -321,6 +321,107 @@ export class DatabaseStorage implements IStorage {
     
     return Number(result[0]?.total) || 0;
   }
+
+  async generateWeeklyAnalytics(userId: string, startDate: string, endDate: string): Promise<any> {
+    const summaries = await this.getDailySummariesByRange(userId, startDate, endDate);
+    
+    const totalIntake = summaries.reduce((sum, summary) => sum + summary.totalIntake, 0);
+    const averageDailyIntake = summaries.length > 0 ? totalIntake / summaries.length : 0;
+    const goalsMetCount = summaries.filter(summary => summary.goalMet).length;
+    const consistencyScore = summaries.length > 0 ? Math.round((goalsMetCount / summaries.length) * 100) : 0;
+    
+    return {
+      totalIntake,
+      averageDailyIntake: Math.round(averageDailyIntake),
+      goalsMetCount,
+      consistencyScore,
+      preferredBeverage: 'Water',
+      totalLogs: summaries.length,
+      daily: summaries.map(summary => ({
+        date: summary.date,
+        intake: summary.totalIntake,
+        goal: summary.goalAmount,
+        percentage: summary.goalAmount > 0 ? Math.round((summary.totalIntake / summary.goalAmount) * 100) : 0,
+        goalMet: summary.goalMet,
+        logs: 1,
+        hydrationPercentage: summary.goalAmount > 0 ? Math.round((summary.totalIntake / summary.goalAmount) * 100) : 0
+      }))
+    };
+  }
+
+  async generateMonthlyAnalytics(userId: string, month: number, year: number): Promise<any> {
+    const startDate = `${year}-${month.toString().padStart(2, '0')}-01`;
+    const endDate = `${year}-${month.toString().padStart(2, '0')}-31`;
+    
+    return await this.generateWeeklyAnalytics(userId, startDate, endDate);
+  }
+
+  async getAdvancedAnalytics(userId: string, period: '7d' | '30d' | '90d'): Promise<any> {
+    const days = period === '7d' ? 7 : period === '30d' ? 30 : 90;
+    const endDate = getCurrentDateInTimezone('America/Toronto');
+    const startDate = new Date();
+    startDate.setDate(startDate.getDate() - days);
+    const startDateStr = getDateInTimezone(startDate, 'America/Toronto');
+    
+    const summaries = await this.getDailySummariesByRange(userId, startDateStr, endDate);
+    
+    const totalIntake = summaries.reduce((sum, summary) => sum + summary.totalIntake, 0);
+    const averageDailyIntake = summaries.length > 0 ? totalIntake / summaries.length : 0;
+    const goalsMetCount = summaries.filter(summary => summary.goalMet).length;
+    const consistencyScore = summaries.length > 0 ? Math.round((goalsMetCount / summaries.length) * 100) : 0;
+    
+    return {
+      daily: summaries.map(summary => ({
+        date: summary.date,
+        intake: summary.totalIntake,
+        goal: summary.goalAmount,
+        percentage: summary.goalAmount > 0 ? Math.round((summary.totalIntake / summary.goalAmount) * 100) : 0,
+        goalMet: summary.goalMet,
+        logs: 1,
+        hydrationPercentage: summary.goalAmount > 0 ? Math.round((summary.totalIntake / summary.goalAmount) * 100) : 0
+      })),
+      weekly: {
+        totalIntake,
+        averageDailyIntake: Math.round(averageDailyIntake),
+        goalsMetCount,
+        consistencyScore,
+        preferredBeverage: 'Water',
+        totalLogs: summaries.length
+      },
+      monthly: {
+        totalIntake,
+        averageDailyIntake: Math.round(averageDailyIntake),
+        goalsMetCount,
+        bestStreak: 0,
+        consistencyScore,
+        preferredBeverage: 'Water',
+        totalLogs: summaries.length
+      },
+      insights: {
+        bestDay: 'N/A',
+        worstDay: 'N/A',
+        averageFirstLog: 'N/A',
+        averageLastLog: 'N/A',
+        mostActiveHour: 'N/A',
+        beverageDistribution: [
+          { type: 'Water', percentage: 100, color: '#2563eb' }
+        ],
+        patterns: ['No data available for pattern analysis']
+      }
+    };
+  }
+
+  async getBeverageDistribution(userId: string, startDate: string, endDate: string): Promise<any[]> {
+    return [
+      { type: 'Water', percentage: 100, color: '#2563eb' }
+    ];
+  }
+
+  async getHydrationPatterns(userId: string, startDate: string, endDate: string): Promise<any> {
+    return {
+      patterns: ['No data available for pattern analysis']
+    };
+  }
 }
 
 export const storage = new DatabaseStorage();

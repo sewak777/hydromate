@@ -244,47 +244,57 @@ export default function Analytics() {
                   </CardHeader>
                   <CardContent>
                     <div className="h-80">
-                      <ResponsiveContainer width="100%" height="100%">
-                        {selectedChart === 'intake' ? (
-                          <BarChart data={analyticsData?.daily || []}>
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="date" />
-                            <YAxis />
-                            <Tooltip />
-                            <Bar dataKey="intake" fill="#2563eb" name="Actual Intake (ml)" />
-                            <Bar dataKey="goal" fill="#e5e7eb" name="Goal (ml)" />
-                          </BarChart>
-                        ) : selectedChart === 'consistency' ? (
-                          <LineChart data={analyticsData?.daily || []}>
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="date" />
-                            <YAxis />
-                            <Tooltip />
-                            <Line 
-                              type="monotone" 
-                              dataKey="percentage" 
-                              stroke="#10b981" 
-                              strokeWidth={3}
-                              name="Goal Achievement (%)"
-                            />
-                          </LineChart>
-                        ) : (
-                          <AreaChart data={analyticsData?.daily || []}>
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="date" />
-                            <YAxis />
-                            <Tooltip />
-                            <Area 
-                              type="monotone" 
-                              dataKey="hydrationPercentage" 
-                              stroke="#8b5cf6" 
-                              fill="#8b5cf6" 
-                              fillOpacity={0.3}
-                              name="Hydration Quality (%)"
-                            />
-                          </AreaChart>
-                        )}
-                      </ResponsiveContainer>
+                      {analyticsData?.daily && analyticsData.daily.length > 0 ? (
+                        <ResponsiveContainer width="100%" height="100%">
+                          {selectedChart === 'intake' ? (
+                            <BarChart data={analyticsData.daily}>
+                              <CartesianGrid strokeDasharray="3 3" />
+                              <XAxis dataKey="date" />
+                              <YAxis />
+                              <Tooltip />
+                              <Bar dataKey="intake" fill="#2563eb" name="Actual Intake (ml)" />
+                              <Bar dataKey="goal" fill="#e5e7eb" name="Goal (ml)" />
+                            </BarChart>
+                          ) : selectedChart === 'consistency' ? (
+                            <LineChart data={analyticsData.daily}>
+                              <CartesianGrid strokeDasharray="3 3" />
+                              <XAxis dataKey="date" />
+                              <YAxis />
+                              <Tooltip />
+                              <Line 
+                                type="monotone" 
+                                dataKey="percentage" 
+                                stroke="#10b981" 
+                                strokeWidth={3}
+                                name="Goal Achievement (%)"
+                              />
+                            </LineChart>
+                          ) : (
+                            <AreaChart data={analyticsData.daily}>
+                              <CartesianGrid strokeDasharray="3 3" />
+                              <XAxis dataKey="date" />
+                              <YAxis />
+                              <Tooltip />
+                              <Area 
+                                type="monotone" 
+                                dataKey="hydrationPercentage" 
+                                stroke="#8b5cf6" 
+                                fill="#8b5cf6" 
+                                fillOpacity={0.3}
+                                name="Hydration Quality (%)"
+                              />
+                            </AreaChart>
+                          )}
+                        </ResponsiveContainer>
+                      ) : (
+                        <div className="h-full flex items-center justify-center bg-gray-50 rounded-lg">
+                          <div className="text-center">
+                            <BarChart3 className="w-16 h-16 mx-auto mb-4 text-gray-400" />
+                            <p className="text-gray-500 text-lg font-medium">No data available</p>
+                            <p className="text-gray-400 text-sm">Start logging your water intake to see analytics</p>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </CardContent>
                 </Card>
