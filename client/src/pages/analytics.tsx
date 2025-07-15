@@ -392,10 +392,13 @@ export default function Analytics() {
                             label={({ type, percentage }) => `${type}: ${percentage}%`}
                           >
                             {analyticsData?.insights.beverageDistribution?.map((entry, index) => (
-                              <Cell key={`cell-${index}`} fill={CHART_COLORS[index % CHART_COLORS.length]} />
+                              <Cell key={`cell-${index}`} fill={entry.color} />
                             ))}
                           </Pie>
-                          <Tooltip />
+                          <Tooltip 
+                            formatter={(value: number) => [`${value}%`, 'Percentage']}
+                            labelFormatter={(label) => `${label}`}
+                          />
                         </PieChart>
                       </ResponsiveContainer>
                     </div>
