@@ -325,6 +325,34 @@ export class DatabaseStorage implements IStorage {
   async generateWeeklyAnalytics(userId: string, startDate: string, endDate: string): Promise<any> {
     const summaries = await this.getDailySummariesByRange(userId, startDate, endDate);
     
+    // Get actual beverage data
+    const logs = await this.db
+      .select({
+        beverageType: intakeLogs.beverageType,
+        amount: intakeLogs.amount
+      })
+      .from(intakeLogs)
+      .where(
+        and(
+          eq(intakeLogs.userId, userId),
+          gte(intakeLogs.loggedAt, startDate),
+          lte(intakeLogs.loggedAt, endDate)
+        )
+      );
+
+    // Calculate preferred beverage
+    const beverageGroups = logs.reduce((acc, log) => {
+      const type = log.beverageType || 'water';
+      if (!acc[type]) {
+        acc[type] = 0;
+      }
+      acc[type] += log.amount;
+      return acc;
+    }, {} as Record<string, number>);
+
+    const preferredBeverage = Object.entries(beverageGroups)
+      .sort(([, a], [, b]) => b - a)[0]?.[0] || 'water';
+
     const totalIntake = summaries.reduce((sum, summary) => sum + summary.totalIntake, 0);
     const averageDailyIntake = summaries.length > 0 ? totalIntake / summaries.length : 0;
     const goalsMetCount = summaries.filter(summary => summary.goalMet).length;
@@ -335,8 +363,8 @@ export class DatabaseStorage implements IStorage {
       averageDailyIntake: Math.round(averageDailyIntake),
       goalsMetCount,
       consistencyScore,
-      preferredBeverage: 'Water',
-      totalLogs: summaries.length,
+      preferredBeverage: preferredBeverage.charAt(0).toUpperCase() + preferredBeverage.slice(1).replace('_', ' '),
+      totalLogs: logs.length,
       daily: summaries.map(summary => ({
         date: summary.date,
         intake: summary.totalIntake,
@@ -365,10 +393,42 @@ export class DatabaseStorage implements IStorage {
     
     const summaries = await this.getDailySummariesByRange(userId, startDateStr, endDate);
     
+    // Get actual beverage data
+    const logs = await this.db
+      .select({
+        beverageType: intakeLogs.beverageType,
+        amount: intakeLogs.amount
+      })
+      .from(intakeLogs)
+      .where(
+        and(
+          eq(intakeLogs.userId, userId),
+          gte(intakeLogs.loggedAt, startDateStr),
+          lte(intakeLogs.loggedAt, endDate)
+        )
+      );
+
+    // Calculate preferred beverage
+    const beverageGroups = logs.reduce((acc, log) => {
+      const type = log.beverageType || 'water';
+      if (!acc[type]) {
+        acc[type] = 0;
+      }
+      acc[type] += log.amount;
+      return acc;
+    }, {} as Record<string, number>);
+
+    const preferredBeverage = Object.entries(beverageGroups)
+      .sort(([, a], [, b]) => b - a)[0]?.[0] || 'water';
+
     const totalIntake = summaries.reduce((sum, summary) => sum + summary.totalIntake, 0);
     const averageDailyIntake = summaries.length > 0 ? totalIntake / summaries.length : 0;
     const goalsMetCount = summaries.filter(summary => summary.goalMet).length;
     const consistencyScore = summaries.length > 0 ? Math.round((goalsMetCount / summaries.length) * 100) : 0;
+
+    // Get beverage distribution and patterns
+    const beverageDistribution = await this.getBeverageDistribution(userId, startDateStr, endDate);
+    const patterns = await this.getHydrationPatterns(userId, startDateStr, endDate);
     
     return {
       daily: summaries.map(summary => ({
@@ -385,8 +445,8 @@ export class DatabaseStorage implements IStorage {
         averageDailyIntake: Math.round(averageDailyIntake),
         goalsMetCount,
         consistencyScore,
-        preferredBeverage: 'Water',
-        totalLogs: summaries.length
+        preferredBeverage: preferredBeverage.charAt(0).toUpperCase() + preferredBeverage.slice(1).replace('_', ' '),
+        totalLogs: logs.length
       },
       monthly: {
         totalIntake,
@@ -394,8 +454,8 @@ export class DatabaseStorage implements IStorage {
         goalsMetCount,
         bestStreak: 0,
         consistencyScore,
-        preferredBeverage: 'Water',
-        totalLogs: summaries.length
+        preferredBeverage: preferredBeverage.charAt(0).toUpperCase() + preferredBeverage.slice(1).replace('_', ' '),
+        totalLogs: logs.length
       },
       insights: {
         bestDay: 'N/A',
@@ -403,23 +463,107 @@ export class DatabaseStorage implements IStorage {
         averageFirstLog: 'N/A',
         averageLastLog: 'N/A',
         mostActiveHour: 'N/A',
-        beverageDistribution: [
-          { type: 'Water', percentage: 100, color: '#2563eb' }
-        ],
-        patterns: ['No data available for pattern analysis']
+        beverageDistribution,
+        patterns: patterns.patterns
       }
     };
   }
 
   async getBeverageDistribution(userId: string, startDate: string, endDate: string): Promise<any[]> {
-    return [
-      { type: 'Water', percentage: 100, color: '#2563eb' }
-    ];
+    const logs = await this.db
+      .select({
+        beverageType: intakeLogs.beverageType,
+        amount: intakeLogs.amount
+      })
+      .from(intakeLogs)
+      .where(
+        and(
+          eq(intakeLogs.userId, userId),
+          gte(intakeLogs.loggedAt, startDate),
+          lte(intakeLogs.loggedAt, endDate)
+        )
+      );
+
+    if (logs.length === 0) {
+      return [{ type: 'Water', percentage: 100, color: '#2563eb' }];
+    }
+
+    // Calculate total intake
+    const totalIntake = logs.reduce((sum, log) => sum + log.amount, 0);
+
+    // Group by beverage type
+    const beverageGroups = logs.reduce((acc, log) => {
+      const type = log.beverageType || 'water';
+      if (!acc[type]) {
+        acc[type] = 0;
+      }
+      acc[type] += log.amount;
+      return acc;
+    }, {} as Record<string, number>);
+
+    // Convert to percentage and add colors
+    const beverageColors = {
+      water: '#2563eb',
+      tea: '#a16207',
+      coffee: '#92400e',
+      juice: '#ea580c',
+      sports_drink: '#eab308',
+      soda: '#dc2626',
+      milk: '#6b7280',
+      other: '#059669'
+    };
+
+    return Object.entries(beverageGroups).map(([type, amount]) => ({
+      type: type.charAt(0).toUpperCase() + type.slice(1).replace('_', ' '),
+      percentage: Math.round((amount / totalIntake) * 100),
+      color: beverageColors[type as keyof typeof beverageColors] || '#6b7280'
+    }));
   }
 
   async getHydrationPatterns(userId: string, startDate: string, endDate: string): Promise<any> {
+    const logs = await this.db
+      .select({
+        loggedAt: intakeLogs.loggedAt,
+        amount: intakeLogs.amount
+      })
+      .from(intakeLogs)
+      .where(
+        and(
+          eq(intakeLogs.userId, userId),
+          gte(intakeLogs.loggedAt, startDate),
+          lte(intakeLogs.loggedAt, endDate)
+        )
+      )
+      .orderBy(intakeLogs.loggedAt);
+
+    if (logs.length === 0) {
+      return {
+        patterns: ['No data available for pattern analysis']
+      };
+    }
+
+    // Analyze hourly patterns
+    const hourlyData = logs.reduce((acc, log) => {
+      const hour = new Date(log.loggedAt).getHours();
+      if (!acc[hour]) {
+        acc[hour] = 0;
+      }
+      acc[hour] += log.amount;
+      return acc;
+    }, {} as Record<number, number>);
+
+    // Find peak hours
+    const peakHours = Object.entries(hourlyData)
+      .sort(([, a], [, b]) => b - a)
+      .slice(0, 3)
+      .map(([hour]) => `${hour}:00`);
+
     return {
-      patterns: ['No data available for pattern analysis']
+      patterns: [
+        `Most active hydration hours: ${peakHours.join(', ')}`,
+        `Average intake per session: ${Math.round(logs.reduce((sum, log) => sum + log.amount, 0) / logs.length)}ml`,
+        `Total logging sessions: ${logs.length}`
+      ]
     };
   }
 }
