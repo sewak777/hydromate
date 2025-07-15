@@ -167,10 +167,10 @@ export default function Analytics() {
 
             <Tabs defaultValue="overview" className="space-y-6">
               <TabsList className="grid w-full grid-cols-4">
-                <TabsTrigger value="overview">Overview</TabsTrigger>
-                <TabsTrigger value="trends">Trends</TabsTrigger>
-                <TabsTrigger value="patterns">Patterns</TabsTrigger>
-                <TabsTrigger value="insights">Insights</TabsTrigger>
+                <TabsTrigger value="overview" className="text-black data-[state=active]:bg-blue-500 data-[state=active]:text-white">Overview</TabsTrigger>
+                <TabsTrigger value="trends" className="text-black data-[state=active]:bg-blue-500 data-[state=active]:text-white">Trends</TabsTrigger>
+                <TabsTrigger value="patterns" className="text-black data-[state=active]:bg-blue-500 data-[state=active]:text-white">Patterns</TabsTrigger>
+                <TabsTrigger value="insights" className="text-black data-[state=active]:bg-blue-500 data-[state=active]:text-white">Insights</TabsTrigger>
               </TabsList>
 
               {/* Overview Tab */}

@@ -326,7 +326,7 @@ export class DatabaseStorage implements IStorage {
     const summaries = await this.getDailySummariesByRange(userId, startDate, endDate);
     
     // Get actual beverage data
-    const logs = await this.db
+    const logs = await db
       .select({
         beverageType: intakeLogs.beverageType,
         amount: intakeLogs.amount
@@ -394,7 +394,7 @@ export class DatabaseStorage implements IStorage {
     const summaries = await this.getDailySummariesByRange(userId, startDateStr, endDate);
     
     // Get actual beverage data
-    const logs = await this.db
+    const logs = await db
       .select({
         beverageType: intakeLogs.beverageType,
         amount: intakeLogs.amount
@@ -470,7 +470,7 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getBeverageDistribution(userId: string, startDate: string, endDate: string): Promise<any[]> {
-    const logs = await this.db
+    const logs = await db
       .select({
         beverageType: intakeLogs.beverageType,
         amount: intakeLogs.amount
@@ -521,7 +521,7 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getHydrationPatterns(userId: string, startDate: string, endDate: string): Promise<any> {
-    const logs = await this.db
+    const logs = await db
       .select({
         loggedAt: intakeLogs.loggedAt,
         amount: intakeLogs.amount
