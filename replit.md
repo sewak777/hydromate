@@ -142,6 +142,7 @@ HydroMate is a comprehensive hydration tracking application that helps users mon
 - **Source Code Headers**: Copyright notices added to main application files
 
 ## Changelog
+- July 15, 2025. Changed "Log Custom Amount" button to always display filled blue background for consistent visual appearance
 - July 15, 2025. Removed "How Notifications Work" informational section from reminders page for cleaner UI
 - July 15, 2025. Fixed analytics API errors by implementing missing storage functions and improved empty data handling
 - July 15, 2025. Removed Replit dev banner script that was causing 404 errors at bottom of pages
