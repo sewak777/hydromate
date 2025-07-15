@@ -38,6 +38,10 @@ function Router() {
 
   return (
     <Switch>
+      {/* Terms and Privacy are always accessible */}
+      <Route path="/terms" component={TermsOfService} />
+      <Route path="/privacy" component={PrivacyPolicy} />
+      
       {isLoading ? (
         <Route path="*" component={AuthLoading} />
       ) : !isAuthenticated ? (
@@ -46,8 +50,6 @@ function Router() {
           <Route path="/landing" component={Landing} />
           <Route path="/auth" component={AuthPage} />
           <Route path="/auth/loading" component={AuthLoading} />
-          <Route path="/terms" component={TermsOfService} />
-          <Route path="/privacy" component={PrivacyPolicy} />
           <Route path="*" component={NotFound} />
         </>
       ) : (
@@ -61,8 +63,6 @@ function Router() {
           <Route path="/subscription" component={Subscription} />
           <Route path="/subscription/success" component={SubscriptionSuccess} />
           <Route path="/subscription/cancel" component={SubscriptionCancel} />
-          <Route path="/terms" component={TermsOfService} />
-          <Route path="/privacy" component={PrivacyPolicy} />
           <Route path="*" component={NotFound} />
         </>
       )}
