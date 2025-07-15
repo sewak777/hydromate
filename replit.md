@@ -142,7 +142,7 @@ HydroMate is a comprehensive hydration tracking application that helps users mon
 - **Source Code Headers**: Copyright notices added to main application files
 
 ## Changelog
-- July 15, 2025. Created comprehensive Terms of Service and Privacy Policy documents with proper legal coverage for authentication dashboard
+- July 15, 2025. Removed Terms of Service and Privacy Policy documents from authentication dashboard as requested by user
 - July 15, 2025. Fixed beverage distribution chart to display proper percentages instead of ratios (e.g., "Water: 76%" instead of "3:18")
 - July 15, 2025. Updated analytics navigation tabs to show black text that turns blue when active as requested
 - July 15, 2025. Added helpful info message under "Log Custom Amount" button: "💡 Log drinks other than water like coffee, juice etc."

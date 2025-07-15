@@ -155,10 +155,7 @@ export default function AuthPage() {
                 {/* Privacy Note */}
                 <div className="text-center">
                   <p className="text-xs text-gray-500 leading-relaxed">
-                    By continuing, you agree to our{" "}
-                    <a href="/terms" className="text-blue-600 hover:underline">Terms of Service</a>
-                    {" "}and{" "}
-                    <a href="/privacy" className="text-blue-600 hover:underline">Privacy Policy</a>
+                    By continuing, you agree to use HydroMate responsibly for hydration tracking.
                   </p>
                 </div>
 

@@ -25,8 +25,6 @@ import Notifications from "@/pages/notifications";
 import Subscription from "@/pages/subscription";
 import SubscriptionSuccess from "@/pages/subscription-success";
 import SubscriptionCancel from "@/pages/subscription-cancel";
-import TermsOfService from "@/pages/terms";
-import PrivacyPolicy from "@/pages/privacy";
 
 function Router() {
   const { isAuthenticated, isLoading } = useAuth();
@@ -38,10 +36,6 @@ function Router() {
 
   return (
     <Switch>
-      {/* Terms and Privacy are always accessible */}
-      <Route path="/terms" component={TermsOfService} />
-      <Route path="/privacy" component={PrivacyPolicy} />
-      
       {isLoading ? (
         <Route path="*" component={AuthLoading} />
       ) : !isAuthenticated ? (
