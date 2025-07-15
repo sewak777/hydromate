@@ -50,7 +50,7 @@ export default function PrivacyPolicy() {
                 </p>
               </CardHeader>
               <CardContent>
-                <ScrollArea className="h-96">
+                <ScrollArea className="h-[500px]">
                   <div className="space-y-6 text-sm">
                     <section>
                       <h3 className="font-semibold text-lg mb-3 flex items-center space-x-2">
@@ -58,16 +58,17 @@ export default function PrivacyPolicy() {
                         <span>1. Information We Collect</span>
                       </h3>
                       <p className="text-[hsl(var(--text-light))] leading-relaxed mb-3">
-                        We collect information you provide directly to us and automatically when you use our Service:
+                        HydroMate Inc. ("we", "us", or "our") collects information you provide directly to us and automatically when you use our Service to provide you with personalized hydration tracking:
                       </p>
                       <div className="space-y-3">
                         <div>
                           <h4 className="font-medium text-gray-900 mb-2">Personal Information:</h4>
                           <ul className="list-disc list-inside text-[hsl(var(--text-light))] space-y-1 ml-4">
-                            <li>Name and email address (via Replit authentication)</li>
+                            <li>Name and email address (via secure authentication)</li>
                             <li>Profile information (weight, gender, activity level)</li>
-                            <li>Hydration preferences and goals</li>
-                            <li>Subscription and payment information</li>
+                            <li>Hydration preferences and personalized goals</li>
+                            <li>Subscription and payment information (processed securely via Stripe)</li>
+                            <li>Account settings and notification preferences</li>
                           </ul>
                         </div>
                         <div>
@@ -75,8 +76,9 @@ export default function PrivacyPolicy() {
                           <ul className="list-disc list-inside text-[hsl(var(--text-light))] space-y-1 ml-4">
                             <li>Water intake logs and beverage preferences</li>
                             <li>App usage patterns and feature interactions</li>
-                            <li>Device information and browser type</li>
+                            <li>Device information, browser type, and IP address</li>
                             <li>Location data (if enabled for weather features)</li>
+                            <li>Performance metrics and error reports</li>
                           </ul>
                         </div>
                       </div>
@@ -194,10 +196,33 @@ export default function PrivacyPolicy() {
                     </section>
 
                     <section>
-                      <h3 className="font-semibold text-lg mb-3">11. Contact Us</h3>
+                      <h3 className="font-semibold text-lg mb-3">11. International Users</h3>
                       <p className="text-[hsl(var(--text-light))] leading-relaxed">
-                        For questions about this Privacy Policy or our data practices, please contact us at privacy@hydromate.com
+                        If you are accessing our service from outside the United States, please note that your information may be transferred to, stored, and processed in the United States where our servers are located.
                       </p>
+                    </section>
+
+                    <section>
+                      <h3 className="font-semibold text-lg mb-3">12. Contact Us</h3>
+                      <p className="text-[hsl(var(--text-light))] leading-relaxed">
+                        For questions about this Privacy Policy or our data practices, please contact us at:
+                      </p>
+                      <div className="mt-3 text-[hsl(var(--text-light))] space-y-1">
+                        <p><strong>HydroMate Inc. - Privacy Officer</strong></p>
+                        <p>Email: privacy@hydromate.com</p>
+                        <p>Support: support@hydromate.com</p>
+                        <p>Mailing Address: HydroMate Privacy Team</p>
+                        <p>123 Hydration Ave, Water City, WC 12345</p>
+                        <p>Website: www.hydromate.com</p>
+                      </div>
+
+                      <div className="mt-6 p-4 bg-blue-50 rounded-lg">
+                        <p className="text-sm text-blue-800">
+                          <strong>Effective Date:</strong> July 15, 2025<br />
+                          <strong>Version:</strong> 1.0<br />
+                          This Privacy Policy explains how HydroMate Inc. collects, uses, and protects your personal information when you use our hydration tracking service.
+                        </p>
+                      </div>
                     </section>
                   </div>
                 </ScrollArea>

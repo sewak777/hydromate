@@ -50,7 +50,7 @@ export default function TermsOfService() {
                 </p>
               </CardHeader>
               <CardContent>
-                <ScrollArea className="h-96">
+                <ScrollArea className="h-[500px]">
                   <div className="space-y-6 text-sm">
                     <section>
                       <h3 className="font-semibold text-lg mb-3 flex items-center space-x-2">
@@ -58,7 +58,7 @@ export default function TermsOfService() {
                         <span>1. Acceptance of Terms</span>
                       </h3>
                       <p className="text-[hsl(var(--text-light))] leading-relaxed">
-                        By accessing and using HydroMate ("the Service"), you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service.
+                        By accessing and using HydroMate ("the Service"), a product of HydroMate Inc. ("Company", "we", "us", or "our"), you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service. Your use of the Service constitutes your acceptance of these Terms.
                       </p>
                     </section>
 
@@ -98,10 +98,12 @@ export default function TermsOfService() {
                         Premium features are available through paid subscription plans:
                       </p>
                       <ul className="list-disc list-inside text-[hsl(var(--text-light))] space-y-1 ml-4">
-                        <li>Monthly Premium: $7.99/month</li>
-                        <li>Annual Premium: $86.39/year (30% discount)</li>
+                        <li>Monthly Premium: $7.99/month (regularly $9.99)</li>
+                        <li>Annual Premium: $86.39/year (30% discount from $119.88)</li>
                         <li>Subscriptions automatically renew unless cancelled</li>
                         <li>Cancellation available at any time through account settings</li>
+                        <li>Prorated refunds available within 30 days of purchase</li>
+                        <li>Premium features include weather integration, advanced analytics, and priority support</li>
                       </ul>
                     </section>
 
@@ -137,10 +139,32 @@ export default function TermsOfService() {
                     </section>
 
                     <section>
-                      <h3 className="font-semibold text-lg mb-3">9. Contact Information</h3>
+                      <h3 className="font-semibold text-lg mb-3">9. Governing Law</h3>
                       <p className="text-[hsl(var(--text-light))] leading-relaxed">
-                        For questions about these Terms of Service, please contact us at support@hydromate.com
+                        These Terms shall be governed by and construed in accordance with the laws of the jurisdiction where HydroMate is operated, without regard to its conflict of law provisions.
                       </p>
+                    </section>
+
+                    <section>
+                      <h3 className="font-semibold text-lg mb-3">10. Contact Information</h3>
+                      <p className="text-[hsl(var(--text-light))] leading-relaxed">
+                        For questions about these Terms of Service, please contact us at:
+                      </p>
+                      <div className="mt-3 text-[hsl(var(--text-light))] space-y-1">
+                        <p><strong>HydroMate Inc.</strong></p>
+                        <p>Email: legal@hydromate.com</p>
+                        <p>Support: support@hydromate.com</p>
+                        <p>Website: www.hydromate.com</p>
+                        <p>Business Address: 123 Hydration Ave, Water City, WC 12345</p>
+                      </div>
+
+                      <div className="mt-6 p-4 bg-blue-50 rounded-lg">
+                        <p className="text-sm text-blue-800">
+                          <strong>Effective Date:</strong> July 15, 2025<br />
+                          <strong>Version:</strong> 1.0<br />
+                          These Terms of Service constitute the entire agreement between you and HydroMate Inc. regarding the use of our Service.
+                        </p>
+                      </div>
                     </section>
                   </div>
                 </ScrollArea>
