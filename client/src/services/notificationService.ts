@@ -265,14 +265,7 @@ export class NotificationService {
     });
   }
 
-  async testNotification(): Promise<void> {
-    await this.showNotification({
-      title: 'HydroFlow Test Notification',
-      body: 'This is a test notification to demonstrate push notification functionality.',
-      icon: '/android-chrome-192x192.png',
-      tag: 'test-notification'
-    });
-  }
+
 }
 
 export const notificationService = NotificationService.getInstance();

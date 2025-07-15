@@ -4,7 +4,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { usePremium } from "@/hooks/usePremium";
 import { useToast } from "@/hooks/use-toast";
 import { useNativeFeatures } from "@/hooks/useNativeFeatures";
-import { notificationService } from "@/services/notificationService";
+
 import { isUnauthorizedError } from "@/lib/authUtils";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { SEOHead } from "@/components/seo-head";
@@ -15,7 +15,7 @@ import WaterBottle from "@/components/water-bottle";
 import IntakeLog from "@/components/intake-log";
 import ProgressChart from "@/components/progress-chart";
 import AchievementBadge from "@/components/achievement-badge";
-import { Droplets, Target, TrendingUp, Trophy, Plus, Crown, Cloud, Activity, Bell } from "lucide-react";
+import { Droplets, Target, TrendingUp, Trophy, Plus, Crown, Cloud, Activity, Bell, Settings } from "lucide-react";
 
 interface DashboardData {
   profile?: {
@@ -454,7 +454,7 @@ export default function Home() {
                 </Card>
               )}
 
-              {/* Quick Test Notifications */}
+              {/* Notification Settings */}
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-2">
@@ -464,26 +464,16 @@ export default function Home() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3">
-                    <Button 
-                      variant="outline" 
-                      className="w-full" 
-                      onClick={async () => {
-                        await notificationService.testNotification();
-                        toast({
-                          title: "Test notification sent!",
-                          description: "Check your notification area",
-                        });
-                      }}
-                    >
-                      <Bell className="w-4 h-4 mr-2" />
-                      Test Notification
-                    </Button>
+                    <p className="text-sm text-gray-600">
+                      Configure your hydration reminders and notification preferences
+                    </p>
                     <Button 
                       variant="outline" 
                       className="w-full" 
                       onClick={() => window.location.href = '/notifications'}
                     >
-                      View All Demo Features
+                      <Settings className="w-4 h-4 mr-2" />
+                      Notification Settings
                     </Button>
                   </div>
                 </CardContent>

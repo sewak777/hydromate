@@ -6,7 +6,7 @@ export default function Notifications() {
   return (
     <>
       <SEOHead 
-        title="Notification Settings - QuenchNow"
+        title="Notification Settings - HydroMate"
         description="Configure your hydration reminders and notification preferences for optimal water intake tracking."
       />
       
