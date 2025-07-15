@@ -25,6 +25,8 @@ import Notifications from "@/pages/notifications";
 import Subscription from "@/pages/subscription";
 import SubscriptionSuccess from "@/pages/subscription-success";
 import SubscriptionCancel from "@/pages/subscription-cancel";
+import TermsOfService from "@/pages/terms";
+import PrivacyPolicy from "@/pages/privacy";
 
 function Router() {
   const { isAuthenticated, isLoading } = useAuth();
@@ -44,6 +46,8 @@ function Router() {
           <Route path="/landing" component={Landing} />
           <Route path="/auth" component={AuthPage} />
           <Route path="/auth/loading" component={AuthLoading} />
+          <Route path="/terms" component={TermsOfService} />
+          <Route path="/privacy" component={PrivacyPolicy} />
           <Route path="*" component={NotFound} />
         </>
       ) : (
