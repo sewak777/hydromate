@@ -32,8 +32,8 @@ export default function Subscription() {
   return (
     <>
       <SEOHead 
-        title="Premium Subscription - HydroFlow"
-        description="Upgrade to HydroFlow Premium for advanced hydration tracking, weather-based adjustments, and detailed analytics."
+        title="Premium Subscription - HydroMate"
+        description="Upgrade to HydroMate Premium for advanced hydration tracking, weather-based adjustments, and detailed analytics."
         keywords="hydration, premium, subscription, weather tracking, advanced analytics"
       />
       
