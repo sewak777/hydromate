@@ -302,17 +302,7 @@ export default function Reminders() {
                     </Label>
                   </div>
 
-                  {/* Information */}
-                  <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
-                    <h4 className="font-medium text-blue-900 mb-2">How Notifications Work:</h4>
-                    <ul className="text-sm text-blue-700 space-y-1">
-                      <li>• <strong>Web:</strong> Browser notifications with action buttons</li>
-                      <li>• <strong>Mobile:</strong> Native push notifications via Capacitor</li>
-                      <li>• <strong>Scheduled:</strong> Regular reminders based on your settings below</li>
-                      <li>• <strong>Smart:</strong> Progress updates and goal celebrations</li>
-                      <li>• <strong>Interactive:</strong> Quick actions to log water intake</li>
-                    </ul>
-                  </div>
+
                 </CardContent>
               </Card>
 
