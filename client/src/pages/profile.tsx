@@ -13,14 +13,11 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Switch } from "@/components/ui/switch";
+
 import Navigation from "@/components/navigation";
 import LocationSettings from "@/components/location-settings";
 import { SEOHead } from "@/components/seo-head";
-import { User, Activity, Bell, Settings, Save, Crown, MapPin } from "lucide-react";
-import NotificationDemo from "@/components/notification-demo";
-import NotificationTroubleshoot from "@/components/notification-troubleshoot";
-import NotificationSimulator from "@/components/notification-simulator";
+import { User, Activity, Settings, Save, Crown, MapPin } from "lucide-react";
 
 const profileSchema = z.object({
   weight: z.coerce.number().min(30).max(300),
@@ -33,16 +30,7 @@ const profileSchema = z.object({
   weatherEnabled: z.boolean().default(true),
 });
 
-const reminderSchema = z.object({
-  intervalMinutes: z.coerce.number().min(15).max(480),
-  startTime: z.string(),
-  endTime: z.string(),
-  isEnabled: z.boolean(),
-  soundId: z.string().optional(),
-});
-
 type ProfileFormData = z.infer<typeof profileSchema>;
-type ReminderFormData = z.infer<typeof reminderSchema>;
 
 export default function Profile() {
   const { toast } = useToast();
@@ -70,11 +58,6 @@ export default function Profile() {
     retry: false,
   });
 
-  const { data: reminders } = useQuery({
-    queryKey: ["/api/reminders"],
-    retry: false,
-  });
-
   const profileForm = useForm<ProfileFormData>({
     resolver: zodResolver(profileSchema),
     defaultValues: {
@@ -89,16 +72,7 @@ export default function Profile() {
     },
   });
 
-  const reminderForm = useForm<ReminderFormData>({
-    resolver: zodResolver(reminderSchema),
-    defaultValues: {
-      intervalMinutes: reminders?.intervalMinutes || 60,
-      startTime: reminders?.startTime || "08:00",
-      endTime: reminders?.endTime || "22:00",
-      isEnabled: reminders?.isEnabled !== false,
-      soundId: reminders?.soundId || "default",
-    },
-  });
+
 
   // Update form when data loads
   useEffect(() => {
@@ -116,17 +90,7 @@ export default function Profile() {
     }
   }, [profile, profileForm]);
 
-  useEffect(() => {
-    if (reminders) {
-      reminderForm.reset({
-        intervalMinutes: reminders.intervalMinutes,
-        startTime: reminders.startTime,
-        endTime: reminders.endTime,
-        isEnabled: reminders.isEnabled,
-        soundId: reminders.soundId,
-      });
-    }
-  }, [reminders, reminderForm]);
+
 
   // Calculate goal when weight, gender, or activity level changes
   useEffect(() => {
@@ -187,50 +151,15 @@ export default function Profile() {
     },
   });
 
-  const updateRemindersMutation = useMutation({
-    mutationFn: async (data: ReminderFormData) => {
-      await apiRequest("POST", "/api/reminders", data);
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/reminders"] });
-      toast({
-        title: "Reminders updated!",
-        description: "Your reminder settings have been saved successfully.",
-      });
-    },
-    onError: (error) => {
-      if (isUnauthorizedError(error)) {
-        toast({
-          title: "Unauthorized",
-          description: "You are logged out. Logging in again...",
-          variant: "destructive",
-        });
-        setTimeout(() => {
-          window.location.href = "/api/login";
-        }, 500);
-        return;
-      }
-      toast({
-        title: "Error",
-        description: "Failed to update reminders. Please try again.",
-        variant: "destructive",
-      });
-    },
-  });
-
   const onProfileSubmit = (data: ProfileFormData) => {
     updateProfileMutation.mutate(data);
-  };
-
-  const onReminderSubmit = (data: ReminderFormData) => {
-    updateRemindersMutation.mutate(data);
   };
 
   return (
     <>
       <SEOHead 
-        title="Profile Settings - QuenchNow"
-        description="Customize your hydration profile with personalized goals, reminder settings, and weather preferences. Optimize your water tracking experience."
+        title="Profile Settings - HydroMate"
+        description="Customize your hydration profile with personalized goals and weather preferences. Optimize your water tracking experience."
         noIndex={true}
       />
       
@@ -372,131 +301,7 @@ export default function Profile() {
               </CardContent>
             </Card>
 
-            {/* Reminder Settings Card */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <Bell className="w-5 h-5 text-[hsl(var(--accent-green))]" />
-                  <span>Reminder Settings</span>
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <Form {...reminderForm}>
-                  <form onSubmit={reminderForm.handleSubmit(onReminderSubmit)} className="space-y-6">
-                    <FormField
-                      control={reminderForm.control}
-                      name="isEnabled"
-                      render={({ field }) => (
-                        <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
-                          <div className="space-y-0.5">
-                            <FormLabel className="text-base">Enable Reminders</FormLabel>
-                            <p className="text-sm text-[hsl(var(--text-light))]">
-                              Receive notifications to drink water
-                            </p>
-                          </div>
-                          <FormControl>
-                            <Switch
-                              checked={field.value}
-                              onCheckedChange={field.onChange}
-                            />
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
 
-                    <FormField
-                      control={reminderForm.control}
-                      name="intervalMinutes"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Reminder Interval (minutes)</FormLabel>
-                          <Select onValueChange={(value) => field.onChange(Number(value))} defaultValue={field.value?.toString()}>
-                            <FormControl>
-                              <SelectTrigger>
-                                <SelectValue placeholder="Select interval" />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                              <SelectItem value="15">Every 15 minutes</SelectItem>
-                              <SelectItem value="30">Every 30 minutes</SelectItem>
-                              <SelectItem value="60">Every hour</SelectItem>
-                              <SelectItem value="90">Every 1.5 hours</SelectItem>
-                              <SelectItem value="120">Every 2 hours</SelectItem>
-                              <SelectItem value="180">Every 3 hours</SelectItem>
-                            </SelectContent>
-                          </Select>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <FormField
-                        control={reminderForm.control}
-                        name="startTime"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Start Time</FormLabel>
-                            <FormControl>
-                              <Input type="time" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-
-                      <FormField
-                        control={reminderForm.control}
-                        name="endTime"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>End Time</FormLabel>
-                            <FormControl>
-                              <Input type="time" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-
-                    <FormField
-                      control={reminderForm.control}
-                      name="soundId"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Notification Sound</FormLabel>
-                          <Select onValueChange={field.onChange} defaultValue={field.value}>
-                            <FormControl>
-                              <SelectTrigger>
-                                <SelectValue placeholder="Select sound" />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                              <SelectItem value="default">Default</SelectItem>
-                              <SelectItem value="gentle">Gentle Chime</SelectItem>
-                              <SelectItem value="water_drop">Water Drop</SelectItem>
-                              <SelectItem value="bell">Bell</SelectItem>
-                              <SelectItem value="nature">Nature Sounds</SelectItem>
-                            </SelectContent>
-                          </Select>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-
-                    <Button
-                      type="submit"
-                      className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium shadow-sm transition-colors"
-                      disabled={updateRemindersMutation.isPending}
-                    >
-                      <Save className="w-4 h-4 mr-2" />
-                      {updateRemindersMutation.isPending ? "Saving..." : "Save Reminders"}
-                    </Button>
-                  </form>
-                </Form>
-              </CardContent>
-            </Card>
 
             {/* Location & Weather Settings Card */}
             {isPremium && (

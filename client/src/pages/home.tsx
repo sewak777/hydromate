@@ -454,12 +454,12 @@ export default function Home() {
                 </Card>
               )}
 
-              {/* Notification Settings */}
+              {/* Reminders & Notifications */}
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-2">
                     <Bell className="w-5 h-5 text-blue-600" />
-                    <span>Notifications</span>
+                    <span>Reminders & Notifications</span>
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -470,10 +470,10 @@ export default function Home() {
                     <Button 
                       variant="outline" 
                       className="w-full" 
-                      onClick={() => window.location.href = '/notifications'}
+                      onClick={() => window.location.href = '/reminders'}
                     >
                       <Settings className="w-4 h-4 mr-2" />
-                      Notification Settings
+                      Reminder Settings
                     </Button>
                   </div>
                 </CardContent>

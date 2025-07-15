@@ -20,6 +20,7 @@ import AuthLoading from "@/pages/auth-loading";
 import Home from "@/pages/home";
 import Profile from "@/pages/profile";
 import Analytics from "@/pages/analytics";
+import Reminders from "@/pages/reminders";
 import Notifications from "@/pages/notifications";
 import Subscription from "@/pages/subscription";
 import SubscriptionSuccess from "@/pages/subscription-success";
@@ -51,6 +52,7 @@ function Router() {
           <Route path="/landing" component={ModernLanding} />
           <Route path="/profile" component={Profile} />
           <Route path="/analytics" component={Analytics} />
+          <Route path="/reminders" component={Reminders} />
           <Route path="/notifications" component={Notifications} />
           <Route path="/subscription" component={Subscription} />
           <Route path="/subscription/success" component={SubscriptionSuccess} />
