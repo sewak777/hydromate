@@ -143,8 +143,8 @@ export default function IntakeLog({ onLogIntake }: IntakeLogProps) {
                   onClick={() => setAmount(preset)}
                   className={`p-2 rounded-lg border text-sm font-medium transition-all ${
                     amount === preset
-                      ? "border-[hsl(var(--primary-blue))] bg-[hsl(var(--primary-blue))] text-white"
-                      : "border-[hsl(var(--border))] hover:border-[hsl(var(--primary-blue))]/50"
+                      ? "border-blue-500 bg-blue-500 text-white"
+                      : "border-gray-400 hover:border-blue-400 hover:bg-blue-50"
                   }`}
                 >
                   {preset}
@@ -161,7 +161,7 @@ export default function IntakeLog({ onLogIntake }: IntakeLogProps) {
                 onChange={(e) => setAmount(Number(e.target.value))}
                 min={1}
                 max={5000}
-                className="w-full border-2 border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                className="w-full border-2 border-gray-400 focus:border-blue-500 focus:ring-blue-500"
                 placeholder="Enter custom amount"
               />
             </div>
@@ -185,7 +185,7 @@ export default function IntakeLog({ onLogIntake }: IntakeLogProps) {
             <Button
               variant="outline"
               onClick={() => setIsOpen(false)}
-              className="flex-1 border-2 border-gray-300 hover:border-gray-400 text-gray-700 hover:bg-gray-50"
+              className="flex-1 border-2 border-gray-400 hover:border-gray-500 text-gray-700 hover:bg-gray-50"
             >
               Cancel
             </Button>
