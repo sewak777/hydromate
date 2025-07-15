@@ -1,3 +1,9 @@
+/**
+ * HydroMate - Smart Hydration Tracking Application
+ * Copyright (c) 2025 HydroMate
+ * Licensed under MIT License - see LICENSE file for details
+ */
+
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";

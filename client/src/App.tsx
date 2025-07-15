@@ -1,3 +1,9 @@
+/**
+ * HydroMate - Smart Hydration Tracking Application
+ * Copyright (c) 2025 HydroMate
+ * Licensed under MIT License - see LICENSE file for details
+ */
+
 import { useEffect } from "react";
 import { Switch, Route } from "wouter";
 import { queryClient } from "./lib/queryClient";

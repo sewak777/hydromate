@@ -134,6 +134,13 @@ HydroMate is a comprehensive hydration tracking application that helps users mon
 - **Rate Limiting**: Advanced protection against abuse and DoS attacks
 - **Security Headers**: Full browser-level protection implemented
 
+## Legal Compliance
+- **MIT License**: Open source license applied to the project
+- **Copyright Notice**: Copyright (c) 2025 HydroMate
+- **Third-Party Licenses**: All dependencies documented in THIRD_PARTY_LICENSES.md
+- **License Files**: LICENSE file created, README.md includes licensing information
+- **Source Code Headers**: Copyright notices added to main application files
+
 ## Changelog
 - July 12, 2025. App name changed from "QuenchNow" to "HydroMate" across all landing pages, main app, navigation, iOS configuration, and documentation
 - July 12, 2025. Updated pricing structure with promotional discounts: Free plan $2.99 (15% off), Premium Monthly $7.99 (discounted), Premium Annual $86.39 (30% total discount)
