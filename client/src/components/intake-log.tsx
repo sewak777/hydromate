@@ -59,12 +59,17 @@ export default function IntakeLog({ onLogIntake }: IntakeLogProps) {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button 
-          className="w-full bg-blue-500 hover:bg-blue-600 text-white transition-colors"
-        >
-          <Plus className="w-4 h-4 mr-2" />
-          Log Custom Amount
-        </Button>
+        <div className="w-full">
+          <Button 
+            className="w-full bg-blue-500 hover:bg-blue-600 text-white transition-colors"
+          >
+            <Plus className="w-4 h-4 mr-2" />
+            Log Custom Amount
+          </Button>
+          <p className="text-xs text-[hsl(var(--text-light))] mt-1 text-center">
+            💡 Log drinks other than water like coffee, juice etc.
+          </p>
+        </div>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>

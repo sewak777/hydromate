@@ -335,8 +335,8 @@ export class DatabaseStorage implements IStorage {
       .where(
         and(
           eq(intakeLogs.userId, userId),
-          gte(intakeLogs.loggedAt, startDate),
-          lte(intakeLogs.loggedAt, endDate)
+          gte(intakeLogs.date, startDate),
+          lte(intakeLogs.date, endDate)
         )
       );
 
@@ -403,8 +403,8 @@ export class DatabaseStorage implements IStorage {
       .where(
         and(
           eq(intakeLogs.userId, userId),
-          gte(intakeLogs.loggedAt, startDateStr),
-          lte(intakeLogs.loggedAt, endDate)
+          gte(intakeLogs.date, startDateStr),
+          lte(intakeLogs.date, endDate)
         )
       );
 
@@ -479,8 +479,8 @@ export class DatabaseStorage implements IStorage {
       .where(
         and(
           eq(intakeLogs.userId, userId),
-          gte(intakeLogs.loggedAt, startDate),
-          lte(intakeLogs.loggedAt, endDate)
+          gte(intakeLogs.date, startDate),
+          lte(intakeLogs.date, endDate)
         )
       );
 
@@ -530,8 +530,8 @@ export class DatabaseStorage implements IStorage {
       .where(
         and(
           eq(intakeLogs.userId, userId),
-          gte(intakeLogs.loggedAt, startDate),
-          lte(intakeLogs.loggedAt, endDate)
+          gte(intakeLogs.date, startDate),
+          lte(intakeLogs.date, endDate)
         )
       )
       .orderBy(intakeLogs.loggedAt);
