@@ -161,7 +161,7 @@ export default function IntakeLog({ onLogIntake }: IntakeLogProps) {
                 onChange={(e) => setAmount(Number(e.target.value))}
                 min={1}
                 max={5000}
-                className="w-full"
+                className="w-full border-2 border-gray-300 focus:border-blue-500 focus:ring-blue-500"
                 placeholder="Enter custom amount"
               />
             </div>
@@ -185,7 +185,7 @@ export default function IntakeLog({ onLogIntake }: IntakeLogProps) {
             <Button
               variant="outline"
               onClick={() => setIsOpen(false)}
-              className="flex-1"
+              className="flex-1 border-2 border-gray-300 hover:border-gray-400 text-gray-700 hover:bg-gray-50"
             >
               Cancel
             </Button>

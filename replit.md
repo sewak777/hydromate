@@ -142,6 +142,9 @@ HydroMate is a comprehensive hydration tracking application that helps users mon
 - **Source Code Headers**: Copyright notices added to main application files
 
 ## Changelog
+- July 15, 2025. Fixed hydration percentage calculation - beverages now correctly record effective hydration amount (e.g., 100ml soda at 60% = 60ml recorded)
+- July 15, 2025. Improved dialog UI visibility - brightened custom amount input field borders and Cancel button for better user experience
+- July 15, 2025. Enhanced milk icon visibility by changing color from light gray to darker gray
 - July 15, 2025. Changed "Log Custom Amount" button to always display filled blue background for consistent visual appearance
 - July 15, 2025. Removed "How Notifications Work" informational section from reminders page for cleaner UI
 - July 15, 2025. Fixed analytics API errors by implementing missing storage functions and improved empty data handling
