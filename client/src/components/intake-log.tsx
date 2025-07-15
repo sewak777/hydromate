@@ -19,7 +19,7 @@ const beverageTypes = [
   { id: "juice", name: "Juice", icon: Wine, hydration: 80, color: "hsl(25, 80%, 50%)" },
   { id: "sports_drink", name: "Sports Drink", icon: Zap, hydration: 90, color: "hsl(60, 80%, 50%)" },
   { id: "soda", name: "Soda", icon: Wine, hydration: 60, color: "hsl(0, 60%, 40%)" },
-  { id: "milk", name: "Milk", icon: Wine, hydration: 85, color: "hsl(0, 0%, 95%)" },
+  { id: "milk", name: "Milk", icon: Wine, hydration: 85, color: "hsl(0, 0%, 40%)" },
   { id: "other", name: "Other", icon: Droplets, hydration: 80, color: "hsl(var(--accent-green))" },
 ];
 
@@ -191,7 +191,7 @@ export default function IntakeLog({ onLogIntake }: IntakeLogProps) {
             </Button>
             <Button
               onClick={handleSubmit}
-              className="flex-1 bg-[hsl(var(--primary-blue))] hover:bg-blue-600 text-white transition-all duration-200 hover:scale-105 active:scale-95"
+              className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold transition-all duration-200 hover:scale-105 active:scale-95"
               disabled={amount <= 0}
             >
               <div className="flex items-center justify-center space-x-2">
