@@ -712,10 +712,10 @@ export default function Landing() {
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {/* Free Plan */}
+            {/* Basic Plan */}
             <Card className="bg-[hsl(var(--soft-gray))] text-center">
               <CardContent className="p-8">
-                <h3 className="text-2xl font-bold mb-4">Free</h3>
+                <h3 className="text-2xl font-bold mb-4">Basic</h3>
                 <div className="text-4xl font-bold mb-6">$0<span className="text-lg text-[hsl(var(--text-light))]">/month</span></div>
                 <ul className="space-y-3 mb-8 text-left">
                   <li className="flex items-center space-x-2">
@@ -759,7 +759,7 @@ export default function Landing() {
                 <ul className="space-y-3 mb-8 text-left">
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="text-white w-4 h-4" />
-                    <span>Everything in Free</span>
+                    <span>Everything in Basic</span>
                   </li>
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="text-white w-4 h-4" />

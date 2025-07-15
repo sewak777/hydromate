@@ -312,14 +312,14 @@ export default function ModernLanding() {
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
-              {/* Free Plan */}
+              {/* Basic Plan */}
               <Card className="border-2 border-gray-200 shadow-sm">
                 <CardContent className="p-8">
                   <div className="text-center mb-8">
                     <div className="inline-block bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-semibold mb-4">
                       15% OFF
                     </div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-2">Free</h3>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-2">Basic</h3>
                     <div className="flex items-center justify-center gap-2 mb-2">
                       <span className="text-lg text-gray-500 line-through">$3.49</span>
                       <div className="text-4xl font-bold text-gray-900">$2.99</div>
@@ -370,7 +370,7 @@ export default function ModernLanding() {
                   
                   <ul className="space-y-4 mb-8">
                     {[
-                      "Everything in Free",
+                      "Everything in Basic",
                       "Weather-based adjustments",
                       "Advanced analytics",
                       "Custom reminder schedules",
