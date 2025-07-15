@@ -484,27 +484,27 @@ export default function ModernLanding() {
               <div>
                 <h4 className="font-semibold mb-4">Product</h4>
                 <ul className="space-y-2 text-gray-400">
-                  <li><a href="#" className="hover:text-white transition-colors">Features</a></li>
-                  <li><a href="#" className="hover:text-white transition-colors">Pricing</a></li>
-                  <li><a href="#" className="hover:text-white transition-colors">Download</a></li>
+                  <li><a href="#features" className="hover:text-white transition-colors">Features</a></li>
+                  <li><a href="#pricing" className="hover:text-white transition-colors">Pricing</a></li>
+                  <li><button onClick={handleLogin} className="hover:text-white transition-colors text-left">Get Started</button></li>
                 </ul>
               </div>
               
               <div>
                 <h4 className="font-semibold mb-4">Company</h4>
                 <ul className="space-y-2 text-gray-400">
-                  <li><a href="#" className="hover:text-white transition-colors">About</a></li>
-                  <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
-                  <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>
+                  <li><span className="text-gray-500">About</span></li>
+                  <li><span className="text-gray-500">Blog</span></li>
+                  <li><span className="text-gray-500">Contact</span></li>
                 </ul>
               </div>
               
               <div>
                 <h4 className="font-semibold mb-4">Support</h4>
                 <ul className="space-y-2 text-gray-400">
-                  <li><a href="#" className="hover:text-white transition-colors">Help Center</a></li>
-                  <li><a href="#" className="hover:text-white transition-colors">Privacy</a></li>
-                  <li><a href="#" className="hover:text-white transition-colors">Terms</a></li>
+                  <li><span className="text-gray-500">Help Center</span></li>
+                  <li><span className="text-gray-500">Privacy</span></li>
+                  <li><span className="text-gray-500">Terms</span></li>
                 </ul>
               </div>
             </div>

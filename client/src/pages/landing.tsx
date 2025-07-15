@@ -928,7 +928,7 @@ export default function Landing() {
                 <div className="w-8 h-8 water-gradient rounded-full flex items-center justify-center">
                   <Droplets className="text-white w-4 h-4" />
                 </div>
-                <span className="text-xl font-bold">QuenchNow</span>
+                <span className="text-xl font-bold">HydroMate</span>
               </div>
               <p className="text-gray-400">Making hydration effortless for healthier lives.</p>
             </div>
@@ -939,38 +939,38 @@ export default function Landing() {
                 <li><a href="#features" className="hover:text-white transition-colors">Features</a></li>
                 <li><a href="#premium" className="hover:text-white transition-colors">Premium</a></li>
                 <li><a href="#pricing" className="hover:text-white transition-colors">Pricing</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Updates</a></li>
+                <li><button onClick={handleLogin} className="hover:text-white transition-colors text-left">Get Started</button></li>
               </ul>
             </div>
             
             <div>
               <h4 className="font-semibold mb-4">Support</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">Help Center</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Contact Us</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Terms of Service</a></li>
+                <li><span className="text-gray-500">Help Center</span></li>
+                <li><span className="text-gray-500">Contact Us</span></li>
+                <li><span className="text-gray-500">Privacy Policy</span></li>
+                <li><span className="text-gray-500">Terms of Service</span></li>
               </ul>
             </div>
             
             <div>
               <h4 className="font-semibold mb-4">Connect</h4>
               <div className="flex space-x-4">
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                <span className="text-gray-500">
                   <Trophy className="w-5 h-5" />
-                </a>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                </span>
+                <span className="text-gray-500">
                   <Star className="w-5 h-5" />
-                </a>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                </span>
+                <span className="text-gray-500">
                   <Droplets className="w-5 h-5" />
-                </a>
+                </span>
               </div>
             </div>
           </div>
           
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 QuenchNow. All rights reserved.</p>
+            <p>&copy; 2025 HydroMate. All rights reserved.</p>
           </div>
         </div>
       </footer>
