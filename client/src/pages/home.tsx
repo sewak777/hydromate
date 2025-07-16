@@ -368,7 +368,12 @@ export default function Home() {
               {/* Weekly Progress Chart */}
               <Card>
                 <CardHeader>
-                  <CardTitle>Weekly Progress</CardTitle>
+                  <CardTitle className="flex items-center space-x-2">
+                    <span>Weekly Progress</span>
+                    <div className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-semibold">
+                      PREMIUM
+                    </div>
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <ProgressChart data={dashboardData?.weekSummaries || []} />
