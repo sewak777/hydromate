@@ -86,14 +86,6 @@ export default function ModernLanding() {
                     Start tracking today
                     <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </Button>
-                  
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    className="border-2 border-gray-200 hover:border-gray-300 px-8 py-4 rounded-2xl font-semibold text-lg transition-all"
-                  >
-                    Watch demo
-                  </Button>
                 </div>
 
                 {/* Social Proof */}
