@@ -379,7 +379,7 @@ export default function ModernLanding() {
                     onClick={handleLogin}
                     className="w-full py-3 rounded-xl font-semibold bg-blue-600 hover:bg-blue-700"
                   >
-                    Start Free Trial
+                    Get Started
                   </Button>
                 </CardContent>
               </Card>

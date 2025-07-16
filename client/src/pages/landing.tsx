@@ -786,7 +786,7 @@ export default function Landing() {
                   onClick={handleLogin}
                   className="w-full bg-orange-500 text-white hover:bg-orange-600 transition-colors font-semibold"
                 >
-                  Start Free Trial
+                  Get Started
                 </Button>
               </CardContent>
             </Card>
