@@ -124,9 +124,6 @@ export default function SubscriptionPlans() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-900">Premium Active</h3>
-                  <p className="text-sm text-gray-600 capitalize">
-                    {subscription?.planType} Plan - {subscription?.status}
-                  </p>
                 </div>
               </div>
               <Button 

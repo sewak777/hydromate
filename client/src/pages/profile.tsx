@@ -362,10 +362,7 @@ export default function Profile() {
                           <Crown className="w-5 h-5 text-yellow-400" />
                         </div>
                         <div>
-                          <div className="font-semibold text-gray-900">Premium Subscription</div>
-                          <div className="text-sm text-gray-600 capitalize">
-                            {subscription?.planType} Plan - Active
-                          </div>
+                          <div className="font-semibold text-gray-900">Premium Active</div>
                         </div>
                       </div>
                       <div className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-semibold">
