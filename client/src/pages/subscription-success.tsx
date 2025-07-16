@@ -19,8 +19,8 @@ export default function SubscriptionSuccess() {
   return (
     <>
       <SEOHead 
-        title="Subscription Successful - HydroFlow Premium"
-        description="Welcome to HydroFlow Premium! Your subscription has been activated successfully."
+        title="Subscription Successful - HydroMate Premium"
+        description="Welcome to HydroMate Premium! Your subscription has been activated successfully."
         noIndex={true}
       />
       
@@ -42,7 +42,7 @@ export default function SubscriptionSuccess() {
               
               <CardContent className="space-y-6">
                 <p className="text-gray-600 text-lg">
-                  Your HydroFlow Premium subscription has been activated successfully. 
+                  Your HydroMate Premium subscription has been activated successfully. 
                   You now have access to all premium features!
                 </p>
                 
@@ -92,7 +92,7 @@ export default function SubscriptionSuccess() {
                 </div>
                 
                 <p className="text-xs text-gray-500">
-                  Need help? Contact our support team at support@hydroflow.app
+                  Need help? Contact our support team at support@hydromate.com
                 </p>
               </CardContent>
             </Card>

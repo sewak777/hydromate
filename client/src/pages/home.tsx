@@ -191,7 +191,7 @@ export default function Home() {
   return (
     <>
       <SEOHead 
-        title="Dashboard - QuenchNow Water Tracking"
+        title="Dashboard - HydroMate Water Tracking"
         description="Track your daily water intake with intelligent analytics, weather-based recommendations, and personalized hydration goals. Monitor your progress with beautiful charts and achievements."
         noIndex={true}
       />

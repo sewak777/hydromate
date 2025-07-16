@@ -8,7 +8,7 @@ export default function SubscriptionCancel() {
   return (
     <>
       <SEOHead 
-        title="Subscription Cancelled - HydroFlow"
+        title="Subscription Cancelled - HydroMate"
         description="Your subscription process was cancelled. You can try again anytime."
         noIndex={true}
       />
@@ -31,7 +31,7 @@ export default function SubscriptionCancel() {
               <CardContent className="space-y-6">
                 <p className="text-gray-600">
                   Your subscription process was cancelled. No charges have been made to your account.
-                  You can try again anytime or continue using HydroFlow with our free features.
+                  You can try again anytime or continue using HydroMate with our free features.
                 </p>
                 
                 <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
@@ -65,7 +65,7 @@ export default function SubscriptionCancel() {
                 </div>
                 
                 <p className="text-xs text-gray-500">
-                  Questions? Contact us at support@hydroflow.app
+                  Questions? Contact us at support@hydromate.com
                 </p>
               </CardContent>
             </Card>

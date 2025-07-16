@@ -11,10 +11,10 @@ export default function Landing() {
   return (
     <>
       <SEOHead 
-        title="QuenchNow - Smart Water Reminder & Hydration Tracking App"
+        title="HydroMate - Smart Water Reminder & Hydration Tracking App"
         description="Transform your daily hydration with intelligent reminders, personalized goals, and beautiful progress tracking. Join thousands who've made hydration effortless with weather-based recommendations."
         keywords="water reminder app, hydration tracker, water intake monitoring, daily water goal, health tracking app, wellness application, hydration habits, smart water reminders, water tracking app, health monitoring"
-        canonicalUrl="https://quenchnow.com"
+        canonicalUrl="https://hydromate.com"
       />
       
       <div className="min-h-screen bg-gradient-to-br from-[hsl(var(--soft-gray))] to-white">
@@ -26,7 +26,7 @@ export default function Landing() {
               <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
                 <Droplets className="text-white w-4 h-4" />
               </div>
-              <span className="text-xl font-bold text-blue-600">QuenchNow</span>
+              <span className="text-xl font-bold text-blue-600">HydroMate</span>
             </div>
             <div className="hidden md:flex space-x-8">
               <a href="#features" className="text-[hsl(var(--text-light))] hover:text-[hsl(var(--primary-blue))] transition-colors">Features</a>
@@ -106,7 +106,7 @@ export default function Landing() {
                       </div>
                     </div>
                     
-                    {/* App interface matching actual QuenchNow design */}
+                    {/* App interface matching actual HydroMate design */}
                     <div className="bg-gradient-to-br from-[hsl(var(--soft-gray))] to-white h-full p-4 text-gray-800">
                       {/* Navigation bar */}
                       <div className="flex items-center justify-between mb-4">
@@ -114,7 +114,7 @@ export default function Landing() {
                           <div className="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center">
                             <Droplets className="text-white w-3 h-3" />
                           </div>
-                          <span className="text-lg font-bold text-blue-600">QuenchNow</span>
+                          <span className="text-lg font-bold text-blue-600">HydroMate</span>
                         </div>
                         <Bell className="w-5 h-5 text-gray-500" />
                       </div>
@@ -856,7 +856,7 @@ export default function Landing() {
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">Ready to Transform Your Hydration?</h2>
           <p className="text-xl mb-8 text-white opacity-95 max-w-2xl mx-auto">
-            Join thousands of users who've made hydration effortless. Download HydroFlow today and start your journey to better health.
+            Join thousands of users who've made hydration effortless. Download HydroMate today and start your journey to better health.
           </p>
           <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center">
             <Button 

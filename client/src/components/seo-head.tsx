@@ -10,10 +10,10 @@ interface SEOHeadProps {
 }
 
 export function SEOHead({
-  title = "HydroFlow - Smart Water Reminder & Hydration Tracking App",
+  title = "HydroMate - Smart Water Reminder & Hydration Tracking App",
   description = "Transform your daily hydration with intelligent reminders, personalized goals, and beautiful progress tracking. Join thousands who've made hydration effortless.",
   keywords = "water reminder, hydration tracker, water intake app, health tracking, wellness app, daily water goal, hydration habits, water tracking, health monitoring",
-  ogImage = "https://hydroflow.app/og-image.jpg",
+  ogImage = "https://hydromate.com/og-image.jpg",
   canonicalUrl,
   noIndex = false
 }: SEOHeadProps) {

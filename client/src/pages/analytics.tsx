@@ -112,7 +112,7 @@ export default function Analytics() {
   return (
     <>
       <SEOHead 
-        title="Analytics - QuenchNow Hydration Insights"
+        title="Analytics - HydroMate Hydration Insights"
         description="Comprehensive hydration analytics and insights. Track your water intake patterns, consistency scores, and detailed progress reports."
         noIndex={true}
       />
