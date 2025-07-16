@@ -71,7 +71,7 @@ export default function Home() {
 
   const { data: weatherData, error: weatherError } = useQuery({
     queryKey: ["/api/weather"],
-    enabled: isPremium,
+    enabled: true,
     retry: false,
     refetchInterval: 30 * 60 * 1000, // Refresh every 30 minutes
     queryFn: async () => {
@@ -399,8 +399,8 @@ export default function Home() {
                 </CardContent>
               </Card>
 
-              {/* Premium Weather Insights */}
-              {isPremium && (
+              {/* Weather Insights */}
+              {true && (
                 <Card className="bg-gradient-to-r from-cyan-50 to-blue-50 border-cyan-200">
                   <CardHeader>
                     <CardTitle className="flex items-center space-x-2">
