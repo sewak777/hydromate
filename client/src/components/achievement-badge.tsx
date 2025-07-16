@@ -126,11 +126,6 @@ export default function AchievementBadge() {
                           <h4 className="font-semibold text-[hsl(var(--text-dark))]">
                             {achievement.name}
                           </h4>
-                          {achievement.isPremium && (
-                            <Badge variant="secondary" className="text-xs">
-                              Premium
-                            </Badge>
-                          )}
                         </div>
                         <p className="text-sm text-[hsl(var(--text-light))] mb-2">
                           {achievement.description}
@@ -171,11 +166,6 @@ export default function AchievementBadge() {
                           <h4 className="font-semibold text-[hsl(var(--text-light))]">
                             {achievement.name}
                           </h4>
-                          {achievement.isPremium && (
-                            <Badge variant="outline" className="text-xs">
-                              Premium
-                            </Badge>
-                          )}
                         </div>
                         <p className="text-sm text-[hsl(var(--text-light))]">
                           {achievement.description}
