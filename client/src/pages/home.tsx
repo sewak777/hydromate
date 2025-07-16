@@ -70,18 +70,23 @@ export default function Home() {
   });
 
   const { data: weatherData, error: weatherError } = useQuery({
-    queryKey: ["/api/weather"],
+    queryKey: ["/api/weather", localStorage.getItem('weatherCity'), localStorage.getItem('useGeolocation')],
     enabled: true,
     retry: false,
     refetchInterval: 30 * 60 * 1000, // Refresh every 30 minutes
     queryFn: async () => {
       console.log('🌤️ Attempting to fetch weather data...');
-      // Try geolocation first
-      if (navigator.geolocation) {
+      
+      // Check user's location preferences
+      const useGeolocation = localStorage.getItem('useGeolocation') === 'true';
+      const savedCity = localStorage.getItem('weatherCity');
+      
+      if (useGeolocation && navigator.geolocation) {
         try {
           const position = await new Promise<GeolocationPosition>((resolve, reject) => {
             navigator.geolocation.getCurrentPosition(resolve, reject, {
               timeout: 10000,
+              maximumAge: 300000,
               enableHighAccuracy: false
             });
           });
@@ -94,9 +99,9 @@ export default function Home() {
           }
           return response.json();
         } catch (error) {
-          console.log('🌤️ Geolocation failed, using default city New York');
-          // Fallback to a default city
-          const response = await fetch('/api/weather?city=New York');
+          console.log('🌤️ Geolocation failed, falling back to saved city or default');
+          const fallbackCity = savedCity || 'New York';
+          const response = await fetch(`/api/weather?city=${encodeURIComponent(fallbackCity)}`);
           if (!response.ok) {
             console.error('🌤️ Weather fetch failed with status:', response.status);
             throw new Error('Weather fetch failed');
@@ -104,9 +109,10 @@ export default function Home() {
           return response.json();
         }
       } else {
-        // No geolocation support, use default
-        console.log('🌤️ No geolocation support, using default city New York');
-        const response = await fetch('/api/weather?city=New York');
+        // Use saved city or default
+        const city = savedCity || 'New York';
+        console.log('🌤️ Using saved/default city:', city);
+        const response = await fetch(`/api/weather?city=${encodeURIComponent(city)}`);
         if (!response.ok) {
           console.error('🌤️ Weather fetch failed with status:', response.status);
           throw new Error('Weather fetch failed');
@@ -122,6 +128,8 @@ export default function Home() {
   }
   if (weatherData) {
     console.log('🌤️ Weather data received:', weatherData);
+  } else {
+    console.log('🌤️ No weather data available');
   }
 
   const logIntakeMutation = useMutation({
@@ -424,37 +432,47 @@ export default function Home() {
                       <div className="space-y-3">
                         <div className="flex items-center justify-between">
                           <span className="text-sm text-gray-600">Location</span>
-                          <span className="font-semibold">{weatherData.weather.location}</span>
+                          <span className="font-semibold">{weatherData.weather?.location || 'Unknown'}</span>
                         </div>
                         <div className="flex items-center justify-between">
                           <span className="text-sm text-gray-600">Temperature</span>
-                          <span className="font-semibold">{weatherData.weather.temperature}°C</span>
+                          <span className="font-semibold">{weatherData.weather?.temperature || 'N/A'}°C</span>
                         </div>
                         <div className="flex items-center justify-between">
                           <span className="text-sm text-gray-600">Feels Like</span>
-                          <span className="font-semibold">{weatherData.weather.feelsLike}°C</span>
+                          <span className="font-semibold">{weatherData.weather?.feelsLike || 'N/A'}°C</span>
                         </div>
                         <div className="flex items-center justify-between">
                           <span className="text-sm text-gray-600">Humidity</span>
-                          <span className="font-semibold">{weatherData.weather.humidity}%</span>
+                          <span className="font-semibold">{weatherData.weather?.humidity || 'N/A'}%</span>
                         </div>
                         <div className="flex items-center justify-between">
                           <span className="text-sm text-gray-600">Conditions</span>
-                          <span className="font-semibold capitalize">{weatherData.weather.description}</span>
+                          <span className="font-semibold capitalize">{weatherData.weather?.description || 'N/A'}</span>
                         </div>
-                        {weatherData.recommendation.baseAdjustment !== 0 && (
+                        {weatherData.recommendation && weatherData.recommendation.baseAdjustment !== 0 && (
                           <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
                             <div className="flex items-center space-x-2">
                               <Activity className="w-4 h-4 text-yellow-600" />
                               <span className="text-sm font-medium text-yellow-800">
-                                {weatherData.recommendation.reason}
+                                {weatherData.recommendation.reason || 'Weather recommendation'}
                               </span>
                             </div>
-                            {weatherData.recommendation.factors.length > 0 && (
+                            {weatherData.recommendation.factors && weatherData.recommendation.factors.length > 0 && (
                               <div className="mt-2 text-xs text-yellow-700">
                                 Factors: {weatherData.recommendation.factors.join(', ')}
                               </div>
                             )}
+                          </div>
+                        )}
+                        {weatherData.recommendation && weatherData.recommendation.baseAdjustment === 0 && (
+                          <div className="bg-green-50 border border-green-200 rounded-lg p-3">
+                            <div className="flex items-center space-x-2">
+                              <Activity className="w-4 h-4 text-green-600" />
+                              <span className="text-sm font-medium text-green-800">
+                                {weatherData.recommendation.reason || 'Perfect weather conditions'}
+                              </span>
+                            </div>
                           </div>
                         )}
                       </div>
