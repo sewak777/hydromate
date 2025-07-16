@@ -17,7 +17,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import Navigation from "@/components/navigation";
 import LocationSettings from "@/components/location-settings";
 import { SEOHead } from "@/components/seo-head";
-import { User, Activity, Settings, Save, Crown, MapPin } from "lucide-react";
+import { User, Activity, Settings, Save, MapPin } from "lucide-react";
 
 const profileSchema = z.object({
   weight: z.coerce.number().min(30).max(300),
@@ -352,26 +352,7 @@ export default function Profile() {
                 </div>
               </div>
               
-              {/* Subscription Status */}
-              {isPremium && (
-                <div className="mt-6 pt-6 border-t">
-                  <div className="bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-lg p-4">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
-                          <Crown className="w-5 h-5 text-yellow-400" />
-                        </div>
-                        <div>
-                          <div className="font-semibold text-gray-900">Premium Active</div>
-                        </div>
-                      </div>
-                      <div className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-semibold">
-                        ACTIVE
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
+
 
               <div className="mt-6 pt-6 border-t">
                 <Button

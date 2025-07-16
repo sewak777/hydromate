@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { usePremium } from "@/hooks/usePremium";
 import { createCheckoutSession, createCustomerPortalSession, formatPrice, type SubscriptionPlan } from "@/services/stripe";
-import { Check, Crown, CreditCard, Settings, Loader2 } from "lucide-react";
+import { Check, CreditCard, Settings, Loader2 } from "lucide-react";
 
 const plans: SubscriptionPlan[] = [
   {
@@ -113,35 +113,7 @@ export default function SubscriptionPlans() {
         </p>
       </div>
 
-      {/* Current Subscription Status */}
-      {isPremium && (
-        <Card className="mb-8 bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
-                <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
-                  <Crown className="w-6 h-6 text-yellow-400" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900">Premium Active</h3>
-                </div>
-              </div>
-              <Button 
-                onClick={handleManageSubscription}
-                disabled={loading === 'portal'}
-                variant="outline"
-              >
-                {loading === 'portal' ? (
-                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                ) : (
-                  <Settings className="w-4 h-4 mr-2" />
-                )}
-                Manage Subscription
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      )}
+
 
       {/* Pricing Plans */}
       <div className="grid md:grid-cols-2 gap-8">

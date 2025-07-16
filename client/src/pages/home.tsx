@@ -15,7 +15,7 @@ import WaterBottle from "@/components/water-bottle";
 import IntakeLog from "@/components/intake-log";
 import ProgressChart from "@/components/progress-chart";
 import AchievementBadge from "@/components/achievement-badge";
-import { Droplets, Target, TrendingUp, Trophy, Plus, Crown, Cloud, Activity, Bell, Settings } from "lucide-react";
+import { Droplets, Target, TrendingUp, Trophy, Plus, Cloud, Activity, Bell, Settings } from "lucide-react";
 
 interface DashboardData {
   profile?: {
@@ -358,26 +358,7 @@ export default function Home() {
 
             {/* Right Column - Achievements & Today's Logs */}
             <div className="space-y-6">
-              {/* Premium Status */}
-              {isPremium && (
-                <Card className="bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200">
-                  <CardContent className="p-4">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
-                          <Crown className="w-5 h-5 text-yellow-400" />
-                        </div>
-                        <div>
-                          <div className="font-semibold text-gray-900">Premium Active</div>
-                        </div>
-                      </div>
-                      <div className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-semibold">
-                        ACTIVE
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              )}
+
 
               {/* Achievement Summary */}
               <Card>
