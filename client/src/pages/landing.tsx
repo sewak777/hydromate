@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { SEOHead } from "@/components/seo-head";
-import { Droplets, Calculator, TrendingUp, Bell, Trophy, Palette, Cloud, Activity, Brain, Star, CheckCircle, Apple, Play, Crown } from "lucide-react";
+import { Droplets, Calculator, TrendingUp, Bell, Trophy, Palette, Cloud, Activity, Brain, CheckCircle, Apple, Play, Crown } from "lucide-react";
 
 export default function Landing() {
   const handleLogin = () => {
@@ -32,7 +32,6 @@ export default function Landing() {
               <a href="#features" className="text-[hsl(var(--text-light))] hover:text-[hsl(var(--primary-blue))] transition-colors">Features</a>
               <a href="#premium" className="text-[hsl(var(--text-light))] hover:text-[hsl(var(--primary-blue))] transition-colors">Premium</a>
               <a href="#pricing" className="text-[hsl(var(--text-light))] hover:text-[hsl(var(--primary-blue))] transition-colors">Pricing</a>
-              <a href="#testimonials" className="text-[hsl(var(--text-light))] hover:text-[hsl(var(--primary-blue))] transition-colors">Reviews</a>
             </div>
             <Button 
               onClick={handleLogin}
@@ -78,14 +77,6 @@ export default function Landing() {
                 </Button>
               </div>
               <div className="flex items-center space-x-6 text-sm text-[hsl(var(--text-light))]">
-                <div className="flex items-center space-x-1">
-                  <div className="flex text-yellow-400">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-current" />
-                    ))}
-                  </div>
-                  <span>4.9/5</span>
-                </div>
                 <div>50K+ Downloads</div>
                 <div>Free to Start</div>
               </div>
@@ -631,77 +622,7 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section id="testimonials" className="py-16 bg-[hsl(var(--soft-gray))]">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">What Our Users Say</h2>
-            <p className="text-xl text-[hsl(var(--text-light))]">Join thousands of happy, well-hydrated users</p>
-          </div>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="shadow-lg">
-              <CardContent className="p-6">
-                <div className="flex text-yellow-400 mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-current" />
-                  ))}
-                </div>
-                <p className="text-[hsl(var(--text-light))] mb-4">"This app completely changed my hydration habits. The smart reminders actually work, and I love seeing my progress every day!"</p>
-                <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-gradient-to-r from-blue-400 to-blue-600 rounded-full flex items-center justify-center text-white font-bold">
-                    SM
-                  </div>
-                  <div>
-                    <div className="font-semibold">Sarah M.</div>
-                    <div className="text-sm text-[hsl(var(--text-light))]">Marketing Manager</div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-            
-            <Card className="shadow-lg">
-              <CardContent className="p-6">
-                <div className="flex text-yellow-400 mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-current" />
-                  ))}
-                </div>
-                <p className="text-[hsl(var(--text-light))] mb-4">"The premium features are worth every penny. The weather adjustments and activity tracking make it so much smarter than other apps."</p>
-                <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-gradient-to-r from-green-400 to-green-600 rounded-full flex items-center justify-center text-white font-bold">
-                    MR
-                  </div>
-                  <div>
-                    <div className="font-semibold">Mike R.</div>
-                    <div className="text-sm text-[hsl(var(--text-light))]">Fitness Coach</div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-            
-            <Card className="shadow-lg">
-              <CardContent className="p-6">
-                <div className="flex text-yellow-400 mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-current" />
-                  ))}
-                </div>
-                <p className="text-[hsl(var(--text-light))] mb-4">"Beautiful design and actually useful reminders. I've been using it for 6 months and my energy levels are noticeably better."</p>
-                <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-gradient-to-r from-purple-400 to-purple-600 rounded-full flex items-center justify-center text-white font-bold">
-                    EL
-                  </div>
-                  <div>
-                    <div className="font-semibold">Emma L.</div>
-                    <div className="text-sm text-[hsl(var(--text-light))]">Software Developer</div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
+
 
       {/* Pricing Section */}
       <section id="pricing" className="py-16 bg-white">
@@ -921,9 +842,7 @@ export default function Landing() {
                 <span className="text-gray-500">
                   <Trophy className="w-5 h-5" />
                 </span>
-                <span className="text-gray-500">
-                  <Star className="w-5 h-5" />
-                </span>
+
                 <span className="text-gray-500">
                   <Droplets className="w-5 h-5" />
                 </span>
