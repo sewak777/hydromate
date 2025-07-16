@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useAuth } from "@/hooks/useAuth";
 import { usePremium } from "@/hooks/usePremium";
@@ -69,8 +69,13 @@ export default function Home() {
     retry: false,
   });
 
-  const { data: weatherData, error: weatherError } = useQuery({
-    queryKey: ["/api/weather", localStorage.getItem('weatherCity'), localStorage.getItem('useGeolocation')],
+  // Use state to track location changes for better query invalidation
+  const [locationKey, setLocationKey] = useState(() => 
+    `${localStorage.getItem('weatherCity') || 'New York'}-${localStorage.getItem('useGeolocation') || 'false'}`
+  );
+
+  const { data: weatherData, error: weatherError, refetch: refetchWeather } = useQuery({
+    queryKey: ["/api/weather", locationKey],
     enabled: true,
     retry: false,
     refetchInterval: 30 * 60 * 1000, // Refresh every 30 minutes
@@ -131,6 +136,24 @@ export default function Home() {
   } else {
     console.log('🌤️ No weather data available');
   }
+
+  // Listen for location changes to refresh weather
+  useEffect(() => {
+    const handleRefreshWeather = () => {
+      console.log('🌤️ Refreshing weather due to location change');
+      // Update location key to trigger query refresh
+      const newLocationKey = `${localStorage.getItem('weatherCity') || 'New York'}-${localStorage.getItem('useGeolocation') || 'false'}`;
+      console.log('🌤️ New location key:', newLocationKey);
+      setLocationKey(newLocationKey);
+      
+      // Invalidate all weather queries and refetch
+      queryClient.invalidateQueries({ queryKey: ["/api/weather"] });
+      refetchWeather();
+    };
+    
+    window.addEventListener('refreshWeather', handleRefreshWeather);
+    return () => window.removeEventListener('refreshWeather', handleRefreshWeather);
+  }, [refetchWeather]);
 
   const logIntakeMutation = useMutation({
     mutationFn: async (data: { amount: number; beverageType?: string; hydrationPercentage?: number }) => {

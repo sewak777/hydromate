@@ -40,7 +40,9 @@ export default function LocationSettings({ onLocationChange }: LocationSettingsP
     });
     
     // Refresh weather data
-    window.dispatchEvent(new CustomEvent('refreshWeather'));
+    setTimeout(() => {
+      window.dispatchEvent(new CustomEvent('refreshWeather'));
+    }, 100);
   };
 
   const handleCityChange = (city: string) => {
@@ -48,9 +50,13 @@ export default function LocationSettings({ onLocationChange }: LocationSettingsP
     localStorage.setItem('weatherCity', city);
     onLocationChange?.({ city, useGeolocation });
     
-    // Refresh weather data
-    if (city.length > 2) {
-      window.dispatchEvent(new CustomEvent('refreshWeather'));
+    // Refresh weather data immediately for any city input
+    if (city.trim().length > 0) {
+      console.log('🌍 Location changed to:', city);
+      setTimeout(() => {
+        console.log('🌍 Dispatching refreshWeather event');
+        window.dispatchEvent(new CustomEvent('refreshWeather'));
+      }, 500); // Small delay to ensure localStorage is updated
     }
   };
 
