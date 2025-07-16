@@ -708,7 +708,7 @@ export default function Landing() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">Choose Your Hydration Journey</h2>
-            <p className="text-xl text-[hsl(var(--text-light))]">Start free, upgrade when you're ready for more</p>
+            <p className="text-xl text-[hsl(var(--text-light))]">Upgrade when you're ready for more</p>
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">

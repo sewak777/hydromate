@@ -299,7 +299,7 @@ export default function ModernLanding() {
                 Simple, transparent pricing
               </h2>
               <p className="text-xl text-gray-600">
-                Start free, upgrade when you need advanced features
+                Upgrade when you need advanced features
               </p>
             </div>
 
