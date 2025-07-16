@@ -69,12 +69,13 @@ export default function Home() {
     retry: false,
   });
 
-  const { data: weatherData } = useQuery({
+  const { data: weatherData, error: weatherError } = useQuery({
     queryKey: ["/api/weather"],
     enabled: isPremium,
     retry: false,
     refetchInterval: 30 * 60 * 1000, // Refresh every 30 minutes
     queryFn: async () => {
+      console.log('🌤️ Attempting to fetch weather data...');
       // Try geolocation first
       if (navigator.geolocation) {
         try {
@@ -85,24 +86,43 @@ export default function Home() {
             });
           });
           
+          console.log('🌤️ Got geolocation, fetching weather for coords:', position.coords.latitude, position.coords.longitude);
           const response = await fetch(`/api/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}`);
-          if (!response.ok) throw new Error('Weather fetch failed');
+          if (!response.ok) {
+            console.error('🌤️ Weather fetch failed with status:', response.status);
+            throw new Error('Weather fetch failed');
+          }
           return response.json();
         } catch (error) {
-          console.log('Geolocation failed, using default city');
+          console.log('🌤️ Geolocation failed, using default city New York');
           // Fallback to a default city
           const response = await fetch('/api/weather?city=New York');
-          if (!response.ok) throw new Error('Weather fetch failed');
+          if (!response.ok) {
+            console.error('🌤️ Weather fetch failed with status:', response.status);
+            throw new Error('Weather fetch failed');
+          }
           return response.json();
         }
       } else {
         // No geolocation support, use default
+        console.log('🌤️ No geolocation support, using default city New York');
         const response = await fetch('/api/weather?city=New York');
-        if (!response.ok) throw new Error('Weather fetch failed');
+        if (!response.ok) {
+          console.error('🌤️ Weather fetch failed with status:', response.status);
+          throw new Error('Weather fetch failed');
+        }
         return response.json();
       }
     }
   });
+
+  // Debug weather data
+  if (weatherError) {
+    console.error('🌤️ Weather query error:', weatherError);
+  }
+  if (weatherData) {
+    console.log('🌤️ Weather data received:', weatherData);
+  }
 
   const logIntakeMutation = useMutation({
     mutationFn: async (data: { amount: number; beverageType?: string; hydrationPercentage?: number }) => {

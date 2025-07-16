@@ -38,6 +38,20 @@ export const conditionalAuth: RequestHandler = async (req, res, next) => {
       console.log('✅ Using development token auth:', userId);
       return next();
     }
+    
+    // Additional fallback: Use dev-user-123 as default in development
+    req.user = {
+      claims: {
+        sub: 'dev-user-123',
+        email: 'dev@quenchnow.com',
+        first_name: 'Dev',
+        last_name: 'User',
+        profile_image_url: null,
+      },
+      expires_at: Math.floor(Date.now() / 1000) + 3600,
+    };
+    console.log('✅ Using development token auth: dev-user-123');
+    return next();
   }
   
   // SECURITY: Only allow auth bypass in development with explicit flags
