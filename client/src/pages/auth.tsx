@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { SEOHead } from "@/components/seo-head";
-import { Droplets, Shield, Star, Users, ArrowRight, CheckCircle } from "lucide-react";
+import { Droplets, Shield, ArrowRight, CheckCircle } from "lucide-react";
 import { queryClient } from "@/lib/queryClient";
 
 export default function AuthPage() {
@@ -95,22 +95,7 @@ export default function AuthPage() {
               ))}
             </div>
 
-            {/* Social Proof */}
-            <div className="flex items-center justify-center lg:justify-start space-x-6 pt-4">
-              <div className="flex items-center space-x-2">
-                <Users className="w-5 h-5 text-blue-600" />
-                <span className="text-sm text-gray-600 font-medium">50K+ users</span>
-              </div>
-              
-              <div className="flex items-center space-x-1">
-                <div className="flex text-yellow-400">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-current" />
-                  ))}
-                </div>
-                <span className="text-sm text-gray-600 font-medium">4.9 rating</span>
-              </div>
-            </div>
+
           </div>
 
           {/* Right Side - Auth Card */}
