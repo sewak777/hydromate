@@ -144,6 +144,8 @@ HydroMate is a comprehensive hydration tracking application that helps users mon
 ## Changelog
 - July 16, 2025. Connected OpenWeather API with real weather data - app now displays actual temperature, humidity, and weather conditions with personalized hydration recommendations
 - July 16, 2025. Enhanced location settings with localStorage persistence, geolocation detection, and automatic weather refresh when location changes
+- July 16, 2025. Implemented debounced weather updates to prevent excessive API calls - weather now updates 800ms after user stops typing in manual location input
+- July 16, 2025. Added visual feedback for location updates with "Updating weather..." indicator when processing manual location changes
 - July 16, 2025. Added premium badge to Weekly Progress section to make it a premium feature
 - July 16, 2025. Restored premium badges to Weather Insights section and Achievements section as requested by user
 - July 16, 2025. Removed all premium status displays from main app including "Premium Active" cards, "PREMIUM" badges on achievements and weather insights sections, and premium badges on achievement items since app has no free tier

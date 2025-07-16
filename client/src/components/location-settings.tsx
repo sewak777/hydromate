@@ -39,26 +39,34 @@ export default function LocationSettings({ onLocationChange }: LocationSettingsP
       description: enabled ? "Using automatic location detection" : "Using manual city selection",
     });
     
-    // Refresh weather data
-    setTimeout(() => {
-      window.dispatchEvent(new CustomEvent('refreshWeather'));
-    }, 100);
+    // Refresh weather data immediately
+    window.dispatchEvent(new CustomEvent('refreshWeather'));
   };
 
   const handleCityChange = (city: string) => {
     setCityName(city);
     localStorage.setItem('weatherCity', city);
     onLocationChange?.({ city, useGeolocation });
-    
-    // Refresh weather data immediately for any city input
-    if (city.trim().length > 0) {
-      console.log('🌍 Location changed to:', city);
-      setTimeout(() => {
-        console.log('🌍 Dispatching refreshWeather event');
-        window.dispatchEvent(new CustomEvent('refreshWeather'));
-      }, 500); // Small delay to ensure localStorage is updated
-    }
   };
+
+  // Debounced weather refresh - only trigger after user stops typing
+  useEffect(() => {
+    if (cityName.trim().length > 2 && !useGeolocation) {
+      setIsDetecting(true);
+      const timeoutId = setTimeout(() => {
+        console.log('🌍 Debounced weather refresh for:', cityName);
+        window.dispatchEvent(new CustomEvent('refreshWeather'));
+        setIsDetecting(false);
+      }, 800); // Reduced delay for better responsiveness
+
+      return () => {
+        clearTimeout(timeoutId);
+        setIsDetecting(false);
+      };
+    } else if (cityName.trim().length <= 2) {
+      setIsDetecting(false);
+    }
+  }, [cityName, useGeolocation]);
 
   const detectLocation = async () => {
     if (!navigator.geolocation) {
@@ -176,6 +184,9 @@ export default function LocationSettings({ onLocationChange }: LocationSettingsP
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
             <div className="text-sm text-blue-800">
               <strong>Current Location:</strong> {cityName}
+              {isDetecting && !useGeolocation && (
+                <span className="text-gray-500 ml-2">Updating weather...</span>
+              )}
             </div>
           </div>
         )}

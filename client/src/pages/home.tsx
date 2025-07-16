@@ -146,9 +146,11 @@ export default function Home() {
       console.log('🌤️ New location key:', newLocationKey);
       setLocationKey(newLocationKey);
       
-      // Invalidate all weather queries and refetch
+      // Invalidate all weather queries and refetch immediately
       queryClient.invalidateQueries({ queryKey: ["/api/weather"] });
-      refetchWeather();
+      setTimeout(() => {
+        refetchWeather();
+      }, 100); // Small delay to ensure localStorage is read
     };
     
     window.addEventListener('refreshWeather', handleRefreshWeather);
