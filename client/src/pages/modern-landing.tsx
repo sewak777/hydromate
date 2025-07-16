@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { SEOHead } from "@/components/seo-head";
-import { Droplets, Calculator, TrendingUp, Bell, Trophy, Palette, Cloud, Activity, Brain, Star, CheckCircle, Apple, Play, Crown, ArrowRight, Zap, Shield, Heart, Users, ChevronDown } from "lucide-react";
+import { Droplets, Calculator, TrendingUp, Bell, Trophy, Palette, Cloud, Activity, Brain, CheckCircle, Apple, Play, Crown, ArrowRight, Zap, Shield, Heart, Users, ChevronDown } from "lucide-react";
 
 export default function ModernLanding() {
   const handleLogin = () => {
@@ -12,7 +12,7 @@ export default function ModernLanding() {
     <>
       <SEOHead 
         title="HydroMate - Smart Water Reminder & Hydration Tracking App"
-        description="Transform your daily hydration with intelligent reminders, personalized goals, and beautiful progress tracking. Join thousands who've made hydration effortless with weather-based recommendations."
+        description="Transform your daily hydration with intelligent reminders, personalized goals, and beautiful progress tracking. Make hydration effortless with weather-based recommendations."
         keywords="water reminder app, hydration tracker, water intake monitoring, daily water goal, health tracking app, wellness application, hydration habits, smart water reminders, water tracking app, health monitoring"
         canonicalUrl="https://hydromate.com"
       />
@@ -34,7 +34,7 @@ export default function ModernLanding() {
               <div className="hidden md:flex items-center space-x-8">
                 <a href="#features" className="text-gray-600 hover:text-gray-900 transition-colors font-medium">Features</a>
                 <a href="#pricing" className="text-gray-600 hover:text-gray-900 transition-colors font-medium">Pricing</a>
-                <a href="#testimonials" className="text-gray-600 hover:text-gray-900 transition-colors font-medium">Reviews</a>
+
                 <Button 
                   onClick={handleLogin}
                   className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full font-semibold transition-all transform hover:scale-105"
@@ -88,26 +88,7 @@ export default function ModernLanding() {
                   </Button>
                 </div>
 
-                {/* Social Proof */}
-                <div className="flex items-center space-x-6 pt-8 opacity-0 animate-pulse" style={{animation: 'fadeInUp 0.6s ease-out 0.4s forwards'}}>
-                  <div className="flex items-center space-x-2">
-                    <div className="flex -space-x-2">
-                      {[...Array(4)].map((_, i) => (
-                        <div key={i} className="w-8 h-8 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full border-2 border-white"></div>
-                      ))}
-                    </div>
-                    <span className="text-sm text-gray-600 font-medium">50K+ users</span>
-                  </div>
-                  
-                  <div className="flex items-center space-x-1">
-                    <div className="flex text-yellow-400">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="w-4 h-4 fill-current" />
-                      ))}
-                    </div>
-                    <span className="text-sm text-gray-600 font-medium">4.9 rating</span>
-                  </div>
-                </div>
+
               </div>
 
               {/* Right Content - App Preview */}
@@ -268,28 +249,7 @@ export default function ModernLanding() {
           </div>
         </section>
 
-        {/* Stats Section */}
-        <section className="py-20 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid md:grid-cols-4 gap-8 text-center">
-              {[
-                { number: "50K+", label: "Active Users" },
-                { number: "2M+", label: "Glasses Tracked" },
-                { number: "94%", label: "Goal Achievement" },
-                { number: "4.9★", label: "App Store Rating" }
-              ].map((stat, index) => (
-                <div
-                  key={index}
-                  className="space-y-2 opacity-0 animate-pulse"
-                  style={{animation: `fadeInUp 0.5s ease-out ${index * 0.1}s forwards`}}
-                >
-                  <div className="text-4xl font-bold text-blue-600">{stat.number}</div>
-                  <div className="text-gray-600 font-medium">{stat.label}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+
 
         {/* Pricing Section */}
         <section id="pricing" className="py-20 bg-white">
@@ -397,7 +357,7 @@ export default function ModernLanding() {
                 Ready to transform your hydration habits?
               </h2>
               <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-                Join thousands of users who've already improved their health with HydroMate. 
+                Improve your health with HydroMate. 
                 Start your journey to better hydration today.
               </p>
               
