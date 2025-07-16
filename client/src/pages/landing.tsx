@@ -12,7 +12,7 @@ export default function Landing() {
     <>
       <SEOHead 
         title="HydroMate - Smart Water Reminder & Hydration Tracking App"
-        description="Transform your daily hydration with intelligent reminders, personalized goals, and beautiful progress tracking. Join thousands who've made hydration effortless with weather-based recommendations."
+        description="Transform your daily hydration with intelligent reminders, personalized goals, and beautiful progress tracking. Make hydration effortless with weather-based recommendations."
         keywords="water reminder app, hydration tracker, water intake monitoring, daily water goal, health tracking app, wellness application, hydration habits, smart water reminders, water tracking app, health monitoring"
         canonicalUrl="https://hydromate.com"
       />
@@ -54,7 +54,7 @@ export default function Landing() {
                 <br />Feel the Difference
               </h1>
               <p className="text-xl text-[hsl(var(--text-light))] mb-8 leading-relaxed">
-                Transform your daily hydration with intelligent water reminders, personalized daily goals, and beautiful progress tracking. Join thousands who've made healthy hydration habits effortless with our smart water intake app.
+                Transform your daily hydration with intelligent water reminders, personalized daily goals, and beautiful progress tracking. Make healthy hydration habits effortless with our smart water intake app.
               </p>
               <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-8">
                 <Button
@@ -77,7 +77,6 @@ export default function Landing() {
                 </Button>
               </div>
               <div className="flex items-center space-x-6 text-sm text-[hsl(var(--text-light))]">
-                <div>50K+ Downloads</div>
                 <div>Free to Start</div>
               </div>
             </div>
@@ -777,7 +776,7 @@ export default function Landing() {
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">Ready to Transform Your Hydration?</h2>
           <p className="text-xl mb-8 text-white opacity-95 max-w-2xl mx-auto">
-            Join thousands of users who've made hydration effortless. Download HydroMate today and start your journey to better health.
+            Make hydration effortless. Download HydroMate today and start your journey to better health.
           </p>
           <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center">
             <Button 
