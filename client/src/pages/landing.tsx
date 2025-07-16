@@ -711,7 +711,7 @@ export default function Landing() {
             <p className="text-xl text-[hsl(var(--text-light))]">Upgrade when you're ready for more</p>
           </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {/* Basic Plan */}
             <Card className="bg-[hsl(var(--soft-gray))] text-center">
               <CardContent className="p-8">
@@ -791,38 +791,7 @@ export default function Landing() {
               </CardContent>
             </Card>
             
-            {/* Annual Plan */}
-            <Card className="border-2 border-[hsl(var(--accent-green))] text-center">
-              <CardContent className="p-8">
-                <div className="text-[hsl(var(--accent-green))] text-sm font-bold mb-2">SAVE 30%</div>
-                <h3 className="text-2xl font-bold mb-4">Premium Annual</h3>
-                <div className="mb-6">
-                  <div className="text-lg text-gray-500 line-through">$95.99/year</div>
-                  <div className="text-4xl font-bold">$86.39<span className="text-lg text-[hsl(var(--text-light))]">/year</span></div>
-                  <div className="text-sm text-[hsl(var(--text-light))]">Just $7.20/month</div>
-                </div>
-                <ul className="space-y-3 mb-8 text-left">
-                  <li className="flex items-center space-x-2">
-                    <CheckCircle className="text-[hsl(var(--accent-green))] w-4 h-4" />
-                    <span>Everything in Premium</span>
-                  </li>
-                  <li className="flex items-center space-x-2">
-                    <CheckCircle className="text-[hsl(var(--accent-green))] w-4 h-4" />
-                    <span>30% cost savings</span>
-                  </li>
-                  <li className="flex items-center space-x-2">
-                    <CheckCircle className="text-[hsl(var(--accent-green))] w-4 h-4" />
-                    <span>Early access to new features</span>
-                  </li>
-                </ul>
-                <Button 
-                  onClick={handleLogin}
-                  className="w-full bg-green-600 text-white hover:bg-green-700 transition-colors font-semibold"
-                >
-                  Get Annual Plan
-                </Button>
-              </CardContent>
-            </Card>
+
           </div>
           
           {/* Feature Comparison Chart */}
@@ -836,7 +805,6 @@ export default function Landing() {
                       <th className="text-left py-3 px-4 font-semibold">Features</th>
                       <th className="text-center py-3 px-4 font-semibold">Free</th>
                       <th className="text-center py-3 px-4 font-semibold text-blue-600">Monthly</th>
-                      <th className="text-center py-3 px-4 font-semibold text-green-600">Annual</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200">
@@ -844,11 +812,9 @@ export default function Landing() {
                       <td className="py-3 px-4">Daily hydration tracking</td>
                       <td className="text-center py-3 px-4"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
                       <td className="text-center py-3 px-4"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
-                      <td className="text-center py-3 px-4"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
                     </tr>
                     <tr className="bg-gray-25">
                       <td className="py-3 px-4">Basic reminders</td>
-                      <td className="text-center py-3 px-4"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
                       <td className="text-center py-3 px-4"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
                       <td className="text-center py-3 px-4"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
                     </tr>
@@ -856,25 +822,21 @@ export default function Landing() {
                       <td className="py-3 px-4">Weather-based adjustments</td>
                       <td className="text-center py-3 px-4">-</td>
                       <td className="text-center py-3 px-4"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
-                      <td className="text-center py-3 px-4"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
                     </tr>
                     <tr className="bg-gray-25">
                       <td className="py-3 px-4">Activity integration</td>
                       <td className="text-center py-3 px-4">-</td>
-                      <td className="text-center py-3 px-4"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
                       <td className="text-center py-3 px-4"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
                     </tr>
                     <tr>
                       <td className="py-3 px-4">Advanced analytics</td>
                       <td className="text-center py-3 px-4">-</td>
                       <td className="text-center py-3 px-4"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
-                      <td className="text-center py-3 px-4"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
                     </tr>
                     <tr className="bg-gray-25">
                       <td className="py-3 px-4">Early access to features</td>
                       <td className="text-center py-3 px-4">-</td>
                       <td className="text-center py-3 px-4">-</td>
-                      <td className="text-center py-3 px-4"><CheckCircle className="w-5 h-5 text-green-500 mx-auto" /></td>
                     </tr>
 
                   </tbody>

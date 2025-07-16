@@ -36,20 +36,7 @@ const plans: SubscriptionPlan[] = [
       'Smart notification scheduling'
     ]
   },
-  {
-    id: 'price_1Rcc2DGdYl8QlNFUgNzH7sKr',
-    name: 'Premium Annual',
-    description: 'All premium features with annual billing',
-    price: 8639, // $86.39 in cents (additional 10% off from $95.99)
-    interval: 'year',
-    features: [
-      'Weather-based hydration adjustments',
-      'Advanced analytics and insights',
-      'Custom reminder sounds',
-      'Smart notification scheduling',
-      '30% total discount'
-    ]
-  }
+
 ];
 
 export default function SubscriptionPlans() {
@@ -113,7 +100,7 @@ export default function SubscriptionPlans() {
 
   const getButtonVariant = (plan: SubscriptionPlan) => {
     if (isCurrentPlan(plan.id)) return "outline";
-    if (plan.interval === 'year') return "default";
+    if (plan.id === 'price_1Rcc2DGdYl8QlNFU1yVhmZqE') return "default";
     return "outline";
   };
 
@@ -160,20 +147,20 @@ export default function SubscriptionPlans() {
       )}
 
       {/* Pricing Plans */}
-      <div className="grid md:grid-cols-3 gap-8">
+      <div className="grid md:grid-cols-2 gap-8">
         {plans.map((plan) => (
           <Card 
             key={plan.id} 
             className={`text-center transition-all duration-300 hover:shadow-lg ${
-              plan.interval === 'year' 
+              plan.id === 'price_1Rcc2DGdYl8QlNFU1yVhmZqE' 
                 ? 'border-2 border-blue-500 shadow-lg relative' 
                 : 'border-2 border-gray-200 shadow-sm'
             } ${
               isCurrentPlan(plan.id) ? 'opacity-75' : ''
             }`}
           >
-            {/* Popular badge */}
-            {plan.interval === 'year' && (
+            {/* Popular badge for Premium Monthly */}
+            {plan.id === 'price_1Rcc2DGdYl8QlNFU1yVhmZqE' && (
               <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
                 <span className="bg-blue-500 text-white px-4 py-2 rounded-full text-sm font-semibold">
                   Most Popular

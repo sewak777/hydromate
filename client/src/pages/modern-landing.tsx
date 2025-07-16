@@ -303,7 +303,7 @@ export default function ModernLanding() {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
               {/* Basic Plan */}
               <Card className="border-2 border-gray-200 shadow-sm">
                 <CardContent className="p-8">
@@ -384,44 +384,7 @@ export default function ModernLanding() {
                 </CardContent>
               </Card>
 
-              {/* Annual Plan */}
-              <Card className="border-2 border-gray-200 shadow-sm">
-                <CardContent className="p-8">
-                  <div className="text-center mb-8">
-                    <div className="inline-block bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-semibold mb-4">
-                      30% OFF
-                    </div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-2">Annual</h3>
-                    <div className="flex items-center justify-center gap-2 mb-2">
-                      <span className="text-lg text-gray-500 line-through">$95.99</span>
-                      <div className="text-4xl font-bold text-gray-900">$86.39</div>
-                    </div>
-                    <div className="text-gray-600">per year</div>
-                    <div className="text-sm text-green-600 font-semibold mt-2">Save $57.60</div>
-                  </div>
-                  
-                  <ul className="space-y-4 mb-8">
-                    {[
-                      "Everything in Premium",
-                      "2 months free",
-                      "Early access to features"
-                    ].map((feature, index) => (
-                      <li key={index} className="flex items-center">
-                        <CheckCircle className="w-5 h-5 text-green-500 mr-3" />
-                        <span className="text-gray-700">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  
-                  <Button 
-                    onClick={handleLogin}
-                    variant="outline" 
-                    className="w-full py-3 rounded-xl font-semibold"
-                  >
-                    Choose Annual
-                  </Button>
-                </CardContent>
-              </Card>
+
             </div>
           </div>
         </section>
