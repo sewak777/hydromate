@@ -14,7 +14,17 @@ export default function LocationSettings({ onLocationChange }: LocationSettingsP
   const [useGeolocation, setUseGeolocation] = useState(true);
   const [cityName, setCityName] = useState("");
   const [isDetecting, setIsDetecting] = useState(false);
+  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
   const { toast } = useToast();
+
+  // Popular cities for suggestions
+  const popularCities = [
+    "Toronto", "Montreal", "Vancouver", "Calgary", "Edmonton", "Ottawa", "Winnipeg", "Quebec City", "Hamilton", "Kitchener",
+    "New York", "Los Angeles", "Chicago", "Houston", "Phoenix", "Philadelphia", "San Antonio", "San Diego", "Dallas", "San Jose",
+    "London", "Birmingham", "Manchester", "Leeds", "Glasgow", "Liverpool", "Newcastle", "Sheffield", "Bristol", "Cardiff",
+    "Sydney", "Melbourne", "Brisbane", "Perth", "Adelaide", "Gold Coast", "Canberra", "Newcastle", "Wollongong", "Geelong"
+  ];
 
   // Load saved location preferences
   useEffect(() => {
@@ -47,26 +57,39 @@ export default function LocationSettings({ onLocationChange }: LocationSettingsP
     setCityName(city);
     localStorage.setItem('weatherCity', city);
     onLocationChange?.({ city, useGeolocation });
+    
+    // Generate suggestions when user types
+    if (city.length >= 2) {
+      const filteredSuggestions = popularCities.filter(
+        popularCity => popularCity.toLowerCase().startsWith(city.toLowerCase())
+      ).slice(0, 5);
+      setSuggestions(filteredSuggestions);
+      setShowSuggestions(filteredSuggestions.length > 0);
+    } else {
+      setSuggestions([]);
+      setShowSuggestions(false);
+    }
   };
 
-  // Debounced weather refresh - only trigger after user stops typing
-  useEffect(() => {
-    if (cityName.trim().length > 2 && !useGeolocation) {
-      setIsDetecting(true);
-      const timeoutId = setTimeout(() => {
-        console.log('🌍 Debounced weather refresh for:', cityName);
-        window.dispatchEvent(new CustomEvent('refreshWeather'));
-        setIsDetecting(false);
-      }, 800); // Reduced delay for better responsiveness
+  const handleSuggestionClick = (suggestion: string) => {
+    setCityName(suggestion);
+    localStorage.setItem('weatherCity', suggestion);
+    onLocationChange?.({ city: suggestion, useGeolocation });
+    setShowSuggestions(false);
+    
+    // Trigger weather refresh for selected city
+    console.log('🌍 Weather refresh for selected city:', suggestion);
+    window.dispatchEvent(new CustomEvent('refreshWeather'));
+  };
 
-      return () => {
-        clearTimeout(timeoutId);
-        setIsDetecting(false);
-      };
-    } else if (cityName.trim().length <= 2) {
-      setIsDetecting(false);
+  // Only trigger weather refresh when user manually enters a complete city name (Enter key)
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && cityName.trim().length > 2) {
+      setShowSuggestions(false);
+      console.log('🌍 Manual weather refresh for:', cityName);
+      window.dispatchEvent(new CustomEvent('refreshWeather'));
     }
-  }, [cityName, useGeolocation]);
+  };
 
   const detectLocation = async () => {
     if (!navigator.geolocation) {
@@ -161,11 +184,28 @@ export default function LocationSettings({ onLocationChange }: LocationSettingsP
             <div>
               <label className="text-sm font-medium">City Name</label>
               <div className="flex space-x-2 mt-1">
-                <Input
-                  placeholder="Enter your city"
-                  value={cityName}
-                  onChange={(e) => handleCityChange(e.target.value)}
-                />
+                <div className="relative flex-1">
+                  <Input
+                    placeholder="Enter your city (press Enter to update weather)"
+                    value={cityName}
+                    onChange={(e) => handleCityChange(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                    onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
+                  />
+                  {showSuggestions && suggestions.length > 0 && (
+                    <div className="absolute top-full left-0 right-0 bg-white border border-gray-200 rounded-md shadow-lg z-10 max-h-48 overflow-y-auto">
+                      {suggestions.map((suggestion, index) => (
+                        <div
+                          key={index}
+                          className="px-3 py-2 hover:bg-gray-100 cursor-pointer text-sm"
+                          onClick={() => handleSuggestionClick(suggestion)}
+                        >
+                          {suggestion}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
                 <Button
                   variant="outline"
                   onClick={detectLocation}
@@ -188,6 +228,11 @@ export default function LocationSettings({ onLocationChange }: LocationSettingsP
                 <span className="text-gray-500 ml-2">Updating weather...</span>
               )}
             </div>
+            {!useGeolocation && (
+              <div className="text-xs text-gray-600 mt-1">
+                Press Enter or click "Detect" to update weather data
+              </div>
+            )}
           </div>
         )}
       </CardContent>
