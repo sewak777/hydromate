@@ -11,7 +11,10 @@ export default function AuthPage() {
       // Enable mock user for development
       fetch('/api/dev/enable-mock-user', { 
         method: 'POST',
-        credentials: 'include' // Ensure cookies are included
+        credentials: 'include', // Ensure cookies are included
+        headers: {
+          'Content-Type': 'application/json'
+        }
       })
         .then(response => response.json())
         .then(data => {
@@ -21,7 +24,7 @@ export default function AuthPage() {
               localStorage.setItem('devToken', data.devToken);
             }
             console.log('Mock user created, session ID:', data.sessionId);
-            // Redirect to main app - use redirectUrl from response or default to "/"
+            // Force a complete page reload to ensure session is properly loaded
             window.location.href = data.redirectUrl || "/";
           } else {
             // Fallback to normal auth flow
