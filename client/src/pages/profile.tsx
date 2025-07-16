@@ -310,6 +310,9 @@ export default function Profile() {
                   <CardTitle className="flex items-center space-x-2">
                     <MapPin className="w-5 h-5 text-blue-600" />
                     <span>Weather Settings</span>
+                    <div className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-semibold">
+                      PREMIUM
+                    </div>
                   </CardTitle>
                 </CardHeader>
                 <CardContent>

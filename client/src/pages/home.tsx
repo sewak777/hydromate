@@ -386,6 +386,9 @@ export default function Home() {
                   <CardTitle className="flex items-center space-x-2">
                     <Trophy className="w-5 h-5 text-[hsl(var(--deep-teal))]" />
                     <span>Achievements</span>
+                    <div className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-semibold">
+                      PREMIUM
+                    </div>
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -406,6 +409,9 @@ export default function Home() {
                     <CardTitle className="flex items-center space-x-2">
                       <Cloud className="w-5 h-5 text-blue-600" />
                       <span>Weather Insights</span>
+                      <div className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-semibold">
+                        PREMIUM
+                      </div>
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
