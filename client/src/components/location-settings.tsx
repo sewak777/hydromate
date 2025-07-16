@@ -23,7 +23,10 @@ export default function LocationSettings({ onLocationChange }: LocationSettingsP
     "Toronto", "Montreal", "Vancouver", "Calgary", "Edmonton", "Ottawa", "Winnipeg", "Quebec City", "Hamilton", "Kitchener",
     "New York", "Los Angeles", "Chicago", "Houston", "Phoenix", "Philadelphia", "San Antonio", "San Diego", "Dallas", "San Jose",
     "London", "Birmingham", "Manchester", "Leeds", "Glasgow", "Liverpool", "Newcastle", "Sheffield", "Bristol", "Cardiff",
-    "Sydney", "Melbourne", "Brisbane", "Perth", "Adelaide", "Gold Coast", "Canberra", "Newcastle", "Wollongong", "Geelong"
+    "Sydney", "Melbourne", "Brisbane", "Perth", "Adelaide", "Gold Coast", "Canberra", "Newcastle", "Wollongong", "Geelong",
+    "New Delhi", "Mumbai", "Bangalore", "Chennai", "Kolkata", "Hyderabad", "Pune", "Ahmedabad", "Jaipur", "Lucknow",
+    "Tokyo", "Osaka", "Kyoto", "Yokohama", "Nagoya", "Sapporo", "Kobe", "Fukuoka", "Sendai", "Hiroshima",
+    "Paris", "Berlin", "Rome", "Madrid", "Amsterdam", "Vienna", "Brussels", "Prague", "Warsaw", "Stockholm"
   ];
 
   // Load saved location preferences
@@ -79,15 +82,22 @@ export default function LocationSettings({ onLocationChange }: LocationSettingsP
     
     // Trigger weather refresh for selected city
     console.log('🌍 Weather refresh for selected city:', suggestion);
-    window.dispatchEvent(new CustomEvent('refreshWeather'));
+    setTimeout(() => {
+      window.dispatchEvent(new CustomEvent('refreshWeather'));
+    }, 100);
   };
 
   // Only trigger weather refresh when user manually enters a complete city name (Enter key)
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && cityName.trim().length > 2) {
+      e.preventDefault();
       setShowSuggestions(false);
       console.log('🌍 Manual weather refresh for:', cityName);
-      window.dispatchEvent(new CustomEvent('refreshWeather'));
+      
+      // Add small delay to ensure all state updates are complete
+      setTimeout(() => {
+        window.dispatchEvent(new CustomEvent('refreshWeather'));
+      }, 100);
     }
   };
 
