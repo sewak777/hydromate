@@ -438,7 +438,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Weather routes
-  app.get("/api/weather", isAuthenticated, async (req: any, res) => {
+  app.get("/api/weather", conditionalAuth, async (req: any, res) => {
     try {
       const { lat, lon, city } = req.query;
       

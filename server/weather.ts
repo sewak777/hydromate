@@ -19,6 +19,7 @@ export class WeatherService {
 
   constructor() {
     this.apiKey = process.env.OPENWEATHER_API_KEY || null;
+    console.log('🌤️ Weather service initialized with API key:', this.apiKey ? 'present' : 'missing');
   }
 
   private getMockWeatherData(location: string = "Demo City"): WeatherData {
@@ -67,14 +68,17 @@ export class WeatherService {
     }
 
     const url = `${this.baseUrl}/weather?q=${encodeURIComponent(city)}&appid=${this.apiKey}&units=metric`;
+    console.log('🌤️ Fetching weather for city:', city);
     
     try {
       const response = await fetch(url);
       if (!response.ok) {
+        console.error(`Weather API error: ${response.status} - ${response.statusText}`);
         throw new Error(`Weather API error: ${response.status}`);
       }
       
       const data = await response.json();
+      console.log('🌤️ Weather data received for:', data.name);
       
       return {
         temperature: Math.round(data.main.temp),
