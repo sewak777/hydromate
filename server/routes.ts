@@ -96,7 +96,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
             success: true, 
             message: 'Mock user enabled for development',
             devToken: 'dev-auth-' + mockUser.claims.sub,
-            sessionId: req.session.id
+            sessionId: req.session.id,
+            redirectUrl: '/' // Redirect to main app after auth
           });
         });
       } catch (error) {

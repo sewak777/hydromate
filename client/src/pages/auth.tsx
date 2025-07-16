@@ -21,8 +21,8 @@ export default function AuthPage() {
               localStorage.setItem('devToken', data.devToken);
             }
             console.log('Mock user created, session ID:', data.sessionId);
-            // Redirect to main app
-            window.location.href = "/";
+            // Redirect to main app - use redirectUrl from response or default to "/"
+            window.location.href = data.redirectUrl || "/";
           } else {
             // Fallback to normal auth flow
             window.location.href = "/api/login?direct=true";
