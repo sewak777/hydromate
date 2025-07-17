@@ -13,7 +13,7 @@ export default function Navigation() {
 
   const navItems = [
     { href: "/", label: "Home", icon: Home },
-    { href: "/analytics", label: "Analytics", icon: BarChart3 },
+    { href: "/analytics", label: "Analytics", icon: BarChart3, premium: true },
     { href: "/reminders", label: "Reminders", icon: Bell },
     { href: "/profile", label: "Profile", icon: User },
   ];
@@ -50,6 +50,11 @@ export default function Navigation() {
                 >
                   <Icon className="w-4 h-4" />
                   <span>{item.label}</span>
+                  {item.premium && (
+                    <div className="bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded text-xs font-semibold">
+                      PRO
+                    </div>
+                  )}
                 </Link>
               );
             })}
@@ -125,6 +130,11 @@ export default function Navigation() {
                         >
                           <Icon className="w-5 h-5" />
                           <span>{item.label}</span>
+                          {item.premium && (
+                            <div className="bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded text-xs font-semibold">
+                              PRO
+                            </div>
+                          )}
                         </Link>
                       );
                     })}

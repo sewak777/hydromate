@@ -142,6 +142,7 @@ HydroMate is a comprehensive hydration tracking application that helps users mon
 - **Source Code Headers**: Copyright notices added to main application files
 
 ## Changelog
+- July 16, 2025. Made Analytics a premium feature - added PREMIUM badge to analytics page header and PRO badge to analytics navigation item in both desktop and mobile views
 - July 16, 2025. Enhanced UI design with more curved corners - updated all cards, buttons, dialogs, and input fields from rounded-md/lg to rounded-xl for a more modern appearance
 - July 16, 2025. Fixed chart hover behavior issue - replaced dark shadow overlay with light, subtle background highlight for better readability on both weekly progress and analytics charts
 - July 16, 2025. Fixed analytics consistency tracking by resolving user profile requirement issue - daily summaries now generate properly when intake is logged, showing authentic data instead of 0% consistency

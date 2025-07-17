@@ -123,10 +123,13 @@ export default function Analytics() {
         <div className="pt-20 pb-8">
           <div className="container mx-auto px-4 max-w-7xl">
             <div className="text-center mb-8">
-              <h1 className="text-3xl md:text-4xl font-bold mb-2">
+              <h1 className="text-3xl md:text-4xl font-bold mb-2 flex items-center justify-center space-x-3">
                 <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
                   Hydration Analytics
                 </span>
+                <div className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">
+                  PREMIUM
+                </div>
               </h1>
               <p className="text-[hsl(var(--text-light))] text-lg">
                 Detailed insights into your hydration journey and progress patterns
