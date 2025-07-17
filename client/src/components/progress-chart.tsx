@@ -119,7 +119,10 @@ export default function ProgressChart({ data }: ProgressChartProps) {
               tick={{ fontSize: 12, fill: "hsl(var(--text-light))" }}
               tickFormatter={(value) => `${(value / 1000).toFixed(1)}L`}
             />
-            <Tooltip content={<CustomTooltip />} />
+            <Tooltip 
+              content={<CustomTooltip />} 
+              cursor={{ fill: 'rgba(0, 0, 0, 0.05)' }}
+            />
             <Bar 
               dataKey="totalIntake" 
               radius={[4, 4, 0, 0]}

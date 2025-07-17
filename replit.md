@@ -142,6 +142,7 @@ HydroMate is a comprehensive hydration tracking application that helps users mon
 - **Source Code Headers**: Copyright notices added to main application files
 
 ## Changelog
+- July 16, 2025. Fixed chart hover behavior issue - replaced dark shadow overlay with light, subtle background highlight for better readability on both weekly progress and analytics charts
 - July 16, 2025. Fixed analytics consistency tracking by resolving user profile requirement issue - daily summaries now generate properly when intake is logged, showing authentic data instead of 0% consistency
 - July 16, 2025. Successfully integrated live OpenWeather API with valid key - weather service now provides real-time data for Toronto (28°C), London (19°C), New Delhi (27°C) with intelligent hydration recommendations
 - July 16, 2025. Connected OpenWeather API with real weather data - app now displays actual temperature, humidity, and weather conditions with personalized hydration recommendations
