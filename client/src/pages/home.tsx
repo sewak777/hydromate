@@ -40,7 +40,7 @@ interface DashboardData {
 
 export default function Home() {
   const { toast } = useToast();
-  const { isAuthenticated, isLoading } = useAuth();
+  const { isAuthenticated, isLoading, user } = useAuth();
   const { isPremium, subscription } = usePremium();
   const { hapticFeedback, isNative, platform } = useNativeFeatures();
 
@@ -258,7 +258,7 @@ export default function Home() {
           {/* Header */}
           <div className="text-center mb-8">
             <h1 className="text-3xl md:text-4xl font-bold mb-2">
-              Welcome {user?.firstName || user?.email?.split("@")[0] || "User"}! <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">Stay Hydrated</span>
+              Welcome {user?.firstName || user?.email?.split("@")[0] || "Sunny"}! <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">Stay Hydrated</span>
             </h1>
             <p className="text-[hsl(var(--text-light))] text-lg">
               {remainingAmount > 0 
