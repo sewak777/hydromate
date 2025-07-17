@@ -36,8 +36,8 @@ export const subscriptionPlans: SubscriptionPlan[] = [
   },
   {
     id: process.env.STRIPE_MONTHLY_PRICE_ID || 'price_default_monthly',
-    name: 'Premium Monthly',
-    description: 'All premium features with monthly billing',
+    name: 'PRO Monthly',
+    description: 'All PRO features with monthly billing',
     price: 799, // $7.99 in cents (discounted from $9.99)
     interval: 'month',
     features: [
@@ -50,8 +50,8 @@ export const subscriptionPlans: SubscriptionPlan[] = [
   },
   {
     id: process.env.STRIPE_ANNUAL_PRICE_ID || 'price_default_annual',
-    name: 'Premium Annual',
-    description: 'All premium features with annual billing (30% off)',
+    name: 'PRO Annual',
+    description: 'All PRO features with annual billing (30% off)',
     price: 8639, // $86.39 in cents (additional 10% off from $95.99)
     interval: 'year',
     features: [

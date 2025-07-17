@@ -24,8 +24,8 @@ const plans: SubscriptionPlan[] = [
   },
   {
     id: 'price_1Rcc2DGdYl8QlNFU1yVhmZqE',
-    name: 'Premium Monthly',
-    description: 'All premium features with monthly billing',
+    name: 'PRO Monthly',
+    description: 'All PRO features with monthly billing',
     price: 799, // $7.99 in cents (discounted from $9.99)
     interval: 'month',
     features: [
@@ -36,6 +36,20 @@ const plans: SubscriptionPlan[] = [
       'Smart notification scheduling'
     ]
   },
+  {
+    id: 'price_1Rcc2EGdYl8QlNFU1yVhmZqF',
+    name: 'PRO Annual',
+    description: 'All PRO features with annual billing (30% off)',
+    price: 8639, // $86.39 in cents (additional 10% off from $95.99)
+    interval: 'year',
+    features: [
+      'Weather-based hydration adjustments',
+      'Advanced analytics and insights',
+      'Custom reminder sounds',
+      'Smart notification scheduling',
+      '30% total discount'
+    ]
+  }
 
 ];
 
@@ -48,7 +62,7 @@ export default function SubscriptionPlans() {
     if (priceId === 'free') {
       toast({
         title: "Free Plan",
-        description: "You're already using the free plan! Upgrade to Premium for advanced features.",
+        description: "You're already using the free plan! Upgrade to PRO for advanced features.",
       });
       return;
     }

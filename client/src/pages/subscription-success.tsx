@@ -36,7 +36,7 @@ export default function SubscriptionSuccess() {
                 </div>
                 <CardTitle className="flex items-center justify-center space-x-2 text-2xl">
                   <Crown className="w-6 h-6 text-yellow-500" />
-                  <span>Welcome to Premium!</span>
+                  <span>Welcome to PRO!</span>
                 </CardTitle>
               </CardHeader>
               

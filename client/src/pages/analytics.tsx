@@ -128,7 +128,7 @@ export default function Analytics() {
                   Hydration Analytics
                 </span>
                 <div className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">
-                  PREMIUM
+                  PRO
                 </div>
               </h1>
               <p className="text-[hsl(var(--text-light))] text-lg">

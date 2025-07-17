@@ -477,7 +477,7 @@ export default function Landing() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Unlock Premium Features for <span className="text-blue-600">Next-Level Hydration</span>
+              Unlock PRO Features for <span className="text-blue-600">Next-Level Hydration</span>
             </h2>
             <p className="text-xl text-[hsl(var(--text-light))] max-w-2xl mx-auto">
               Advanced insights to optimize your hydration journey
@@ -527,7 +527,7 @@ export default function Landing() {
                   <div className="w-16 h-16 bg-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
                     <Trophy className="w-8 h-8 text-yellow-400" />
                   </div>
-                  <h4 className="text-2xl font-bold text-gray-900 mb-2">Premium Dashboard</h4>
+                  <h4 className="text-2xl font-bold text-gray-900 mb-2">PRO Dashboard</h4>
                   <p className="text-gray-600">Advanced analytics & personalization</p>
                 </div>
                 
@@ -610,7 +610,7 @@ export default function Landing() {
               
               {/* Premium badge */}
               <div className="absolute -top-4 -right-4 bg-gradient-to-r from-orange-400 to-pink-500 text-white px-6 py-2 rounded-full text-sm font-bold shadow-lg animate-pulse">
-                PREMIUM
+                PRO
               </div>
               
               {/* Decorative elements */}
@@ -670,7 +670,7 @@ export default function Landing() {
                 MOST POPULAR
               </div>
               <CardContent className="p-8">
-                <h3 className="text-2xl font-bold mb-4 text-white">Premium Monthly</h3>
+                <h3 className="text-2xl font-bold mb-4 text-white">PRO Monthly</h3>
                 <div className="mb-6">
                   <div className="text-lg text-white opacity-75 line-through">$9.99/month</div>
                   <div className="text-4xl font-bold text-white">$7.99<span className="text-lg opacity-90">/month</span></div>
