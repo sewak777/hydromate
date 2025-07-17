@@ -67,6 +67,13 @@ export class WeatherService {
       return this.getMockWeatherData(city);
     }
 
+    // Check if city is coordinates (lat,lon format)
+    const coordinatePattern = /^-?\d+\.?\d*,-?\d+\.?\d*$/;
+    if (coordinatePattern.test(city)) {
+      const [lat, lon] = city.split(',').map(Number);
+      return this.getWeatherByCoords(lat, lon);
+    }
+
     const url = `${this.baseUrl}/weather?q=${encodeURIComponent(city)}&appid=${this.apiKey}&units=metric`;
     console.log('🌤️ Fetching weather for city:', city);
     

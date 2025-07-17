@@ -122,40 +122,22 @@ export default function LocationSettings({ onLocationChange }: LocationSettingsP
         });
       });
 
-      // Use reverse geocoding to get city name
-      const response = await fetch(`https://api.openweathermap.org/geo/1.0/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}&limit=1&appid=demo`);
+      // Use coordinates directly - we'll let the server handle reverse geocoding
+      const detectedCity = `${position.coords.latitude.toFixed(6)},${position.coords.longitude.toFixed(6)}`;
+      setCityName(detectedCity);
+      localStorage.setItem('weatherCity', detectedCity);
+      localStorage.setItem('useGeolocation', 'true');
+      onLocationChange?.({ city: detectedCity, useGeolocation: true });
       
-      if (response.ok) {
-        const data = await response.json();
-        if (data.length > 0) {
-          const detectedCity = data[0].name;
-          setCityName(detectedCity);
-          localStorage.setItem('weatherCity', detectedCity);
-          onLocationChange?.({ city: detectedCity, useGeolocation: false });
-          
-          toast({
-            title: "Location detected",
-            description: `Set location to ${detectedCity}`,
-          });
-          
-          // Refresh weather data
-          window.dispatchEvent(new CustomEvent('refreshWeather'));
-        }
-      } else {
-        // Fallback: just use coordinates
-        const detectedCity = `${position.coords.latitude.toFixed(2)}, ${position.coords.longitude.toFixed(2)}`;
-        setCityName(detectedCity);
-        localStorage.setItem('weatherCity', detectedCity);
-        onLocationChange?.({ city: detectedCity, useGeolocation: false });
-        
-        toast({
-          title: "Location detected",
-          description: `Set location to coordinates: ${detectedCity}`,
-        });
-        
-        // Refresh weather data
+      toast({
+        title: "Location detected",
+        description: `Using your current location`,
+      });
+      
+      // Refresh weather data
+      setTimeout(() => {
         window.dispatchEvent(new CustomEvent('refreshWeather'));
-      }
+      }, 100);
     } catch (error) {
       toast({
         title: "Location detection failed",

@@ -155,7 +155,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post('/api/profile', conditionalAuth, requireUserOwnership, validateSchema(insertHydrationProfileSchema), async (req: any, res) => {
+  app.post('/api/profile', conditionalAuth, requireUserOwnership, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       
@@ -466,7 +466,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Analytics routes
-  app.get('/api/analytics', isAuthenticated, async (req: any, res) => {
+  app.get('/api/analytics', conditionalAuth, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       const period = (req.query.period as '7d' | '30d' | '90d') || '30d';
@@ -479,7 +479,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get('/api/analytics/weekly/:startDate/:endDate', isAuthenticated, async (req: any, res) => {
+  app.get('/api/analytics/weekly/:startDate/:endDate', conditionalAuth, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       const { startDate, endDate } = req.params;
@@ -492,7 +492,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get('/api/analytics/monthly/:month/:year', isAuthenticated, async (req: any, res) => {
+  app.get('/api/analytics/monthly/:month/:year', conditionalAuth, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       const month = parseInt(req.params.month);
