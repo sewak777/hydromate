@@ -121,7 +121,7 @@ export default function ProgressChart({ data }: ProgressChartProps) {
             />
             <Tooltip 
               content={<CustomTooltip />} 
-              cursor={{ fill: 'rgba(0, 0, 0, 0.05)' }}
+              cursor={{ fill: 'rgba(255, 255, 255, 0.1)' }}
             />
             <Bar 
               dataKey="totalIntake" 

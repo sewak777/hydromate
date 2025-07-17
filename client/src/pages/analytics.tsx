@@ -251,7 +251,7 @@ export default function Analytics() {
                               <CartesianGrid strokeDasharray="3 3" />
                               <XAxis dataKey="date" />
                               <YAxis />
-                              <Tooltip cursor={{ fill: 'rgba(0, 0, 0, 0.05)' }} />
+                              <Tooltip cursor={{ fill: 'rgba(255, 255, 255, 0.1)' }} />
                               <Bar dataKey="intake" fill="#2563eb" name="Actual Intake (ml)" />
                               <Bar dataKey="goal" fill="#e5e7eb" name="Goal (ml)" />
                             </BarChart>
@@ -260,7 +260,7 @@ export default function Analytics() {
                               <CartesianGrid strokeDasharray="3 3" />
                               <XAxis dataKey="date" />
                               <YAxis />
-                              <Tooltip cursor={{ stroke: 'rgba(0, 0, 0, 0.2)', strokeWidth: 1 }} />
+                              <Tooltip cursor={{ stroke: 'rgba(255, 255, 255, 0.3)', strokeWidth: 1 }} />
                               <Line 
                                 type="monotone" 
                                 dataKey="percentage" 
@@ -274,7 +274,7 @@ export default function Analytics() {
                               <CartesianGrid strokeDasharray="3 3" />
                               <XAxis dataKey="date" />
                               <YAxis />
-                              <Tooltip cursor={{ stroke: 'rgba(0, 0, 0, 0.2)', strokeWidth: 1 }} />
+                              <Tooltip cursor={{ stroke: 'rgba(255, 255, 255, 0.3)', strokeWidth: 1 }} />
                               <Area 
                                 type="monotone" 
                                 dataKey="hydrationPercentage" 
