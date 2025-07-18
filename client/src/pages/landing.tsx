@@ -5,7 +5,42 @@ import { Droplets, Calculator, TrendingUp, Bell, Trophy, Palette, Cloud, Activit
 
 export default function Landing() {
   const handleLogin = () => {
-    window.location.href = "/api/login";
+    // In development mode, skip auth and enable mock user
+    if (import.meta.env.DEV) {
+      // Enable mock user for development
+      fetch('/api/dev/enable-mock-user', { 
+        method: 'POST',
+        credentials: 'include', // Ensure cookies are included
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            // Store development token for backup authentication
+            if (data.devToken) {
+              localStorage.setItem('devToken', data.devToken);
+            }
+            console.log('Mock user created, session ID:', data.sessionId);
+            // Force a complete page reload to ensure session is properly loaded
+            window.location.href = data.redirectUrl || "/";
+          } else {
+            // Fallback to normal auth flow
+            window.location.href = "/api/login?direct=true";
+          }
+        })
+        .catch(() => {
+          // Fallback to normal auth flow
+          window.location.href = "/api/login?direct=true";
+        });
+    } else {
+      // Production: normal auth flow
+      window.location.href = "/auth/loading";
+      setTimeout(() => {
+        window.location.href = "/api/login?direct=true";
+      }, 1000);
+    }
   };
 
   return (

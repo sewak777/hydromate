@@ -49,7 +49,6 @@ function Router() {
       ) : (
         <>
           <Route path="/" component={Home} />
-          <Route path="/landing" component={Landing} />
           <Route path="/profile" component={Profile} />
           <Route path="/analytics" component={Analytics} />
           <Route path="/reminders" component={Reminders} />
