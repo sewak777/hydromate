@@ -27,18 +27,27 @@ export default function Landing() {
             window.location.href = data.redirectUrl || "/";
           } else {
             // Fallback to normal auth flow
-            window.location.href = "/api/login?direct=true";
+            import('@/lib/config').then(({ getAuthUrls }) => {
+              const { login } = getAuthUrls();
+              window.location.href = `${login}?direct=true`;
+            });
           }
         })
         .catch(() => {
           // Fallback to normal auth flow
-          window.location.href = "/api/login?direct=true";
+          import('@/lib/config').then(({ getAuthUrls }) => {
+            const { login } = getAuthUrls();
+            window.location.href = `${login}?direct=true`;
+          });
         });
     } else {
       // Production: normal auth flow
       window.location.href = "/auth/loading";
       setTimeout(() => {
-        window.location.href = "/api/login?direct=true";
+        import('@/lib/config').then(({ getAuthUrls }) => {
+          const { login } = getAuthUrls();
+          window.location.href = `${login}?direct=true`;
+        });
       }, 1000);
     }
   };

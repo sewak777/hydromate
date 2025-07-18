@@ -19,7 +19,10 @@ export default function Navigation() {
   ];
 
   const handleLogout = () => {
-    window.location.href = "/api/logout";
+    import('@/lib/config').then(({ getAuthUrls }) => {
+      const { logout } = getAuthUrls();
+      window.location.href = logout;
+    });
   };
 
   return (
