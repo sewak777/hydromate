@@ -199,6 +199,8 @@ export default function Home() {
       }
     },
     onError: (error) => {
+      console.error("💧 Intake logging error:", error);
+      
       if (isUnauthorizedError(error)) {
         toast({
           title: "Unauthorized",
@@ -210,9 +212,21 @@ export default function Home() {
         }, 500);
         return;
       }
+      
+      // Enhanced error handling with more specific messages
+      let errorMessage = "Failed to log water intake. Please try again.";
+      
+      if (error.message.includes('Invalid intake data')) {
+        errorMessage = "Invalid intake data. Please check your input and try again.";
+      } else if (error.message.includes('Failed to log intake')) {
+        errorMessage = "Server error while logging intake. Please try again.";
+      } else if (error.message.includes('Network')) {
+        errorMessage = "Network error. Please check your connection and try again.";
+      }
+      
       toast({
         title: "Error",
-        description: "Failed to log water intake. Please try again.",
+        description: errorMessage,
         variant: "destructive",
       });
     },

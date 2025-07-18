@@ -205,13 +205,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const userId = req.user.claims.sub;
       const today = getCurrentDateInTimezone('America/Toronto');
       
+      console.log('💧 Intake logging request:', {
+        userId,
+        body: req.body,
+        date: today
+      });
+      
       const logData = insertIntakeLogSchema.parse({
         ...req.body,
         userId,
         date: today,
       });
 
+      console.log('💧 Validated log data:', logData);
+
       const intake = await storage.createIntakeLog(logData);
+      
+      console.log('💧 Created intake log:', intake);
       
       // Update daily summary
       await updateDailySummary(userId, today);
@@ -219,7 +229,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json(intake);
     } catch (error) {
       console.error("Error logging intake:", error);
-      res.status(500).json({ message: "Failed to log intake" });
+      
+      // Enhanced error logging
+      if (error.name === 'ZodError') {
+        console.error("Schema validation error:", error.issues);
+        res.status(400).json({ 
+          message: "Invalid intake data", 
+          details: error.issues.map(issue => `${issue.path.join('.')}: ${issue.message}`)
+        });
+      } else {
+        console.error("Database or other error:", error);
+        res.status(500).json({ message: "Failed to log intake" });
+      }
     }
   });
 
