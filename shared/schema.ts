@@ -168,6 +168,33 @@ export const subscriptions = pgTable("subscriptions", {
   updatedAt: timestamp("updated_at").defaultNow(),
 });
 
+// User access control for testing (Admin approval system)
+export const userAccessControl = pgTable("user_access_control", {
+  id: serial("id").primaryKey(),
+  userId: varchar("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  email: varchar("email").notNull(),
+  status: varchar("status").notNull().default("pending"), // 'pending', 'approved', 'rejected', 'suspended'
+  approvedBy: varchar("approved_by"), // Admin user ID who approved
+  approvedAt: timestamp("approved_at"),
+  rejectedAt: timestamp("rejected_at"),
+  suspendedAt: timestamp("suspended_at"),
+  notes: text("notes"), // Admin notes about the user
+  requestedAt: timestamp("requested_at").defaultNow(),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// Admin users table
+export const adminUsers = pgTable("admin_users", {
+  id: serial("id").primaryKey(),
+  userId: varchar("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  email: varchar("email").notNull(),
+  role: varchar("role").notNull().default("admin"), // 'admin', 'super_admin'
+  permissions: jsonb("permissions").notNull().default([]), // Array of permission strings
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
 // Relations
 export const usersRelations = relations(users, ({ one, many }) => ({
   hydrationProfile: one(hydrationProfiles),
@@ -238,6 +265,20 @@ export const subscriptionsRelations = relations(subscriptions, ({ one }) => ({
   }),
 }));
 
+export const userAccessControlRelations = relations(userAccessControl, ({ one }) => ({
+  user: one(users, {
+    fields: [userAccessControl.userId],
+    references: [users.id],
+  }),
+}));
+
+export const adminUsersRelations = relations(adminUsers, ({ one }) => ({
+  user: one(users, {
+    fields: [adminUsers.userId],
+    references: [users.id],
+  }),
+}));
+
 // Insert schemas
 export const insertUserSchema = createInsertSchema(users).omit({
   createdAt: true,
@@ -283,6 +324,18 @@ export const insertSubscriptionSchema = createInsertSchema(subscriptions).omit({
   updatedAt: true,
 });
 
+export const insertUserAccessControlSchema = createInsertSchema(userAccessControl).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertAdminUserSchema = createInsertSchema(adminUsers).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
 // Types
 export type UpsertUser = z.infer<typeof insertUserSchema>;
 export type User = typeof users.$inferSelect;
@@ -300,3 +353,7 @@ export type WeeklyAnalytics = typeof weeklyAnalytics.$inferSelect;
 export type MonthlyAnalytics = typeof monthlyAnalytics.$inferSelect;
 export type Subscription = typeof subscriptions.$inferSelect;
 export type InsertSubscription = z.infer<typeof insertSubscriptionSchema>;
+export type UserAccessControl = typeof userAccessControl.$inferSelect;
+export type InsertUserAccessControl = z.infer<typeof insertUserAccessControlSchema>;
+export type AdminUser = typeof adminUsers.$inferSelect;
+export type InsertAdminUser = z.infer<typeof insertAdminUserSchema>;

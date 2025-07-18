@@ -1,130 +1,126 @@
-import { Request, Response, NextFunction } from 'express';
-
-export interface AccessControlConfig {
-  allowedRoles: string[];
-  requireAuthentication: boolean;
-  rateLimitPerMinute?: number;
-  ipWhitelist?: string[];
-  secretAccessLevel: 'none' | 'read' | 'write';
-}
+import { storage } from "./storage";
+import { Request, Response, NextFunction } from "express";
 
 export class AccessControlManager {
-  private config: AccessControlConfig;
-  private rateLimitStore: Map<string, { count: number; resetTime: number }> = new Map();
+  private profile: AccessControlProfile;
 
-  constructor(config: AccessControlConfig) {
-    this.config = config;
+  constructor(profile: AccessControlProfile) {
+    this.profile = profile;
   }
 
-  // Middleware to check user permissions
-  checkPermissions = (requiredLevel: 'read' | 'write' | 'admin') => {
-    return (req: Request, res: Response, next: NextFunction) => {
-      // Check authentication if required
-      if (this.config.requireAuthentication && !req.user) {
-        return res.status(401).json({ error: 'Authentication required' });
+  // Middleware to check user access
+  checkUserAccess = async (req: any, res: Response, next: NextFunction) => {
+    try {
+      // Skip access control in development mode
+      if (process.env.NODE_ENV === 'development') {
+        return next();
       }
 
-      // Check user role
-      const userRole = req.user?.role || 'guest';
-      if (!this.config.allowedRoles.includes(userRole)) {
-        return res.status(403).json({ error: 'Insufficient permissions' });
+      // Skip if access control is disabled
+      if (!this.profile.enabled) {
+        return next();
       }
 
-      // Check secret access level
-      if (this.isSecretEndpoint(req.path)) {
-        if (this.config.secretAccessLevel === 'none') {
-          return res.status(403).json({ error: 'Secret access denied' });
-        }
-        
-        if (requiredLevel === 'write' && this.config.secretAccessLevel !== 'write') {
-          return res.status(403).json({ error: 'Secret write access denied' });
-        }
+      // Get user ID from authenticated request
+      const userId = req.user?.claims?.sub;
+      if (!userId) {
+        return res.status(401).json({ 
+          success: false, 
+          message: 'Authentication required' 
+        });
       }
 
+      // Check if user has access control entry
+      const accessControl = await storage.getUserAccessControl(userId);
+      
+      if (!accessControl) {
+        return res.status(403).json({ 
+          success: false, 
+          message: 'Access request required. Please submit an access request to use this application.',
+          action: 'request_access'
+        });
+      }
+
+      // Check access status
+      if (accessControl.status === 'pending') {
+        return res.status(403).json({ 
+          success: false, 
+          message: 'Access request pending approval. Please wait for administrator approval.',
+          action: 'wait_for_approval'
+        });
+      }
+
+      if (accessControl.status === 'rejected') {
+        return res.status(403).json({ 
+          success: false, 
+          message: 'Access request rejected. Please contact administrator.',
+          action: 'contact_admin'
+        });
+      }
+
+      if (accessControl.status === 'suspended') {
+        return res.status(403).json({ 
+          success: false, 
+          message: 'Access suspended. Please contact administrator.',
+          action: 'contact_admin'
+        });
+      }
+
+      // Access approved - continue
       next();
-    };
+    } catch (error) {
+      console.error('Access control check failed:', error);
+      res.status(500).json({ 
+        success: false, 
+        message: 'Access control check failed' 
+      });
+    }
   };
 
   // Rate limiting middleware
   rateLimit = (req: Request, res: Response, next: NextFunction) => {
-    if (!this.config.rateLimitPerMinute) {
-      return next();
-    }
-
-    const clientId = this.getClientId(req);
-    const now = Date.now();
-    const windowStart = now - 60000; // 1 minute window
-
-    const clientData = this.rateLimitStore.get(clientId);
-    
-    if (!clientData || clientData.resetTime < windowStart) {
-      this.rateLimitStore.set(clientId, { count: 1, resetTime: now });
-      return next();
-    }
-
-    if (clientData.count >= this.config.rateLimitPerMinute) {
-      return res.status(429).json({ 
-        error: 'Rate limit exceeded',
-        retryAfter: Math.ceil((clientData.resetTime + 60000 - now) / 1000)
-      });
-    }
-
-    clientData.count++;
+    // Rate limiting logic can be added here
     next();
   };
 
   // IP whitelist middleware
   ipWhitelist = (req: Request, res: Response, next: NextFunction) => {
-    if (!this.config.ipWhitelist?.length) {
-      return next();
+    if (this.profile.ipWhitelist && this.profile.ipWhitelist.length > 0) {
+      const clientIp = req.ip || req.connection.remoteAddress;
+      if (!this.profile.ipWhitelist.includes(clientIp || '')) {
+        return res.status(403).json({ 
+          success: false, 
+          message: 'Access denied from this IP address' 
+        });
+      }
     }
-
-    const clientIp = this.getClientIP(req);
-    if (!this.config.ipWhitelist.includes(clientIp)) {
-      return res.status(403).json({ error: 'IP address not whitelisted' });
-    }
-
     next();
   };
-
-  private isSecretEndpoint(path: string): boolean {
-    const secretPaths = ['/api/secrets', '/api/config', '/api/admin'];
-    return secretPaths.some(secretPath => path.startsWith(secretPath));
-  }
-
-  private getClientId(req: Request): string {
-    return req.user?.id || this.getClientIP(req);
-  }
-
-  private getClientIP(req: Request): string {
-    return req.ip || 
-           req.connection.remoteAddress || 
-           (req.headers['x-forwarded-for'] as string)?.split(',')[0] || 
-           'unknown';
-  }
 }
 
-// Pre-configured access control profiles
+export interface AccessControlProfile {
+  enabled: boolean;
+  maxUsers?: number;
+  requireApproval: boolean;
+  ipWhitelist?: string[];
+  allowedDomains?: string[];
+}
+
 export const accessControlProfiles = {
-  production: {
-    allowedRoles: ['admin', 'user'],
-    requireAuthentication: true,
-    rateLimitPerMinute: 100,
-    secretAccessLevel: 'none' as const
-  },
-  
   development: {
-    allowedRoles: ['admin', 'user', 'guest'],
-    requireAuthentication: false,
-    rateLimitPerMinute: 1000,
-    secretAccessLevel: 'read' as const
-  },
+    enabled: false,
+    requireApproval: false,
+  } as AccessControlProfile,
   
   restrictedProduction: {
-    allowedRoles: ['admin'],
-    requireAuthentication: true,
-    rateLimitPerMinute: 50,
-    ipWhitelist: [], // Add trusted IPs
-    secretAccessLevel: 'none' as const
-  }
+    enabled: true,
+    maxUsers: 50,
+    requireApproval: true,
+    allowedDomains: ['@gmail.com', '@replit.com'],
+  } as AccessControlProfile,
+  
+  openProduction: {
+    enabled: false,
+    requireApproval: false,
+  } as AccessControlProfile,
 };

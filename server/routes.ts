@@ -531,6 +531,139 @@ Allow: /privacy
 Allow: /terms`);
   });
 
+  // Access Control Routes
+  app.post('/api/access-control/request', conditionalAuth, requireUserOwnership, async (req: any, res) => {
+    try {
+      const userId = req.user.claims.sub;
+      const email = req.user.claims.email;
+      
+      // Check if user already has an access request
+      const existingRequest = await storage.getUserAccessControl(userId);
+      if (existingRequest) {
+        return res.json({
+          success: true,
+          status: existingRequest.status,
+          message: `Access request already exists with status: ${existingRequest.status}`
+        });
+      }
+      
+      // Create new access request
+      const accessRequest = await storage.createUserAccessRequest({
+        userId,
+        email,
+        status: 'pending'
+      });
+      
+      res.json({
+        success: true,
+        status: accessRequest.status,
+        message: 'Access request submitted successfully. You will be notified when approved.'
+      });
+    } catch (error) {
+      console.error('Error creating access request:', error);
+      res.status(500).json({ success: false, message: 'Failed to submit access request' });
+    }
+  });
+
+  app.get('/api/access-control/status', conditionalAuth, requireUserOwnership, async (req: any, res) => {
+    try {
+      const userId = req.user.claims.sub;
+      const accessControl = await storage.getUserAccessControl(userId);
+      
+      if (!accessControl) {
+        return res.json({ status: 'none', approved: false });
+      }
+      
+      res.json({
+        status: accessControl.status,
+        approved: accessControl.status === 'approved',
+        requestedAt: accessControl.requestedAt,
+        approvedAt: accessControl.approvedAt,
+        notes: accessControl.notes
+      });
+    } catch (error) {
+      console.error('Error checking access status:', error);
+      res.status(500).json({ success: false, message: 'Failed to check access status' });
+    }
+  });
+
+  // Admin Routes (require admin permissions)
+  app.get('/api/admin/access-requests', conditionalAuth, requireUserOwnership, async (req: any, res) => {
+    try {
+      const userId = req.user.claims.sub;
+      
+      // Check if user is admin
+      const admin = await storage.getAdminUser(userId);
+      if (!admin) {
+        return res.status(403).json({ success: false, message: 'Admin access required' });
+      }
+      
+      const requests = await storage.getAllPendingAccessRequests();
+      res.json(requests);
+    } catch (error) {
+      console.error('Error fetching access requests:', error);
+      res.status(500).json({ success: false, message: 'Failed to fetch access requests' });
+    }
+  });
+
+  app.post('/api/admin/access-requests/:userId/approve', conditionalAuth, requireUserOwnership, async (req: any, res) => {
+    try {
+      const adminUserId = req.user.claims.sub;
+      const { userId } = req.params;
+      const { notes } = req.body;
+      
+      // Check if user is admin
+      const admin = await storage.getAdminUser(adminUserId);
+      if (!admin) {
+        return res.status(403).json({ success: false, message: 'Admin access required' });
+      }
+      
+      const updated = await storage.updateUserAccessStatus(userId, 'approved', adminUserId, notes);
+      res.json({ success: true, updated });
+    } catch (error) {
+      console.error('Error approving access request:', error);
+      res.status(500).json({ success: false, message: 'Failed to approve access request' });
+    }
+  });
+
+  app.post('/api/admin/access-requests/:userId/reject', conditionalAuth, requireUserOwnership, async (req: any, res) => {
+    try {
+      const adminUserId = req.user.claims.sub;
+      const { userId } = req.params;
+      const { notes } = req.body;
+      
+      // Check if user is admin
+      const admin = await storage.getAdminUser(adminUserId);
+      if (!admin) {
+        return res.status(403).json({ success: false, message: 'Admin access required' });
+      }
+      
+      const updated = await storage.updateUserAccessStatus(userId, 'rejected', adminUserId, notes);
+      res.json({ success: true, updated });
+    } catch (error) {
+      console.error('Error rejecting access request:', error);
+      res.status(500).json({ success: false, message: 'Failed to reject access request' });
+    }
+  });
+
+  app.get('/api/admin/users', conditionalAuth, requireUserOwnership, async (req: any, res) => {
+    try {
+      const userId = req.user.claims.sub;
+      
+      // Check if user is admin
+      const admin = await storage.getAdminUser(userId);
+      if (!admin) {
+        return res.status(403).json({ success: false, message: 'Admin access required' });
+      }
+      
+      const users = await storage.getAllAccessControlUsers();
+      res.json(users);
+    } catch (error) {
+      console.error('Error fetching users:', error);
+      res.status(500).json({ success: false, message: 'Failed to fetch users' });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }

@@ -25,6 +25,7 @@ import Notifications from "@/pages/notifications";
 import Subscription from "@/pages/subscription";
 import SubscriptionSuccess from "@/pages/subscription-success";
 import SubscriptionCancel from "@/pages/subscription-cancel";
+import AdminPanel from "@/pages/admin";
 
 function Router() {
   const { isAuthenticated, isLoading } = useAuth();
@@ -56,6 +57,7 @@ function Router() {
           <Route path="/subscription" component={Subscription} />
           <Route path="/subscription/success" component={SubscriptionSuccess} />
           <Route path="/subscription/cancel" component={SubscriptionCancel} />
+          <Route path="/admin" component={AdminPanel} />
           <Route path="*" component={NotFound} />
         </>
       )}

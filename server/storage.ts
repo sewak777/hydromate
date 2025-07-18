@@ -7,6 +7,8 @@ import {
   userAchievements,
   dailySummaries,
   subscriptions,
+  userAccessControl,
+  adminUsers,
   type User,
   type UpsertUser,
   type HydrationProfile,
@@ -21,6 +23,10 @@ import {
   type InsertDailySummary,
   type Subscription,
   type InsertSubscription,
+  type UserAccessControl,
+  type InsertUserAccessControl,
+  type AdminUser,
+  type InsertAdminUser,
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, desc, and, gte, lte, sum, count } from "drizzle-orm";
@@ -58,6 +64,20 @@ export interface IStorage {
   // Subscription operations
   getSubscription(userId: string): Promise<Subscription | undefined>;
   upsertSubscription(subscription: InsertSubscription): Promise<Subscription>;
+  
+  // User access control operations
+  getUserAccessControl(userId: string): Promise<UserAccessControl | undefined>;
+  getUserAccessControlByEmail(email: string): Promise<UserAccessControl | undefined>;
+  createUserAccessRequest(request: InsertUserAccessControl): Promise<UserAccessControl>;
+  updateUserAccessStatus(userId: string, status: 'approved' | 'rejected' | 'suspended', approvedBy?: string, notes?: string): Promise<UserAccessControl>;
+  getAllPendingAccessRequests(): Promise<UserAccessControl[]>;
+  getAllAccessControlUsers(): Promise<UserAccessControl[]>;
+  
+  // Admin user operations
+  getAdminUser(userId: string): Promise<AdminUser | undefined>;
+  getAdminUserByEmail(email: string): Promise<AdminUser | undefined>;
+  createAdminUser(admin: InsertAdminUser): Promise<AdminUser>;
+  getAllAdminUsers(): Promise<AdminUser[]>;
   
   // Analytics operations
   getStreakCount(userId: string): Promise<number>;
@@ -279,6 +299,102 @@ export class DatabaseStorage implements IStorage {
       })
       .returning();
     return subscription;
+  }
+
+  // User access control operations
+  async getUserAccessControl(userId: string): Promise<UserAccessControl | undefined> {
+    const [accessControl] = await db
+      .select()
+      .from(userAccessControl)
+      .where(eq(userAccessControl.userId, userId));
+    return accessControl;
+  }
+
+  async getUserAccessControlByEmail(email: string): Promise<UserAccessControl | undefined> {
+    const [accessControl] = await db
+      .select()
+      .from(userAccessControl)
+      .where(eq(userAccessControl.email, email));
+    return accessControl;
+  }
+
+  async createUserAccessRequest(request: InsertUserAccessControl): Promise<UserAccessControl> {
+    const [created] = await db
+      .insert(userAccessControl)
+      .values(request)
+      .returning();
+    return created;
+  }
+
+  async updateUserAccessStatus(userId: string, status: 'approved' | 'rejected' | 'suspended', approvedBy?: string, notes?: string): Promise<UserAccessControl> {
+    const updateData: any = {
+      status,
+      notes,
+      updatedAt: new Date(),
+    };
+
+    if (status === 'approved') {
+      updateData.approvedBy = approvedBy;
+      updateData.approvedAt = new Date();
+    } else if (status === 'rejected') {
+      updateData.rejectedAt = new Date();
+    } else if (status === 'suspended') {
+      updateData.suspendedAt = new Date();
+    }
+
+    const [updated] = await db
+      .update(userAccessControl)
+      .set(updateData)
+      .where(eq(userAccessControl.userId, userId))
+      .returning();
+    return updated;
+  }
+
+  async getAllPendingAccessRequests(): Promise<UserAccessControl[]> {
+    return await db
+      .select()
+      .from(userAccessControl)
+      .where(eq(userAccessControl.status, 'pending'))
+      .orderBy(desc(userAccessControl.requestedAt));
+  }
+
+  async getAllAccessControlUsers(): Promise<UserAccessControl[]> {
+    return await db
+      .select()
+      .from(userAccessControl)
+      .orderBy(desc(userAccessControl.createdAt));
+  }
+
+  // Admin user operations
+  async getAdminUser(userId: string): Promise<AdminUser | undefined> {
+    const [admin] = await db
+      .select()
+      .from(adminUsers)
+      .where(eq(adminUsers.userId, userId));
+    return admin;
+  }
+
+  async getAdminUserByEmail(email: string): Promise<AdminUser | undefined> {
+    const [admin] = await db
+      .select()
+      .from(adminUsers)
+      .where(eq(adminUsers.email, email));
+    return admin;
+  }
+
+  async createAdminUser(admin: InsertAdminUser): Promise<AdminUser> {
+    const [created] = await db
+      .insert(adminUsers)
+      .values(admin)
+      .returning();
+    return created;
+  }
+
+  async getAllAdminUsers(): Promise<AdminUser[]> {
+    return await db
+      .select()
+      .from(adminUsers)
+      .orderBy(desc(adminUsers.createdAt));
   }
 
   // Analytics operations
@@ -544,6 +660,7 @@ export class DatabaseStorage implements IStorage {
 
     // Analyze hourly patterns
     const hourlyData = logs.reduce((acc, log) => {
+      if (!log.loggedAt) return acc;
       const hour = new Date(log.loggedAt).getHours();
       if (!acc[hour]) {
         acc[hour] = 0;
