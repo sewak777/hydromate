@@ -6,6 +6,7 @@ This guide will help you set up a custom domain (like hydromate.com) for your Hy
 ## Step 1: Choose and Purchase Your Domain
 
 ### Recommended Domain Names
+- **hydromate.ca** (Canadian domain - owned by user)
 - **hydromate.com** (if available)
 - **myhydromate.com** 
 - **hydromate.app**

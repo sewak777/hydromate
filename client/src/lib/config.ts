@@ -15,6 +15,7 @@ export const config = {
     
     // Custom domain candidates
     candidates: [
+      'hydromate.ca',
       'hydromate.com',
       'myhydromate.com', 
       'hydromate.app',

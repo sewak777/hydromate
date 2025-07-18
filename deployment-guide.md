@@ -2,19 +2,13 @@
 
 ## Quick Start - Custom Domain Setup
 
-### Step 1: Choose Your Domain
-Recommended domain names for HydroMate:
-- **hydromate.com** (primary choice)
-- **myhydromate.com**
-- **hydromate.app**
-- **stayhydromate.com**
-- **hydromate.io**
+### Step 1: Your Domain ✅
+You already own **hydromate.ca** - perfect for your Canadian hydration app!
 
-### Step 2: Purchase Domain
-1. Visit [Namecheap](https://namecheap.com) (recommended)
-2. Search for your chosen domain
-3. Purchase for ~$12/year
-4. Keep domain registrar login details safe
+### Step 2: Domain Status ✅
+- **hydromate.ca** is live and responding (HTTP 200 OK)
+- Currently showing a parked/default page
+- Ready to point to your HydroMate deployment
 
 ### Step 3: Deploy to Vercel (Recommended)
 
