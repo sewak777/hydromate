@@ -7,11 +7,20 @@ export const config = {
     
     // Production domains (when deployed)
     production: process.env.NODE_ENV === 'production' 
-      ? window.location.hostname 
+      ? (typeof window !== 'undefined' ? window.location.hostname : 'localhost')
       : 'b5fa9c6c-b079-4172-8433-00334db933ad-00-2ttq89vigkrig.spock.replit.dev',
     
     // Get current domain
-    current: typeof window !== 'undefined' ? window.location.hostname : 'localhost'
+    current: typeof window !== 'undefined' ? window.location.hostname : 'localhost',
+    
+    // Custom domain candidates
+    candidates: [
+      'hydromate.com',
+      'myhydromate.com', 
+      'hydromate.app',
+      'stayhydromate.com',
+      'hydromate.io'
+    ]
   },
 
   // API configuration
