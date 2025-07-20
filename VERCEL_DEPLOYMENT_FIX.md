@@ -1,46 +1,28 @@
-# Vercel Deployment Configuration Fixed
+# Vercel Deployment Environment Variables
 
-## Error Resolved
-Fixed the "functions property cannot be used in conjunction with builds property" error by updating to modern Vercel configuration.
+## Copy These Values to Vercel
 
-## Updated Configuration
+Here are the environment variables formatted for easy copying to Vercel:
 
-### New vercel.json Structure:
-- Removed conflicting `builds` property
-- Uses modern `buildCommand` and `outputDirectory`
-- Simplified API routing
-- Added `api/index.js` entry point
-
-### Vercel Build Settings:
-```
-Framework Preset: Other
-Build Command: npm run build
-Output Directory: dist/public
-Install Command: npm install
-Root Directory: ./
-```
-
-### What Changed:
-1. **Removed builds array** - No longer needed in modern Vercel
-2. **Added buildCommand** - Points to your npm build script
-3. **Simplified routing** - API calls go to `/api/index.js`
-4. **Created api/index.js** - Entry point for serverless functions
-
-### Environment Variables (Still Required):
-```
-DATABASE_URL=your_postgresql_connection
-OPENWEATHER_API_KEY=your_weather_api_key
-SESSION_SECRET=your_session_secret
-REPL_ID=your_repl_identifier
+```env
+DATABASE_URL=postgresql://username:password@hostname:5432/database_name
+OPENWEATHER_API_KEY=your_openweather_api_key_here
+SESSION_SECRET=your-super-secret-session-key-here-make-it-long-and-random
+REPL_ID=your_replit_project_identifier
 REPLIT_DOMAINS=hydromate.ca,www.hydromate.ca
+ISSUER_URL=https://replit.com/oidc
 NODE_ENV=production
 ```
 
-## Deploy Process:
-1. Upload updated files to GitHub
-2. Import project in Vercel
-3. Use build settings above
-4. Add environment variables
-5. Deploy successfully
+## Instructions:
+1. Replace placeholder values with your actual credentials
+2. Copy each line to Vercel Environment Variables section
+3. Set environment scope to: Production, Preview, Development
+4. Never commit .env files to GitHub
 
-Your HydroMate project should now deploy without configuration errors!
+## Build Configuration:
+- Framework: Other
+- Build Command: `node build.js`
+- Output Directory: `dist/public`
+
+Your HydroMate project (sewak777/hydromate) is ready for deployment once these environment variables are configured.
