@@ -1,65 +1,45 @@
-# Vercel Build and Output Settings for HydroMate
+# Vercel Build Settings for HydroMate
 
-## Build Settings Configuration
+## Framework Selection
+**Choose: "Other"**
 
-### Framework Settings
-```
-Framework Preset: Other
-Root Directory: ./
-```
+## Why "Other" instead of "Vite"?
+- Your project uses a custom build script (`build.js`)
+- The build script handles both frontend (Vite) and backend (esbuild) compilation
+- Vite framework preset expects only frontend, but HydroMate is a full-stack app
+- "Other" gives you full control over the build process
 
-### Build Commands
-```
-Build Command: npm run build
-Output Directory: dist/public
-Install Command: npm install
-```
+## Complete Vercel Configuration
 
-### Advanced Build Settings
+### Framework
 ```
-Node.js Version: 18.x
+Other
 ```
 
-## Environment Variables
-Add these in Vercel dashboard under "Environment Variables":
-
+### Build Command
 ```
-DATABASE_URL=your_postgresql_connection_string
-OPENWEATHER_API_KEY=your_weather_api_key
-SESSION_SECRET=your_session_secret_key
-REPL_ID=your_repl_identifier
-REPLIT_DOMAINS=hydromate.ca,www.hydromate.ca
-NODE_ENV=production
+node build.js
 ```
 
-## Build Configuration Details
-
-### What the Build Command Does:
-- `vite build` - Compiles React frontend to `dist/public/`
-- `esbuild server/index.ts` - Compiles Node.js backend to `dist/index.js`
-
-### Output Structure:
+### Output Directory
 ```
-dist/
-├── public/          # Frontend files (served at /)
-│   ├── index.html
-│   ├── assets/
-│   └── ...
-└── index.js         # Backend API (serves /api/*)
+dist/public
 ```
 
-### Vercel Configuration:
-Your `vercel.json` file handles:
-- API routing (`/api/*` → backend)
-- Static file serving (`/*` → frontend)
-- Environment variables
-- Function settings
+### Install Command (leave default)
+```
+npm install
+```
 
-## Deployment Steps:
-1. Connect GitHub repository to Vercel
-2. Use these build settings
-3. Add environment variables
-4. Deploy
-5. Add custom domain: hydromate.ca
+## What build.js Does
+1. Compiles React frontend with Vite → `dist/public/`
+2. Compiles Node.js backend with esbuild → `dist/index.js`
+3. Creates proper directory structure for Vercel deployment
 
-Your HydroMate project will be live at https://hydromate.ca after deployment!
+## Your Current Status
+- HydroMate successfully uploaded to GitHub: sewak777/hydromate
+- Weather integration working: 32°C New York, clear sky, feels like 37°C, +350ml recommendation
+- Authentication operational
+- All features ready for production
+
+Use "Other" framework and the build settings above for successful Vercel deployment.
