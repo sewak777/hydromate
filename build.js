@@ -9,7 +9,10 @@ try {
   // Build frontend from client directory
   console.log('Building frontend...');
   process.chdir(path.join(__dirname, 'client'));
-  execSync('TAILWIND_CONFIG=../tailwind.production.config.ts npx vite build --config ../vite.production.config.ts --outDir ../dist/public --emptyOutDir', { stdio: 'inherit' });
+  execSync('TAILWIND_CONFIG=../tailwind.production.config.ts npx vite build --config ../vite.production.config.ts --outDir ../dist/public --emptyOutDir', { 
+    stdio: 'inherit',
+    cwd: path.join(__dirname, 'client')
+  });
   
   // Build backend
   console.log('Building backend...');
