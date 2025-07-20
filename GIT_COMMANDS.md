@@ -1,75 +1,55 @@
-# Git Commands for HydroMate Migration
+# Git Commands with Personal Access Token
 
-## Commands to Run on Your Local Machine
+## Current Setup
+- Remote: `https://github.com/sewak777/Hydromate.git`
+- User configured: sewak777
 
-After downloading your HydroMate project from Replit and setting up your local repository, run these commands:
+## Commands to Run in Shell
 
-### 1. Clone Your Repository
+### 1. Remove lock files (if needed):
 ```bash
-git clone https://github.com/sewak777/Hobby-repo.git
-cd Hobby-repo
+rm -f .git/config.lock .git/index.lock .git/HEAD.lock
 ```
 
-### 2. Create Project Directory
+### 2. Add all files:
 ```bash
-mkdir hydromate
-cd hydromate
-```
-
-### 3. Copy Files
-Copy all HydroMate files from your Replit download to this directory.
-
-### 4. Initialize and Commit
-```bash
-# Add all files
 git add .
+```
 
-# Commit with detailed message
+### 3. Commit changes:
+```bash
 git commit -m "feat: add HydroMate hydration tracking application
 
 Complete React/Node.js hydration tracking app with:
 - Real-time weather integration (OpenWeather API)
 - User authentication and premium features
 - PostgreSQL database with comprehensive analytics
-- Mobile-ready PWA capabilities
+- Mobile PWA capabilities
 - Production deployment configurations
-- Custom domain support (hydromate.ca)
-
-Features:
-- Smart water intake logging with beverage types
-- Weather-based hydration recommendations
-- Achievement system and progress tracking
-- Premium analytics dashboard
-- Session-based authentication
-- Stripe payment integration
-- Responsive design with modern UI
-
-Technical Stack:
-- Frontend: React 18, TypeScript, Tailwind CSS
-- Backend: Node.js, Express, PostgreSQL
-- Database: Drizzle ORM with comprehensive schema
-- APIs: OpenWeather integration
-- Deployment: Vercel/Netlify ready
-- Mobile: PWA with Capacitor support"
-
-# Push to GitHub
-git push origin main
+- Custom domain support (hydromate.ca)"
 ```
 
-### 5. Verify Upload
-Check your repository at: https://github.com/sewak777/Hobby-repo
+### 4. Push with Personal Access Token:
+```bash
+git push https://YOUR_TOKEN@github.com/sewak777/hydromate.git main
+```
 
-## Alternative: GitHub Desktop
-If you prefer a GUI:
-1. Download GitHub Desktop
-2. Clone your repository
-3. Copy HydroMate files to `hydromate/` folder
-4. Commit and push through the interface
+Replace `YOUR_TOKEN` with your personal access token.
 
-## Next Steps After Upload
-1. Deploy to Vercel (import from GitHub)
-2. Configure environment variables
-3. Set up custom domain (hydromate.ca)
-4. Test deployment
+## Alternative Method:
+If the above doesn't work due to Replit restrictions, you can also:
 
-Your HydroMate application is ready for production deployment!
+1. Set up authentication:
+```bash
+git remote set-url origin https://YOUR_TOKEN@github.com/sewak777/hydromate.git
+git push -u origin main
+```
+
+## Current Project Status:
+Your HydroMate application is production-ready:
+- Weather integration: 32°C New York, +350ml recommendation
+- All features working correctly
+- Build configurations complete
+- Ready for Vercel deployment
+
+Once pushed to GitHub, you can immediately deploy to Vercel and connect hydromate.ca domain.
