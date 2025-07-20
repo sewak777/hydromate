@@ -9,7 +9,7 @@ try {
   // Build frontend from client directory
   console.log('Building frontend...');
   process.chdir(path.join(__dirname, 'client'));
-  execSync('npx vite build --outDir ../dist/public', { stdio: 'inherit' });
+  execSync('npx vite build --config ../vite.production.config.ts --outDir ../dist/public --emptyOutDir', { stdio: 'inherit' });
   
   // Build backend
   console.log('Building backend...');
