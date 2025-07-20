@@ -1,72 +1,44 @@
-# Upload HydroMate to GitHub - Step by Step
+# Automatic GitHub Upload Setup
 
-## Your Repository: https://github.com/sewak777/Hobby-repo
+## Quick Setup
 
-### Step 1: Download Your Project
-1. In Replit, click the **three dots menu** (⋮) in the top right
-2. Select **"Download as zip"**
-3. Save the zip file to your computer
-4. Extract all files to a folder
-
-### Step 2: Go to Your GitHub Repository
-1. Open: https://github.com/sewak777/Hobby-repo
-2. Click the **"Add file"** button
-3. Select **"Upload files"**
-
-### Step 3: Upload Project Files
-1. **Drag and drop** all extracted files into GitHub
-2. Or click **"choose your files"** and select all files
-3. GitHub will show the upload progress
-
-### Step 4: Organize Files (Optional)
-1. Create a new folder called **"hydromate"**
-2. Move all HydroMate files into this folder
-3. This keeps your repository organized
-
-### Step 5: Commit Changes
-1. Scroll down to **"Commit changes"**
-2. Add commit message: **"feat: add HydroMate hydration tracking application"**
-3. Add description:
+### 1. Set Your GitHub Token
+In Shell, run:
+```bash
+export GITHUB_TOKEN=your_personal_access_token_here
 ```
-Complete React/Node.js hydration tracking app with:
-- Real-time weather integration
-- User authentication and premium features  
-- PostgreSQL database with analytics
-- Mobile PWA capabilities
-- Production deployment ready for hydromate.ca
+
+### 2. Upload Current Changes (Build Fix)
+```bash
+./git-auto-upload.sh "fix: resolve Vite build path aliases for Vercel deployment"
 ```
-4. Click **"Commit changes"**
 
-### Step 6: Verify Upload
-Your repository should now contain:
-- `client/` - React frontend
-- `server/` - Node.js backend  
-- `shared/` - Database schemas
-- `README.md` - Documentation
-- `package.json` - Dependencies
-- Deployment configuration files
+### 3. Future Automatic Uploads
+Whenever you make changes:
+```bash
+./git-auto-upload.sh "your commit message"
+```
 
-## After GitHub Upload: Deploy to Production
+## What Gets Uploaded
+- Fixed `build.js` with production Vite config
+- New `vite.production.config.ts` for proper path resolution
+- Resolves the `@/components/ui/toaster` import error
 
-### Immediate Next Steps:
-1. **Deploy to Vercel**:
-   - Go to https://vercel.com
-   - Click "Import Project"
-   - Select your GitHub repository
-   - Configure environment variables
-   
-2. **Configure Domain**:
-   - Add custom domain: hydromate.ca
-   - Update DNS records in GoDaddy
-   
-3. **Go Live**:
-   - Your app will be accessible at https://hydromate.ca
+## Benefits
+- ✅ Automatic staging and committing
+- ✅ Force push to overwrite conflicts
+- ✅ Lock file cleanup
+- ✅ Change detection (skips if no changes)
+- ✅ Clear success/error messages
 
-## Current Project Status: Production Ready
-- Complete hydration tracking system
-- Weather integration (New York: 26°C, overcast clouds)
-- User authentication working
-- Premium features accessible
-- All documentation included
+## Current Status
+Your HydroMate build fix is ready to upload:
+- Weather integration: 32°C New York, clear sky
+- Authentication working
+- Vercel deployment will succeed after upload
 
-Your HydroMate application is ready for worldwide deployment!
+## Alternative: Manual Upload
+If shell script doesn't work:
+1. Download project as zip
+2. Upload files to GitHub manually
+3. Redeploy in Vercel
