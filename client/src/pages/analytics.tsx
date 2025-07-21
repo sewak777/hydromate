@@ -47,13 +47,11 @@ interface AnalyticsData {
     percentage: number;
     goalMet: boolean;
     logs: number;
-    hydrationPercentage: number;
   }>;
   weekly: {
     totalIntake: number;
     averageDailyIntake: number;
     goalsMetCount: number;
-    consistencyScore: number;
     preferredBeverage: string;
     totalLogs: number;
   };
@@ -62,7 +60,6 @@ interface AnalyticsData {
     averageDailyIntake: number;
     goalsMetCount: number;
     bestStreak: number;
-    consistencyScore: number;
     preferredBeverage: string;
     totalLogs: number;
   };
@@ -85,7 +82,6 @@ const CHART_COLORS = ['#2563eb', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#0
 
 export default function Analytics() {
   const [selectedPeriod, setSelectedPeriod] = useState<'7d' | '30d' | '90d'>('30d');
-  const [selectedChart, setSelectedChart] = useState<'intake' | 'consistency' | 'hydration'>('intake');
 
   const { data: analyticsData, isLoading } = useQuery<AnalyticsData>({
     queryKey: ["/api/analytics", selectedPeriod],
@@ -150,17 +146,7 @@ export default function Analytics() {
                 </SelectContent>
               </Select>
 
-              <Select value={selectedChart} onValueChange={(value: 'intake' | 'consistency' | 'hydration') => setSelectedChart(value)}>
-                <SelectTrigger className="w-full sm:w-48">
-                  <BarChart3 className="w-4 h-4 mr-2" />
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="intake">Intake Analysis</SelectItem>
-                  <SelectItem value="consistency">Consistency Tracking</SelectItem>
-                  <SelectItem value="hydration">Hydration Quality</SelectItem>
-                </SelectContent>
-              </Select>
+
 
               <Button variant="outline" className="w-full sm:w-auto">
                 <Download className="w-4 h-4 mr-2" />
@@ -226,12 +212,12 @@ export default function Analytics() {
                     <CardContent className="p-6">
                       <div className="flex items-center justify-between">
                         <div>
-                          <p className="text-sm text-[hsl(var(--text-light))]">Consistency</p>
+                          <p className="text-sm text-[hsl(var(--text-light))]">Total Logs</p>
                           <p className="text-2xl font-bold text-purple-600">
-                            {Math.round(analyticsData?.weekly.consistencyScore || 0)}%
+                            {analyticsData?.weekly.totalLogs || 0}
                           </p>
                         </div>
-                        <TrendingUp className="w-8 h-8 text-purple-500" />
+                        <BarChart3 className="w-8 h-8 text-purple-500" />
                       </div>
                     </CardContent>
                   </Card>
@@ -249,45 +235,14 @@ export default function Analytics() {
                     <div className="h-80">
                       {analyticsData?.daily && analyticsData.daily.length > 0 ? (
                         <ResponsiveContainer width="100%" height="100%">
-                          {selectedChart === 'intake' ? (
-                            <BarChart data={analyticsData.daily}>
-                              <CartesianGrid strokeDasharray="3 3" />
-                              <XAxis dataKey="date" />
-                              <YAxis />
-                              <Tooltip cursor={{ fill: 'rgba(255, 255, 255, 0.1)' }} />
-                              <Bar dataKey="intake" fill="#2563eb" name="Actual Intake (ml)" />
-                              <Bar dataKey="goal" fill="#e5e7eb" name="Goal (ml)" />
-                            </BarChart>
-                          ) : selectedChart === 'consistency' ? (
-                            <LineChart data={analyticsData.daily}>
-                              <CartesianGrid strokeDasharray="3 3" />
-                              <XAxis dataKey="date" />
-                              <YAxis />
-                              <Tooltip cursor={{ stroke: 'rgba(255, 255, 255, 0.3)', strokeWidth: 1 }} />
-                              <Line 
-                                type="monotone" 
-                                dataKey="percentage" 
-                                stroke="#10b981" 
-                                strokeWidth={3}
-                                name="Goal Achievement (%)"
-                              />
-                            </LineChart>
-                          ) : (
-                            <AreaChart data={analyticsData.daily}>
-                              <CartesianGrid strokeDasharray="3 3" />
-                              <XAxis dataKey="date" />
-                              <YAxis />
-                              <Tooltip cursor={{ stroke: 'rgba(255, 255, 255, 0.3)', strokeWidth: 1 }} />
-                              <Area 
-                                type="monotone" 
-                                dataKey="hydrationPercentage" 
-                                stroke="#8b5cf6" 
-                                fill="#8b5cf6" 
-                                fillOpacity={0.3}
-                                name="Hydration Quality (%)"
-                              />
-                            </AreaChart>
-                          )}
+                          <BarChart data={analyticsData.daily}>
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="date" />
+                            <YAxis />
+                            <Tooltip cursor={{ fill: 'rgba(255, 255, 255, 0.1)' }} />
+                            <Bar dataKey="intake" fill="#2563eb" name="Actual Intake (ml)" />
+                            <Bar dataKey="goal" fill="#e5e7eb" name="Goal (ml)" />
+                          </BarChart>
                         </ResponsiveContainer>
                       ) : (
                         <div className="h-full flex items-center justify-center bg-gray-50 rounded-lg">
@@ -313,18 +268,6 @@ export default function Analytics() {
                     </CardHeader>
                     <CardContent>
                       <div className="space-y-4">
-                        <div className="flex justify-between items-center">
-                          <span>Consistency Score</span>
-                          <div className="flex items-center space-x-2">
-                            <Progress 
-                              value={analyticsData?.weekly.consistencyScore || 0} 
-                              className="w-24" 
-                            />
-                            <span className="font-semibold">
-                              {Math.round(analyticsData?.weekly.consistencyScore || 0)}%
-                            </span>
-                          </div>
-                        </div>
                         <div className="flex justify-between">
                           <span>Preferred Beverage</span>
                           <Badge variant="secondary">

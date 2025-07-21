@@ -472,13 +472,11 @@ export class DatabaseStorage implements IStorage {
     const totalIntake = summaries.reduce((sum, summary) => sum + summary.totalIntake, 0);
     const averageDailyIntake = summaries.length > 0 ? totalIntake / summaries.length : 0;
     const goalsMetCount = summaries.filter(summary => summary.goalMet).length;
-    const consistencyScore = summaries.length > 0 ? Math.round((goalsMetCount / summaries.length) * 100) : 0;
     
     return {
       totalIntake,
       averageDailyIntake: Math.round(averageDailyIntake),
       goalsMetCount,
-      consistencyScore,
       preferredBeverage: preferredBeverage.charAt(0).toUpperCase() + preferredBeverage.slice(1).replace('_', ' '),
       totalLogs: logs.length,
       daily: summaries.map(summary => ({
@@ -487,8 +485,7 @@ export class DatabaseStorage implements IStorage {
         goal: summary.goalAmount,
         percentage: summary.goalAmount > 0 ? Math.round((summary.totalIntake / summary.goalAmount) * 100) : 0,
         goalMet: summary.goalMet,
-        logs: 1,
-        hydrationPercentage: summary.goalAmount > 0 ? Math.round((summary.totalIntake / summary.goalAmount) * 100) : 0
+        logs: 1
       }))
     };
   }
@@ -540,7 +537,6 @@ export class DatabaseStorage implements IStorage {
     const totalIntake = summaries.reduce((sum, summary) => sum + summary.totalIntake, 0);
     const averageDailyIntake = summaries.length > 0 ? totalIntake / summaries.length : 0;
     const goalsMetCount = summaries.filter(summary => summary.goalMet).length;
-    const consistencyScore = summaries.length > 0 ? Math.round((goalsMetCount / summaries.length) * 100) : 0;
 
     // Get beverage distribution and patterns
     const beverageDistribution = await this.getBeverageDistribution(userId, startDateStr, endDate);
@@ -553,14 +549,12 @@ export class DatabaseStorage implements IStorage {
         goal: summary.goalAmount,
         percentage: summary.goalAmount > 0 ? Math.round((summary.totalIntake / summary.goalAmount) * 100) : 0,
         goalMet: summary.goalMet,
-        logs: 1,
-        hydrationPercentage: summary.goalAmount > 0 ? Math.round((summary.totalIntake / summary.goalAmount) * 100) : 0
+        logs: 1
       })),
       weekly: {
         totalIntake,
         averageDailyIntake: Math.round(averageDailyIntake),
         goalsMetCount,
-        consistencyScore,
         preferredBeverage: preferredBeverage.charAt(0).toUpperCase() + preferredBeverage.slice(1).replace('_', ' '),
         totalLogs: logs.length
       },
@@ -569,7 +563,6 @@ export class DatabaseStorage implements IStorage {
         averageDailyIntake: Math.round(averageDailyIntake),
         goalsMetCount,
         bestStreak: 0,
-        consistencyScore,
         preferredBeverage: preferredBeverage.charAt(0).toUpperCase() + preferredBeverage.slice(1).replace('_', ' '),
         totalLogs: logs.length
       },
