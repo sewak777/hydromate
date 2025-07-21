@@ -7,6 +7,7 @@ import { useNativeFeatures } from "@/hooks/useNativeFeatures";
 
 import { isUnauthorizedError } from "@/lib/authUtils";
 import { apiRequest, queryClient } from "@/lib/queryClient";
+import { notificationService } from "@/services/notificationService";
 import { SEOHead } from "@/components/seo-head";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -44,27 +45,21 @@ export default function Home() {
   const { isPremium, subscription } = usePremium();
   const { hapticFeedback, isNative, platform } = useNativeFeatures();
 
-  // Redirect to home if not authenticated
-  useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
-      toast({
-        title: "Unauthorized",
-        description: "You are logged out. Logging in again...",
-        variant: "destructive",
-      });
-      setTimeout(() => {
-        window.location.href = "/api/login";
-      }, 500);
-      return;
-    }
-  }, [isAuthenticated, isLoading, toast]);
+  // Early return if loading or not authenticated - let the main router handle this
+  if (isLoading) {
+    return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
+  }
+  
+  if (!isAuthenticated) {
+    return null; // Let the main App router handle the redirect
+  }
 
   const { data: dashboardData, isLoading: isDashboardLoading } = useQuery<DashboardData>({
     queryKey: ["/api/dashboard"],
     retry: false,
   });
 
-  const { data: todayIntake = [] } = useQuery({
+  const { data: todayIntake = [] } = useQuery<any[]>({
     queryKey: ["/api/intake/today"],
     retry: false,
   });
@@ -272,7 +267,7 @@ export default function Home() {
           {/* Header */}
           <div className="text-center mb-8">
             <h1 className="text-3xl md:text-4xl font-bold mb-2">
-              Welcome {user?.firstName || user?.email?.split("@")[0] || "Sunny"}! <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">Stay Hydrated</span>
+              Welcome {(user as any)?.firstName || (user as any)?.email?.split("@")[0] || "Sunny"}! <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">Stay Hydrated</span>
             </h1>
             <p className="text-[hsl(var(--text-light))] text-lg">
               {remainingAmount > 0 
@@ -565,7 +560,7 @@ export default function Home() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3 max-h-64 overflow-y-auto">
-                    {todayIntake.length > 0 ? (
+                    {Array.isArray(todayIntake) && todayIntake.length > 0 ? (
                       todayIntake.map((log: any, index: number) => (
                         <div key={index} className="flex items-center justify-between p-3 bg-[hsl(var(--soft-gray))] rounded-lg">
                           <div className="flex items-center space-x-3">
@@ -573,7 +568,7 @@ export default function Home() {
                               <Droplets className="w-4 h-4 text-[hsl(var(--primary-blue))]" />
                             </div>
                             <div>
-                              <div className="font-medium">{log.amount}ml</div>
+                              <div className="font-medium">{log?.amount || 0}ml</div>
                               <div className="text-xs text-[hsl(var(--text-light))]">
                                 {log.beverageType || 'Water'}
                                 {isPremium && log.hydrationPercentage && (
