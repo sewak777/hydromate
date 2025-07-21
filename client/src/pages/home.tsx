@@ -17,6 +17,7 @@ import IntakeLog from "@/components/intake-log";
 import ProgressChart from "@/components/progress-chart";
 import AchievementBadge from "@/components/achievement-badge";
 import LocationDetector from "@/components/location-detector";
+import LocationDemo from "@/components/location-demo";
 import { Droplets, Target, TrendingUp, Trophy, Plus, Cloud, Activity, Bell, Settings } from "lucide-react";
 
 interface DashboardData {
@@ -521,12 +522,13 @@ export default function Home() {
                           </div>
                         )}
                         
-                        {/* Location Detector */}
-                        <div className="mt-4 pt-4 border-t border-cyan-200">
+                        {/* Location Detection */}
+                        <div className="mt-4 pt-4 border-t border-cyan-200 space-y-3">
                           <LocationDetector 
                             onLocationDetected={handleLocationDetected}
                             className="bg-white/50 border-cyan-300"
                           />
+                          <LocationDemo />
                         </div>
                       </div>
                     ) : (
@@ -534,12 +536,13 @@ export default function Home() {
                         <Cloud className="w-8 h-8 mx-auto mb-2 opacity-50" />
                         <p className="text-sm">Loading weather data...</p>
                         
-                        {/* Show location detector even when weather is loading */}
-                        <div className="mt-4">
+                        {/* Show location detection even when weather is loading */}
+                        <div className="mt-4 space-y-3">
                           <LocationDetector 
                             onLocationDetected={handleLocationDetected}
                             className="bg-white/50 border-cyan-300"
                           />
+                          <LocationDemo />
                         </div>
                       </div>
                     )}
