@@ -17,7 +17,7 @@ import IntakeLog from "@/components/intake-log";
 import ProgressChart from "@/components/progress-chart";
 import AchievementBadge from "@/components/achievement-badge";
 import LocationDetector from "@/components/location-detector";
-import LocationDemo from "@/components/location-demo";
+
 import { Droplets, Target, TrendingUp, Trophy, Plus, Cloud, Activity, Bell, Settings } from "lucide-react";
 
 interface DashboardData {
@@ -523,12 +523,11 @@ export default function Home() {
                         )}
                         
                         {/* Location Detection */}
-                        <div className="mt-4 pt-4 border-t border-cyan-200 space-y-3">
+                        <div className="mt-4 pt-4 border-t border-cyan-200">
                           <LocationDetector 
                             onLocationDetected={handleLocationDetected}
                             className="bg-white/50 border-cyan-300"
                           />
-                          <LocationDemo />
                         </div>
                       </div>
                     ) : (
@@ -537,12 +536,11 @@ export default function Home() {
                         <p className="text-sm">Loading weather data...</p>
                         
                         {/* Show location detection even when weather is loading */}
-                        <div className="mt-4 space-y-3">
+                        <div className="mt-4">
                           <LocationDetector 
                             onLocationDetected={handleLocationDetected}
                             className="bg-white/50 border-cyan-300"
                           />
-                          <LocationDemo />
                         </div>
                       </div>
                     )}

@@ -142,15 +142,9 @@ export default function LocationDetector({ onLocationDetected, className }: Loca
         </Button>
 
         {/* Help Text */}
-        <div className="text-xs text-gray-500 space-y-1">
-          <p>We'll use your location to provide accurate weather-based hydration recommendations</p>
-          {typeof window !== 'undefined' && window.location.hostname.includes('replit') && (
-            <div className="bg-amber-50 border border-amber-200 rounded p-2 text-amber-800">
-              <p className="font-medium">Development Environment</p>
-              <p>Location detection may be limited in this preview. It will work properly when deployed to your custom domain.</p>
-            </div>
-          )}
-        </div>
+        <p className="text-xs text-gray-500">
+          We'll use your location to provide accurate weather-based hydration recommendations
+        </p>
       </CardContent>
     </Card>
   );

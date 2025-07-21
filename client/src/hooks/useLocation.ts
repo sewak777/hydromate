@@ -124,20 +124,14 @@ export function useLocation() {
 }
 
 function getErrorMessage(code: number): string {
-  const isReplit = typeof window !== 'undefined' && window.location.hostname.includes('replit');
-  
   switch (code) {
     case 1:
-      return isReplit 
-        ? 'Location access restricted in preview environment. Works in production.'
-        : 'Location access denied by user. Please allow location access and try again.';
+      return 'Location access denied by user. Please allow location access and try again.';
     case 2:
       return 'Location information unavailable. Please check your device settings.';
     case 3:
       return 'Location request timed out. Please try again.';
     default:
-      return isReplit
-        ? 'Location detection limited in preview. Works when deployed.'
-        : 'An unknown error occurred while retrieving location';
+      return 'An unknown error occurred while retrieving location';
   }
 }
