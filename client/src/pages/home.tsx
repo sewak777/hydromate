@@ -16,6 +16,7 @@ import WaterBottle from "@/components/water-bottle";
 import IntakeLog from "@/components/intake-log";
 import ProgressChart from "@/components/progress-chart";
 import AchievementBadge from "@/components/achievement-badge";
+import LocationDetector from "@/components/location-detector";
 import { Droplets, Target, TrendingUp, Trophy, Plus, Cloud, Activity, Bell, Settings } from "lucide-react";
 
 interface DashboardData {
@@ -68,6 +69,15 @@ export default function Home() {
   const [locationKey, setLocationKey] = useState(() => 
     `${localStorage.getItem('weatherCity') || 'New York'}-${localStorage.getItem('useGeolocation') || 'false'}`
   );
+
+  // Handle location detection success
+  const handleLocationDetected = (location: any, city?: string) => {
+    if (city) {
+      setLocationKey(`${city}-true`);
+      // Refresh weather data immediately
+      refetchWeather();
+    }
+  };
 
   const { data: weatherData, error: weatherError, refetch: refetchWeather } = useQuery({
     queryKey: ["/api/weather", locationKey],
@@ -510,11 +520,27 @@ export default function Home() {
                             </div>
                           </div>
                         )}
+                        
+                        {/* Location Detector */}
+                        <div className="mt-4 pt-4 border-t border-cyan-200">
+                          <LocationDetector 
+                            onLocationDetected={handleLocationDetected}
+                            className="bg-white/50 border-cyan-300"
+                          />
+                        </div>
                       </div>
                     ) : (
                       <div className="text-center text-gray-500 py-4">
                         <Cloud className="w-8 h-8 mx-auto mb-2 opacity-50" />
                         <p className="text-sm">Loading weather data...</p>
+                        
+                        {/* Show location detector even when weather is loading */}
+                        <div className="mt-4">
+                          <LocationDetector 
+                            onLocationDetected={handleLocationDetected}
+                            className="bg-white/50 border-cyan-300"
+                          />
+                        </div>
                       </div>
                     )}
                   </CardContent>
