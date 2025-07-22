@@ -14,6 +14,8 @@ import {
   SecurityRateLimiter,
   securityHeaders 
 } from "./security";
+import { enforceDataSecurity, DatabaseSecurityManager } from "./database-security";
+import { initializeEnvironmentSecurity } from "./environment-security";
 import {
   insertHydrationProfileSchema,
   insertIntakeLogSchema,
@@ -22,6 +24,14 @@ import {
 import { z } from "zod";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // SECURITY: Initialize environment validation first
+  console.log('🔐 Initializing security systems...');
+  const environmentValid = initializeEnvironmentSecurity();
+  
+  if (!environmentValid && process.env.NODE_ENV === 'production') {
+    throw new Error('Cannot start server: Environment security validation failed');
+  }
+
   // Initialize security middleware
   const securityRateLimit = new SecurityRateLimiter(
     process.env.NODE_ENV === 'production' ? 100 : 1000, // requests per minute
@@ -35,7 +45,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       : accessControlProfiles.development
   );
 
-  // Apply global security middleware
+  // Apply global security middleware (order matters!)
   app.use(securityHeaders);
   app.use(sanitizeInput);
   app.use(securityRateLimit.middleware);
@@ -129,8 +139,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     });
   }
 
-  // Auth routes  
-  app.get('/api/auth/user', conditionalAuth, requireUserOwnership, async (req: any, res) => {
+  // Auth routes with enhanced security
+  app.get('/api/auth/user', conditionalAuth, enforceDataSecurity, async (req: any, res) => {
     try {
       // Debug logging for development
       if (process.env.NODE_ENV === 'development') {
@@ -141,6 +151,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       const userId = req.user.claims.sub;
+      
+      // SECURITY: Audit user access
+      DatabaseSecurityManager.auditLog('user_fetch', userId, 'user', userId);
+      
       let user = await storage.getUser(userId);
       
       // Create user if not exists (for both test and dev users)
@@ -152,6 +166,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
           lastName: req.user.claims.last_name,
           profileImageUrl: req.user.claims.profile_image_url,
         });
+        
+        // SECURITY: Audit user creation
+        DatabaseSecurityManager.auditLog('user_create', userId, 'user', userId);
         
         if (process.env.NODE_ENV === 'development') {
           console.log('✓ Created new user in database:', userId);
@@ -165,8 +182,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Hydration profile routes
-  app.get('/api/profile', conditionalAuth, requireUserOwnership, async (req: any, res) => {
+  // Hydration profile routes with enhanced security
+  app.get('/api/profile', conditionalAuth, enforceDataSecurity, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       const profile = await storage.getHydrationProfile(userId);
@@ -177,7 +194,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post('/api/profile', conditionalAuth, requireUserOwnership, async (req: any, res) => {
+  app.post('/api/profile', conditionalAuth, enforceDataSecurity, validateSchema(insertHydrationProfileSchema), async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       
@@ -222,7 +239,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Intake log routes
-  app.post('/api/intake', conditionalAuth, async (req: any, res) => {
+  app.post('/api/intake', conditionalAuth, enforceDataSecurity, validateSchema(insertIntakeLogSchema), async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       const today = getCurrentDateInTimezone('America/Toronto');
@@ -266,7 +283,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get('/api/intake/today', conditionalAuth, async (req: any, res) => {
+  app.get('/api/intake/today', conditionalAuth, enforceDataSecurity, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       const today = getCurrentDateInTimezone('America/Toronto');
@@ -278,7 +295,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get('/api/intake/range', conditionalAuth, async (req: any, res) => {
+  app.get('/api/intake/range', conditionalAuth, enforceDataSecurity, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       const { startDate, endDate } = req.query;
@@ -296,7 +313,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Dashboard data route
-  app.get('/api/dashboard', conditionalAuth, async (req: any, res) => {
+  app.get('/api/dashboard', conditionalAuth, enforceDataSecurity, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       const today = getCurrentDateInTimezone('America/Toronto');
@@ -330,7 +347,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Reminder routes
-  app.get('/api/reminders', conditionalAuth, async (req: any, res) => {
+  app.get('/api/reminders', conditionalAuth, enforceDataSecurity, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       const reminder = await storage.getReminder(userId);
@@ -341,7 +358,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post('/api/reminders', conditionalAuth, async (req: any, res) => {
+  app.post('/api/reminders', conditionalAuth, enforceDataSecurity, validateSchema(insertReminderSchema), async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       
