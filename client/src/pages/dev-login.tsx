@@ -18,8 +18,8 @@ export default function DevLogin() {
       });
       
       if (response.ok) {
-        // Force a hard refresh to get new authentication state
-        window.location.reload();
+        // Redirect to home page instead of reloading to avoid flicker
+        window.location.href = '/';
       } else {
         throw new Error('Login failed');
       }

@@ -31,10 +31,8 @@ import DevLogin from "@/pages/dev-login";
 function Router() {
   const { isAuthenticated, isLoading } = useAuth();
   
-  // Debug authentication state in development
-  if (import.meta.env.DEV) {
-    console.log('🔍 Router Debug:', { isAuthenticated, isLoading });
-  }
+  // Debug authentication state in development (less frequent)
+  // Removed to reduce console spam that was causing UI flickering
 
   // Initialize notifications when app loads
   useEffect(() => {

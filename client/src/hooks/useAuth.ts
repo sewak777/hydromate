@@ -4,19 +4,12 @@ export function useAuth() {
   const { data: user, isLoading, error } = useQuery({
     queryKey: ["/api/auth/user"],
     retry: false,
-    refetchOnWindowFocus: true,
-    refetchInterval: 2000, // Check every 2 seconds for auth changes
+    refetchOnWindowFocus: false, // Disable refetch on focus to reduce flickering
+    refetchInterval: false, // Disable automatic refetch
+    staleTime: 30000, // Keep data fresh for 30 seconds
   });
 
-  // Debug logging in development
-  if (import.meta.env.DEV) {
-    console.log('🔍 useAuth Debug:', {
-      user: user ? 'exists' : 'missing',
-      isLoading,
-      error: error ? 'exists' : 'none',
-      isAuthenticated: !!user
-    });
-  }
+  // Debug logging removed to prevent UI flickering
 
   return {
     user,
