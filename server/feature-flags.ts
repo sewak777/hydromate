@@ -13,6 +13,12 @@ export const conditionalAuth: RequestHandler = async (req, res, next) => {
     console.log('  - Session Keys:', Object.keys(req.session || {}));
   }
   
+  // In development, check logout flag first before any authentication
+  if (process.env.NODE_ENV === 'development' && (req.session as any)?.loggedOut) {
+    console.log('🚫 User has logged out - blocking all authentication');
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+  
   // Check for development session user first (only for properly authenticated sessions)
   if (process.env.NODE_ENV === 'development' && (req.session as any)?.user) {
     req.user = (req.session as any).user;
@@ -37,12 +43,6 @@ export const conditionalAuth: RequestHandler = async (req, res, next) => {
       };
       console.log('✅ Using development token auth:', userId);
       return next();
-    }
-    
-    // Check if user has explicitly logged out (session flag)
-    if ((req.session as any)?.loggedOut) {
-      console.log('🚫 User has logged out - not auto-authenticating');
-      return res.status(401).json({ message: "Unauthorized" });
     }
     
     // Additional fallback: Use dev-user-123 as default in development

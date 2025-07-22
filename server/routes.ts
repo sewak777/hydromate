@@ -55,6 +55,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         // Clear logout flag to allow authentication
         if (req.session) {
           delete (req.session as any).loggedOut;
+          console.log('🔧 Logout flag cleared - authentication enabled');
           req.session.save(() => {
             res.json({ success: true, message: 'Ready to authenticate' });
           });

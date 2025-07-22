@@ -20,6 +20,9 @@ export default function Navigation() {
   ];
 
   const handleLogout = () => {
+    // Clear React Query cache before logout to force refresh
+    queryClient.clear();
+    
     // Navigate directly to logout endpoint
     window.location.href = "/api/logout";
   };

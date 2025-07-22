@@ -10,15 +10,19 @@ export default function DevLogin() {
     setIsLoggingIn(true);
     try {
       // Call development login endpoint to clear logout flag
-      await fetch('/api/dev/login', {
+      const response = await fetch('/api/dev/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         }
       });
       
-      // Redirect to home - the auth system will handle authentication
-      window.location.href = '/';
+      if (response.ok) {
+        // Force a hard refresh to get new authentication state
+        window.location.reload();
+      } else {
+        throw new Error('Login failed');
+      }
     } catch (error) {
       console.error('Login error:', error);
       setIsLoggingIn(false);
