@@ -45,8 +45,28 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Auth middleware
   await setupAuth(app);
 
-  // Development-only route to enable mock user
+  // Development-only routes
   if (process.env.NODE_ENV === 'development') {
+    // Route to clear logout flag and enable login
+    app.post('/api/dev/login', async (req: any, res) => {
+      try {
+        console.log('🔧 Development login - clearing logout flag');
+        
+        // Clear logout flag to allow authentication
+        if (req.session) {
+          delete (req.session as any).loggedOut;
+          req.session.save(() => {
+            res.json({ success: true, message: 'Ready to authenticate' });
+          });
+        } else {
+          res.status(500).json({ success: false, message: 'Session not available' });
+        }
+      } catch (error) {
+        console.error('Dev login error:', error);
+        res.status(500).json({ success: false, message: 'Login failed' });
+      }
+    });
+
     app.post('/api/dev/enable-mock-user', async (req: any, res) => {
       try {
         const mockUser = {
@@ -67,7 +87,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
           return res.status(500).json({ success: false, message: 'Session not available' });
         }
         
-        // Set mock user session
+        // Clear any logout flag and set mock user session
+        delete (req.session as any).loggedOut;
         (req.session as any).user = mockUser;
         
         console.log('🔧 Session after setting user:', req.session.id);

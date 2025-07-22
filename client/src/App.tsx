@@ -26,6 +26,7 @@ import Subscription from "@/pages/subscription";
 import SubscriptionSuccess from "@/pages/subscription-success";
 import SubscriptionCancel from "@/pages/subscription-cancel";
 import AdminPanel from "@/pages/admin";
+import DevLogin from "@/pages/dev-login";
 
 function Router() {
   const { isAuthenticated, isLoading } = useAuth();
@@ -41,10 +42,11 @@ function Router() {
         <Route path="*" component={AuthLoading} />
       ) : !isAuthenticated ? (
         <>
-          <Route path="/" component={ModernLanding} />
+          <Route path="/" component={import.meta.env.DEV ? DevLogin : ModernLanding} />
           <Route path="/landing" component={Landing} />
           <Route path="/auth" component={AuthPage} />
           <Route path="/auth/loading" component={AuthLoading} />
+          <Route path="/dev-login" component={DevLogin} />
           <Route path="*" component={NotFound} />
         </>
       ) : (

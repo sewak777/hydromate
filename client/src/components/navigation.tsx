@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { useAuth } from "@/hooks/useAuth";
+import { queryClient } from "@/lib/queryClient";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -19,10 +20,8 @@ export default function Navigation() {
   ];
 
   const handleLogout = () => {
-    import('@/lib/config').then(({ getAuthUrls }) => {
-      const { logout } = getAuthUrls();
-      window.location.href = logout;
-    });
+    // Navigate directly to logout endpoint
+    window.location.href = "/api/logout";
   };
 
   return (

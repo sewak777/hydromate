@@ -125,6 +125,27 @@ export async function setupAuth(app: Express) {
   });
 
   app.get("/api/logout", (req, res) => {
+    // In development mode, handle logout differently
+    if (process.env.NODE_ENV === 'development') {
+      console.log('🚪 Development logout - clearing session');
+      
+      // Clear development session user
+      if ((req.session as any)?.user) {
+        delete (req.session as any).user;
+      }
+      
+      // Set logout flag to prevent auto re-authentication
+      (req.session as any).loggedOut = true;
+      
+      // Save session and redirect
+      req.session.save(() => {
+        console.log('✅ Session cleared, redirecting to landing page');
+        res.redirect('/');
+      });
+      return;
+    }
+    
+    // Production logout
     req.logout(() => {
       res.redirect(
         client.buildEndSessionUrl(config, {

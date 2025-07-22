@@ -39,6 +39,12 @@ export const conditionalAuth: RequestHandler = async (req, res, next) => {
       return next();
     }
     
+    // Check if user has explicitly logged out (session flag)
+    if ((req.session as any)?.loggedOut) {
+      console.log('🚫 User has logged out - not auto-authenticating');
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+    
     // Additional fallback: Use dev-user-123 as default in development
     req.user = {
       claims: {
