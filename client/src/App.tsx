@@ -36,7 +36,7 @@ function Router() {
     console.log('🔍 Router state:', { 
       isAuthenticated, 
       isLoading, 
-      user: user ? user.email : 'none',
+      user: user ? (user as any).email : 'none',
       route: window.location.pathname 
     });
   }

@@ -9,19 +9,22 @@ export default function DevLogin() {
   const handleLogin = async () => {
     setIsLoggingIn(true);
     try {
-      // Call development login endpoint to clear logout flag
-      const response = await fetch('/api/dev/login', {
+      // First enable mock user
+      const mockResponse = await fetch('/api/dev/enable-mock-user', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         }
       });
       
-      if (response.ok) {
-        // Redirect to home page instead of reloading to avoid flicker
-        window.location.href = '/';
+      if (mockResponse.ok) {
+        const data = await mockResponse.json();
+        console.log('Mock user enabled:', data);
+        
+        // Force a page reload to ensure all authentication states are cleared
+        window.location.reload();
       } else {
-        throw new Error('Login failed');
+        throw new Error('Failed to enable mock user');
       }
     } catch (error) {
       console.error('Login error:', error);

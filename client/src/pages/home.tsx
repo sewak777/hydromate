@@ -56,6 +56,11 @@ export default function Home() {
     return null; // Let the main App router handle the redirect
   }
 
+  // Debug info for development
+  if (import.meta.env.DEV) {
+    console.log('🏠 Home component loaded - user authenticated:', user?.email);
+  }
+
   const { data: dashboardData, isLoading: isDashboardLoading } = useQuery<DashboardData>({
     queryKey: ["/api/dashboard"],
     retry: false,
