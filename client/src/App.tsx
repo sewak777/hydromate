@@ -27,6 +27,7 @@ import SubscriptionSuccess from "@/pages/subscription-success";
 import SubscriptionCancel from "@/pages/subscription-cancel";
 import AdminPanel from "@/pages/admin";
 import DevLogin from "@/pages/dev-login";
+import ProductionLogin from "@/pages/production-login";
 
 function Router() {
   const { isAuthenticated, isLoading, user } = useAuth();
@@ -57,6 +58,7 @@ function Router() {
           <Route path="/auth" component={AuthPage} />
           <Route path="/auth/loading" component={AuthLoading} />
           <Route path="/dev-login" component={DevLogin} />
+          <Route path="/production-login" component={ProductionLogin} />
           <Route path="*" component={NotFound} />
         </>
       ) : (

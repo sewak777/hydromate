@@ -11,7 +11,7 @@ export const conditionalAuth: RequestHandler = async (req, res, next) => {
     const isReplitDomain = req.hostname && req.hostname.includes('replit.app');
     
     if (isReplitDomain) {
-      // Temporary authentication for Replit deployment until OAuth is properly configured
+      // Auto-authenticate for Replit deployment demos
       req.user = {
         claims: {
           sub: 'demo-user-123',
@@ -20,9 +20,9 @@ export const conditionalAuth: RequestHandler = async (req, res, next) => {
           last_name: 'User',
           profile_image_url: null,
         },
-        expires_at: Math.floor(Date.now() / 1000) + 3600,
+        expires_at: Math.floor(Date.now() / 1000) + 86400, // 24 hours
       };
-      console.log('✅ Using demo authentication for Replit deployment');
+      console.log('✅ Auto-authentication for Replit deployment');
       return next();
     }
     

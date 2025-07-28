@@ -294,6 +294,8 @@ export const insertHydrationProfileSchema = createInsertSchema(hydrationProfiles
 export const insertIntakeLogSchema = createInsertSchema(intakeLogs).omit({
   id: true,
   loggedAt: true,
+}).extend({
+  date: z.string().optional(), // Make date optional since it's set server-side
 });
 
 export const insertReminderSchema = createInsertSchema(reminders).omit({
