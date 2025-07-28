@@ -29,10 +29,17 @@ import AdminPanel from "@/pages/admin";
 import DevLogin from "@/pages/dev-login";
 
 function Router() {
-  const { isAuthenticated, isLoading } = useAuth();
+  const { isAuthenticated, isLoading, user } = useAuth();
   
-  // Debug authentication state in development (less frequent)
-  // Removed to reduce console spam that was causing UI flickering
+  // Debug authentication state in development
+  if (import.meta.env.DEV) {
+    console.log('🔍 Router state:', { 
+      isAuthenticated, 
+      isLoading, 
+      user: user ? user.email : 'none',
+      route: window.location.pathname 
+    });
+  }
 
   // Initialize notifications when app loads
   useEffect(() => {

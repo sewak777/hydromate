@@ -9,7 +9,15 @@ export function useAuth() {
     staleTime: 30000, // Keep data fresh for 30 seconds
   });
 
-  // Debug logging removed to prevent UI flickering
+  // Debug logging for development to help with auth issues
+  if (import.meta.env.DEV) {
+    console.log('🔍 useAuth state:', { 
+      user: user ? 'exists' : 'missing', 
+      isLoading, 
+      error: error?.message,
+      isAuthenticated: !!user 
+    });
+  }
 
   return {
     user,
