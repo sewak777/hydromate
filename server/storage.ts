@@ -37,6 +37,7 @@ export interface IStorage {
   // User operations (required for Replit Auth)
   getUser(id: string): Promise<User | undefined>;
   upsertUser(user: UpsertUser): Promise<User>;
+  ensureDemoUser(): Promise<User>;
   
   // Hydration profile operations
   getHydrationProfile(userId: string): Promise<HydrationProfile | undefined>;
@@ -109,6 +110,21 @@ export class DatabaseStorage implements IStorage {
       })
       .returning();
     return user;
+  }
+
+  // Ensure demo user exists for production deployment
+  async ensureDemoUser(): Promise<User> {
+    const demoUser = await this.getUser('demo-user-123');
+    if (!demoUser) {
+      return this.upsertUser({
+        id: 'demo-user-123',
+        email: 'demo@hydromate.ca',
+        firstName: 'Demo',
+        lastName: 'User',
+        profileImageUrl: null,
+      });
+    }
+    return demoUser;
   }
 
   // Hydration profile operations

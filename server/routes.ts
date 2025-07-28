@@ -55,6 +55,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Auth middleware
   await setupAuth(app);
 
+  // Ensure demo user exists for production deployment
+  if (process.env.NODE_ENV === 'production') {
+    try {
+      await storage.ensureDemoUser();
+      console.log('✅ Demo user ready for production deployment');
+    } catch (error) {
+      console.log('⚠️ Could not create demo user:', error);
+    }
+  }
+
   // Development-only routes
   if (process.env.NODE_ENV === 'development') {
     // Route to clear logout flag and enable login
